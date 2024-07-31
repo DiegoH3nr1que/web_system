@@ -1,105 +1,147 @@
-import Image from "next/image";
-import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
 import { GrNotes } from "react-icons/gr";
-import { IoMdCheckbox, IoMdCheckboxOutline } from "react-icons/io";
+import { IoMdCheckboxOutline } from "react-icons/io";
+import { Footer } from "./components/footer";
+import { Aside } from "./components/aside";
+import { Card } from "./components/card";
+import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
-
+import Table from "./components/table";
 export default function Home() {
+  const cards = [
+    {
+      color: "bg-orange-200",
+      qty: "100",
+      text: "Ambientes",
+      icon: <MdDashboard size={48} />,
+    },
+    {
+      color: "bg-blue-200",
+      qty: "100",
+      text: "Equipamentos",
+      icon: <FaBuilding size={48} />,
+    },
+    {
+      color: "bg-red-200",
+      qty: "100",
+      text: "O.S. Alertas",
+      icon: <MdForklift size={48} />,
+    },
+    {
+      color: "bg-orange-200",
+      qty: "100",
+      text: "O.S. Concluidas",
+      icon: <FaTools size={48} />,
+    },
+  ];
+
+  const dados = [
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },    {
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
+      solicitacao: "1906",
+      atendimento: "1906",
+    },
+  ];
+
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col bg-gray-100">
       <div className="flex-1 flex">
-        <aside className="w-64 p-6 bg-white/40">
-          <Image src={"/image/logo.png"} className="w-full"
-           alt="Logo" width={240} height={240} />
-
-          <nav className="space-y-4 flex flex-col mt-8">
-            <a href="" className="flex items-center gap-4
-                                 hover:font-semibold">
-              <MdDashboard />
-              Dashboard
-            </a>
-            <a href="" className="flex items-center gap-4
-                                 hover:font-semibold">
-              <FaBuilding />
-              Ambientes</a>
-            <a href="" className="flex items-center gap-4
-                                 hover:font-semibold">
-              <MdForklift />
-              Equipamentos</a>
-            <a href="" className="flex items-center gap-4
-                                 hover:font-semibold">
-              <FaTools />
-              Manutenções</a>
-            <a href="" className="flex items-center gap-4
-                                 hover:font-semibold">
-              <FaUsers />
-              Usuário</a>
-          </nav>
-        </aside>
-
-        <main className="flex-1 flex flex-col">
-
-          <h1 className="text-4xl font-bold uppercase w-full
-           bg-white/40 p-6 text-center">
-            Sistema de Gestão de Manutenção</h1>
+        <Aside />
+        <main className="flex-1 p-6 bg-white rounded-md ">
+          <header className="text-center bg-blue-100 p-4 rounded-md mb-6">
+            <h1 className="text-4xl font-bold uppercase text-blue-900">
+              Sistema de Gestão de Manutenção
+            </h1>
+          </header>
 
           <div>
-            <div className="grid grid-cols-4 gap-4 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {cards.map((props) => (
+                <Card
+                  color={props.color}
+                  qty={props.qty}
+                  text={props.text}
+                  icon={props.icon}
+                />
+              ))}
+            </div>
 
-              <div className="bg-orange-200 p-6 flex 
-                              gap-2 rounded-xl">
-                <div className="flex-1 flex flex-col">
-                  <strong className="text-3xl font-bold">200</strong>
-                  <span className="text-sm text-zinc-500">Ambientes</span>
-                </div>
-                <FaBuilding size={48} />
-
-              </div>
-                
-
-              <div className="bg-blue-200 p-6 flex 
-                              gap-2 rounded-xl">
-                <div className="flex-1 flex flex-col">
-                  <strong className="text-3xl font-bold">200</strong>
-                  <span className="text-sm text-zinc-500">Equipamentos</span>
-                </div>
-                <MdForklift size={48} />
-
-              </div>
-                
-
-              <div className="bg-red-200 p-6 flex 
-                              gap-2 rounded-xl">
-                <div className="flex-1 flex flex-col">
-                  <strong className="text-3xl font-bold">200</strong>
-                  <span className="text-sm text-zinc-500">O.S. Abertas</span>
-                </div>
-                <GrNotes size={48} />
-
-              </div>
-                
-
-              <div className="bg-green-200 p-6 flex 
-                              gap-2 rounded-xl">
-                <div className="flex-1 flex flex-col">
-                  <strong className="text-3xl font-bold">200</strong>
-                  <span className="text-sm text-zinc-500">O.S. Concluídas</span>
-                </div>
-                <IoMdCheckboxOutline size={48} />
-
+            <div className="container mx-auto p-4 bg-white rounded-lg">
+              <h1 className="text-2xl font-bold mb-4 text-center text-black">
+                Tabela de Equipamentos
+              </h1>
+              <div className="max-h-96 overflow-y-auto">
+                <Table dados={dados} />
               </div>
             </div>
           </div>
-
-
         </main>
-
       </div>
-      <footer 
-      className="p-6 bg-white/40 text-center 
-              text-red-900 text-sm">
-        Todos os direitos reservados &copy; 2024
-      </footer>
+      <Footer />
     </div>
   );
 }
