@@ -6,7 +6,7 @@ export function NavBar() {
   const router = useRouter();
 
   const links = [
-    { target: "/dashboard", text: "Dashboard", icon: <MdDashboard /> },
+    { target: "/", text: "Dashboard", icon: <MdDashboard /> },
     { target: "/ambientes", text: "Ambientes", icon: <FaBuilding /> },
     { target: "/equipamentos", text: "Equipamentos", icon: <MdForklift /> },
     { target: "/manutencoes", text: "Manutenções", icon: <FaTools /> },

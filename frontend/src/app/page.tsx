@@ -1,10 +1,10 @@
 "use client";
-import { Footer } from "../components/footer";
-import { Aside } from "../components/aside";
-import { Card } from "../components/card";
+import { Footer } from "./components/footer";
+import { Aside } from "./components/aside";
+import { Card } from "./components/card";
 import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
-import Table from "../components/table";
+import Table from "./components/table";
 
 export default function Home() {
   const cards = [
