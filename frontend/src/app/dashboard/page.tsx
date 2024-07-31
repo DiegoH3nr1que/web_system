@@ -1,11 +1,11 @@
-import { GrNotes } from "react-icons/gr";
-import { IoMdCheckboxOutline } from "react-icons/io";
-import { Footer } from "./components/footer";
-import { Aside } from "./components/aside";
-import { Card } from "./components/card";
+"use client";
+import { Footer } from "../components/footer";
+import { Aside } from "../components/aside";
+import { Card } from "../components/card";
 import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
-import Table from "./components/table";
+import Table from "../components/table";
+
 export default function Home() {
   const cards = [
     {
@@ -38,72 +38,74 @@ export default function Home() {
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
     {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
-    },    {
+      solicitacao: 1906,
+      atendimento: 1906,
+    },
+    {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
-    },    {
+      solicitacao: 1906,
+      atendimento: 1906,
+    },
+    {
       ambiente: "Senai",
       equipamento: "Torno CNC",
-      solicitacao: "1906",
-      atendimento: "1906",
+      solicitacao: 1906,
+      atendimento: 1906,
     },
   ];
 
@@ -111,7 +113,7 @@ export default function Home() {
     <div className="h-screen flex flex-col bg-gray-100">
       <div className="flex-1 flex">
         <Aside />
-        <main className="flex-1 p-6 bg-white rounded-md ">
+        <main className="flex-1 p-6 bg-white rounded-md">
           <header className="text-center bg-blue-100 p-4 rounded-md mb-6">
             <h1 className="text-4xl font-bold uppercase text-blue-900">
               Sistema de Gestão de Manutenção
