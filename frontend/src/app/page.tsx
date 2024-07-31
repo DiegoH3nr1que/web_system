@@ -4,7 +4,7 @@ import { Aside } from "./components/aside";
 import { Card } from "./components/card";
 import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "./components/table";
 
 export default function Home() {
@@ -13,13 +13,13 @@ export default function Home() {
       color: "bg-orange-200",
       qty: "100",
       text: "Ambientes",
-      icon: <MdDashboard size={48} />,
+      icon: <FaBuilding size={48} />,
     },
     {
       color: "bg-blue-200",
       qty: "100",
       text: "Equipamentos",
-      icon: <FaBuilding size={48} />,
+      icon: <MdDashboard size={48} />,
     },
     {
       color: "bg-red-200",
@@ -36,125 +36,125 @@ export default function Home() {
   ];
 
   const columns = [
-    { header: 'Ambiente', accessor: 'ambiente' },
-    { header: 'Equipamento', accessor: 'equipamento' },
-    { header: 'Solicitação', accessor: 'solicitacao', isNumeric: true },
-    { header: 'Atendimento', accessor: 'atendimento', isNumeric: true }
+    { header: "Ambiente", accessor: "ambiente" },
+    { header: "Equipamento", accessor: "equipamento" },
+    { header: "Solicitação", accessor: "solicitacao", isNumeric: true },
+    { header: "Atendimento", accessor: "atendimento", isNumeric: true },
   ];
-  
+
   const data = [
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
+      deletar: <FaTrash />,
     },
     {
-      ambiente: 'Senai',
-      equipamento: 'Torno CNC',
+      ambiente: "Senai",
+      equipamento: "Torno CNC",
       solicitacao: 1906,
       atendimento: 1906,
       editar: <FaEdit />,
-      deletar: <FaTrash />
-    }
+      deletar: <FaTrash />,
+    },
   ];
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
+    <div className="h-screen flex flex-col">
       <div className="flex-1 flex">
         <Aside />
-        <main className="flex-1 p-6 bg-white rounded-md">
-          <header className="text-center bg-blue-100 p-4 rounded-md mb-6">
+        <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-400">
+          <header className="text-center p-4 rounded-md mb-6">
             <h1 className="text-4xl font-bold uppercase text-blue-900">
               Sistema de Gestão de Manutenção
             </h1>
@@ -172,18 +172,18 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="container mx-auto p-4 bg-white rounded-lg">
+            <div className="container mx-auto p-4 bg-white rounded-lg m-5">
               <h1 className="text-2xl font-bold mb-4 text-center text-black">
                 Tabela de Equipamentos
               </h1>
               <div className="max-h-96 overflow-y-auto">
-              <Table columns={columns} data={data} />
+                <Table columns={columns} data={data} />
               </div>
             </div>
           </div>
+      <Footer />
         </main>
       </div>
-      <Footer />
     </div>
   );
 }
