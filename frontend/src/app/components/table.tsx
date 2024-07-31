@@ -1,38 +1,46 @@
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-interface Dado {
-  ambiente: string;
-  equipamento: string;
-  solicitacao: number;
-  atendimento: number;
+interface Column {
+  header: string;
+  accessor: string;
+  isNumeric?: boolean;
 }
 
 interface TableProps {
-  dados: Dado[];
+  columns: Column[];
+  data: Record<string, any>[];
 }
 
-const Table: React.FC<TableProps> = ({ dados }) => {
+const Table: React.FC<TableProps> = ({ columns, data }) => {
   return (
     <div className="max-w-full overflow-x-auto">
       <div className="max-h-96 overflow-y-auto">
         <table className="min-w-full bg-white border border-gray-200">
-          <thead className="bg-black text-white sticky top-0">
+          <thead className=" bg-blue-100 text-blue-900 sticky top-0">
             <tr>
-              <th className="px-4 py-2 text-left">Ambiente</th>
-              <th className="px-4 py-2 text-left">Equipamento</th>
-              <th className="px-4 py-2 text-right">Solicitação</th>
-              <th className="px-4 py-2 text-right">Atendimento</th>
+              {columns.map((column, index) => (
+                <th
+                  key={index}
+                  className={`px-4 py-2 ${column.isNumeric ? 'text-right' : 'text-left'}`}
+                >
+                  {column.header}
+                </th>
+              ))}
               <th className="px-4 py-2 text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
-            {dados.map((item, index) => (
-              <tr key={index} className="border-t border-gray-200 text-black">
-                <td className="px-4 py-2">{item.ambiente}</td>
-                <td className="px-4 py-2">{item.equipamento}</td>
-                <td className="px-4 py-2 text-right">{item.solicitacao}</td>
-                <td className="px-4 py-2 text-right">{item.atendimento}</td>
+            {data.map((item, rowIndex) => (
+              <tr key={rowIndex} className="border-t border-gray-200 text-black">
+                {columns.map((column, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className={`px-4 py-2 ${column.isNumeric ? 'text-right' : 'text-left'}`}
+                  >
+                    {item[column.accessor]}
+                  </td>
+                ))}
                 <td className="px-4 py-2 text-center">
                   <button className="text-blue-500 hover:text-blue-700 mr-2">
                     <FaEdit />

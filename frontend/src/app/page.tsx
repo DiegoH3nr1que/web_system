@@ -4,6 +4,7 @@ import { Aside } from "./components/aside";
 import { Card } from "./components/card";
 import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import Table from "./components/table";
 
 export default function Home() {
@@ -34,79 +35,118 @@ export default function Home() {
     },
   ];
 
-  const dados = [
+  const columns = [
+    { header: 'Ambiente', accessor: 'ambiente' },
+    { header: 'Equipamento', accessor: 'equipamento' },
+    { header: 'Solicitação', accessor: 'solicitacao', isNumeric: true },
+    { header: 'Atendimento', accessor: 'atendimento', isNumeric: true }
+  ];
+  
+  const data = [
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
     {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
       solicitacao: 1906,
       atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
     },
+    {
+      ambiente: 'Senai',
+      equipamento: 'Torno CNC',
+      solicitacao: 1906,
+      atendimento: 1906,
+      editar: <FaEdit />,
+      deletar: <FaTrash />
+    }
   ];
 
   return (
@@ -137,7 +177,7 @@ export default function Home() {
                 Tabela de Equipamentos
               </h1>
               <div className="max-h-96 overflow-y-auto">
-                <Table dados={dados} />
+              <Table columns={columns} data={data} />
               </div>
             </div>
           </div>
