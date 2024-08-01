@@ -10,25 +10,25 @@ import Table from "./components/table";
 export default function Home() {
   const cards = [
     {
-      color: "bg-[#a5b3aa]",
+      color: "border bg-gray-300",
       qty: "100",
       text: "Ambientes",
       icon: <FaBuilding size={48} />,
     },
     {
-      color: "bg-[#a5b3aa]",
+      color: "border bg-gray-300",
       qty: "100",
       text: "Equipamentos",
       icon: <MdDashboard size={48} />,
     },
     {
-      color: "bg-[#a5b3aa]",
+      color: "border bg-gray-300",
       qty: "100",
       text: "O.S. Alertas",
       icon: <MdForklift size={48} />,
     },
     {
-      color: "bg-[#a5b3aa]",
+      color: "border bg-gray-300",
       qty: "100",
       text: "O.S. Concluidas",
       icon: <FaTools size={48} />,

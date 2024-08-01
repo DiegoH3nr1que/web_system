@@ -3,6 +3,8 @@ import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
+import { Button } from "@/components/ui/button";
+
 export default function userPage() {
   const columns = [
     { header: "Username", accessor: "username" },
@@ -140,9 +142,7 @@ export default function userPage() {
                 <h1 className="text-2xl font-bold text-black">
                   Lista de usuários cadastrados
                 </h1>
-                <button className="text-[#090909] py-2.5 px-7 text-[18px] rounded-[0.5em] bg-[#e8e8e8] cursor-pointer border border-blue-200 transition-all duration-300 shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff] active:text-[#666] active:shadow-[inset_4px_4px_12px_#c5c5c5,inset_-4px_-4px_12px_#ffffff]">
-                  Criar Usuário
-                </button>
+                <Button variant="secondary">Criar Usuário</Button>
               </div>
               <div className="max-h-96 overflow-y-auto">
                 <Table columns={columns} data={data} />
