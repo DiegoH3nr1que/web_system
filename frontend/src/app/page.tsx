@@ -10,25 +10,25 @@ import Table from "./components/table";
 export default function Home() {
   const cards = [
     {
-      color: "bg-gradient-to-r from-orange-200 to-orange-400",
+      color: "bg-[#a5b3aa]",
       qty: "100",
       text: "Ambientes",
       icon: <FaBuilding size={48} />,
     },
     {
-      color: "bg-gradient-to-r from-blue-200 to-blue-400",
+      color: "bg-[#a5b3aa]",
       qty: "100",
       text: "Equipamentos",
       icon: <MdDashboard size={48} />,
     },
     {
-      color: "bg-gradient-to-r from-red-200 to-red-400",
+      color: "bg-[#a5b3aa]",
       qty: "100",
       text: "O.S. Alertas",
       icon: <MdForklift size={48} />,
     },
     {
-      color: "bg-gradient-to-r from-orange-200 to-orange-400",
+      color: "bg-[#a5b3aa]",
       qty: "100",
       text: "O.S. Concluidas",
       icon: <FaTools size={48} />,
@@ -153,7 +153,7 @@ export default function Home() {
     <div className="h-screen flex flex-col">
       <div className="flex-1 flex">
         <Aside />
-        <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-500 via-gray-400 to-gray-300">
+        <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200">
           <header className="text-center p-4 rounded-md mb-6">
             <h1 className="text-4xl font-bold uppercase text-blue-900">
               Sistema de Gestão de Manutenção
