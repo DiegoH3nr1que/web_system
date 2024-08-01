@@ -10,25 +10,25 @@ import Table from "./components/table";
 export default function Home() {
   const cards = [
     {
-      color: "bg-orange-200",
+      color: "bg-gradient-to-r from-orange-200 to-orange-400",
       qty: "100",
       text: "Ambientes",
       icon: <FaBuilding size={48} />,
     },
     {
-      color: "bg-blue-200",
+      color: "bg-gradient-to-r from-blue-200 to-blue-400",
       qty: "100",
       text: "Equipamentos",
       icon: <MdDashboard size={48} />,
     },
     {
-      color: "bg-red-200",
+      color: "bg-gradient-to-r from-red-200 to-red-400",
       qty: "100",
       text: "O.S. Alertas",
       icon: <MdForklift size={48} />,
     },
     {
-      color: "bg-orange-200",
+      color: "bg-gradient-to-r from-orange-200 to-orange-400",
       qty: "100",
       text: "O.S. Concluidas",
       icon: <FaTools size={48} />,
@@ -173,17 +173,17 @@ export default function Home() {
             </div>
 
             <div className="container mx-auto p-4 bg-white rounded-lg m-5">
-              <h1 className="text-2xl font-bold mb-4 text-center text-black">
-                Tabela de Equipamentos
-              </h1>
-              <div className="max-h-96 overflow-y-auto">
+              <div className=" max-h-full overflow-y-auto shadow-lg">
                 <Table columns={columns} data={data} />
               </div>
             </div>
           </div>
-      <Footer />
         </main>
       </div>
+      
+        
+      <Footer />
     </div>
+    
   );
 }

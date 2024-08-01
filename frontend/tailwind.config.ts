@@ -16,7 +16,9 @@ const config: Config = {
       colors:{
         CustomBlue:'#142026',
         CustomBlueLigth: '#0098ae',
-        CustomBackground: '#c0c2bd'
+        CustomBackground: '#c0c2bd',
+        royalblue: '#4169e1',
+        lightgray: '#d3d3d3',
       },
     },
   },

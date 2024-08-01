@@ -140,7 +140,7 @@ export default function userPage() {
                 <h1 className="text-2xl font-bold text-black">
                   Lista de usuários cadastrados
                 </h1>
-                <button className="font-bold text-blue-900 bg-blue-100 rounded-sm hover:scale-110 transition">
+                <button className="text-[#090909] py-2.5 px-7 text-[18px] rounded-[0.5em] bg-[#e8e8e8] cursor-pointer border border-blue-200 transition-all duration-300 shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff] active:text-[#666] active:shadow-[inset_4px_4px_12px_#c5c5c5,inset_-4px_-4px_12px_#ffffff]">
                   Criar Usuário
                 </button>
               </div>
@@ -149,10 +149,9 @@ export default function userPage() {
               </div>
             </div>
           </div>
-
-          <Footer />
         </main>
       </div>
+      <Footer />
     </div>
   );
 }
