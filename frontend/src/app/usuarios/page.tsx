@@ -1,15 +1,14 @@
 "use client";
-import { useState } from 'react';
+import { useState } from "react";
 import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
 import { Button } from "@/components/ui/button";
-import { PopoverDemo } from '../components/popover';
+import { CustomDialog } from "../components/dialog";
 
 export default function userPage() {
-
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false); 
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const columns = [
     { header: "Username", accessor: "username" },
@@ -135,7 +134,7 @@ export default function userPage() {
       <div className="flex-1 flex">
         <Aside />
         <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200">
-          <header className="text-center p-4 rounded-md mb-6">
+          <header className="text-left p-4 rounded-md mb-6">
             <h1 className="text-4xl font-bold uppercase text-blue-900">
               Usuários
             </h1>
@@ -147,7 +146,21 @@ export default function userPage() {
                 <h1 className="text-2xl font-bold text-black">
                   Lista de usuários cadastrados
                 </h1>
-                <PopoverDemo /> 
+                <CustomDialog
+                  triggerLabel="Criar Usuário"
+                  title="Criar Usuário"
+                  description="Insira todos os campos corretamente!"
+                  fields={[
+                    { id: "username", label: "Username", type: "text" },
+                    {
+                      id: "data_nascimento",
+                      label: "Data de nascimento",
+                      type: "Date",
+                    },
+                    { id: "email", label: "Email", type: "email" },
+                    { id: "senha", label: "Senha", type: "password" },
+                  ]}
+                />
               </div>
               <div className="max-h-96 overflow-y-auto">
                 <Table columns={columns} data={data} />

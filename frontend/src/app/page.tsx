@@ -154,7 +154,7 @@ export default function Home() {
       <div className="flex-1 flex">
         <Aside />
         <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200">
-          <header className="text-center p-4 rounded-md mb-6">
+          <header className="text-left p-4 rounded-md mb-6">
             <h1 className="text-4xl font-bold uppercase text-blue-900">
               Sistema de Gestão de Manutenção
             </h1>
