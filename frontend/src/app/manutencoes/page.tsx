@@ -124,7 +124,7 @@ export default function ManutencaoPage() {
       details: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
-      status: "Pendente",
+      status: "Em andamento",
       equip: "Equipe A",
       date: "02/08/2024",
     },
@@ -137,7 +137,7 @@ export default function ManutencaoPage() {
       details: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
-      status: "Pendente",
+      status: "Concluída",
       equip: "Equipe A",
       date: "02/08/2024",
     },
@@ -150,7 +150,7 @@ export default function ManutencaoPage() {
       details: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
-      status: "Pendente",
+      status: "Cancelada",
       equip: "Equipe A",
       date: "02/08/2024",
     },
@@ -199,7 +199,7 @@ export default function ManutencaoPage() {
   ];
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
+    <div className="h-screen flex flex-col">
       <div className="flex-1 flex">
         <Aside />
         <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200 w-full">

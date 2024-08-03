@@ -2,7 +2,7 @@
 import { Footer } from "./components/footer";
 import { Aside } from "./components/aside";
 import { Card } from "./components/card";
-import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
+import { FaBuilding, FaTools} from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "./components/table";
@@ -11,25 +11,25 @@ export default function Home() {
   const cards = [
     {
       color: "border bg-gray-300",
-      qty: "100",
+      title: "",
       text: "Ambientes",
       icon: <FaBuilding size={48} />,
     },
     {
       color: "border bg-gray-300",
-      qty: "100",
+      title: "",
       text: "Equipamentos",
       icon: <MdDashboard size={48} />,
     },
     {
       color: "border bg-gray-300",
-      qty: "100",
+      title: "",
       text: "O.S. Alertas",
       icon: <MdForklift size={48} />,
     },
     {
       color: "border bg-gray-300",
-      qty: "100",
+      title: "",
       text: "O.S. Concluidas",
       icon: <FaTools size={48} />,
     },
@@ -165,7 +165,7 @@ export default function Home() {
               {cards.map((props) => (
                 <Card
                   color={props.color}
-                  qty={props.qty}
+                  title={props.title}
                   text={props.text}
                   icon={props.icon}
                 />
