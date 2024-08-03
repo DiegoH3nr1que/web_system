@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 interface DialogProps {
   triggerLabel: string;
@@ -20,6 +21,7 @@ interface DialogProps {
     label: string;
     type: string;
     defaultValue?: string;
+    options?: { value: string; label: string }[];  // Adicione a propriedade options para campos do tipo select
   }[];
 }
 
@@ -41,12 +43,29 @@ export function CustomDialog({ triggerLabel, title, description, fields }: Dialo
                 <Label htmlFor={field.id} className="text-right">
                   {field.label}
                 </Label>
-                <Input
-                  id={field.id}
-                  type={field.type}
-                  defaultValue={field.defaultValue}
-                  className="col-span-3"
-                />
+                {field.type === "select" && field.options ? (
+                  <div className="col-span-3">
+                    <Select defaultValue={field.defaultValue}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione uma opção" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {field.options.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                ) : (
+                  <Input
+                    id={field.id}
+                    type={field.type}
+                    defaultValue={field.defaultValue}
+                    className="col-span-3"
+                  />
+                )}
               </div>
             ))}
           </div>
