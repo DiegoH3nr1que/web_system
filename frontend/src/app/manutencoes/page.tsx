@@ -3,11 +3,7 @@ import { Footer } from "../components/footer";
 import Table from "../components/table";
 import { FcHighPriority } from "react-icons/fc";
 import { CustomDialog } from "../components/dialog";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 
 export default function ManutencaoPage() {
   const cards = [
@@ -17,7 +13,7 @@ export default function ManutencaoPage() {
       text: "Torno Mecânico",
       reason: "Quebrou a placa",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Torno Mecânico.",
+      description: "Detalhes da manutenção do Torno Mecânico.",
       person: "Diego",
       priority: "Média",
       equip: "Equipe A",
@@ -30,7 +26,7 @@ export default function ManutencaoPage() {
       text: "Torno CNC",
       reason: "Quebrou a placa",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Torno CNC.",
+      description: "Detalhes da manutenção do Torno CNC.",
       person: "Diego",
       priority: "Média",
       status: "Pendente",
@@ -43,7 +39,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Sala de automação",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção da Sala de automação.",
+      description: "Detalhes da manutenção da Sala de automação.",
       person: "Diego",
       priority: "Média",
       status: "Pendente",
@@ -56,7 +52,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Pendente",
@@ -69,7 +65,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Pendente",
@@ -82,7 +78,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Pendente",
@@ -95,7 +91,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Pendente",
@@ -108,7 +104,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Pendente",
@@ -121,7 +117,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Em andamento",
@@ -134,7 +130,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Concluída",
@@ -147,7 +143,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Cancelada",
@@ -160,7 +156,7 @@ export default function ManutencaoPage() {
       reason: "Quebrou a placa",
       text: "Auditório",
       icon: <FcHighPriority size={48} />,
-      details: "Detalhes da manutenção do Auditório.",
+      description: "Detalhes da manutenção do Auditório.",
       person: "Aguinaldo",
       priority: "Média",
       status: "Pendente",
@@ -191,7 +187,7 @@ export default function ManutencaoPage() {
     { header: "Descrição", accessor: "text" },
     { header: "Razão", accessor: "reason" },
     { header: "Prioridade", accessor: "priority" },
-    { header: "Detalhes", accessor: "details" },
+    { header: "Descrição", accessor: "description" },
     { header: "Responsável", accessor: "person" },
     { header: "Equipe", accessor: "equip" },
     { header: "Status", accessor: "status" },
@@ -202,9 +198,9 @@ export default function ManutencaoPage() {
     <div className="h-screen flex flex-col">
       <div className="flex-1 flex">
         <Aside />
-        <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200 w-full">
+        <main className="flex-1 flex flex-col p-6 bg-background w-full">
           <div className="flex items-center justify-between p-4 rounded-md mb-6">
-            <h1 className="text-4xl font-bold uppercase text-blue-900">
+            <h1 className="text-4xl font-bold uppercase text-foreground">
               Manutenções
             </h1>
 
@@ -261,8 +257,8 @@ export default function ManutencaoPage() {
               ]}
             />
           </div>
-          <div className="rounded-md container mx-auto p-4 bg-white w-full">
-            <div className="text-2xl font-bold text-black mb-2">
+          <div className="rounded-md container mx-auto p-4 bg-background w-full">
+            <div className="text-2xl font-bold text-foreground mb-2">
               <h1>Histórico</h1>
             </div>
             <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">

@@ -15,8 +15,8 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ columns, data }) => {
   return (
     <div className="max-h-80 overflow-y-auto relative">
-      <table className="min-w-full bg-white border border-gray-200 rounded-sm">
-        <thead className=" uppercase text-sm bg-blue-100 text-blue-900 sticky top-0">
+      <table className="min-w-full bg-background border border-gray-200 rounded-sm text-foreground">
+        <thead className=" uppercase text-sm bg-background text-foreground sticky top-0">
           <tr>
             {columns.map((column, index) => (
               <th
@@ -33,7 +33,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
         </thead>
         <tbody>
           {data.map((item, rowIndex) => (
-            <tr key={rowIndex} className="border-t border-gray-200 text-black">
+            <tr key={rowIndex} className="border-t border-gray-200 text-foreground">
               {columns.map((column, colIndex) => (
                 <td
                   key={colIndex}

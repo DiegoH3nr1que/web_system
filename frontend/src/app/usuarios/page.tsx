@@ -133,17 +133,17 @@ export default function userPage() {
     <div className="h-screen flex flex-col">
       <div className="flex-1 flex">
         <Aside />
-        <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200">
+        <main className="flex-1 flex flex-col p-6 bg-background">
           <header className="text-left p-4 rounded-md mb-6">
-            <h1 className="text-4xl font-bold uppercase text-blue-900">
+            <h1 className="text-4xl font-bold uppercase text-foreground">
               Usuários
             </h1>
           </header>
 
           <div className="flex-1">
-            <div className="container mx-auto p-4 bg-white rounded-lg">
+            <div className="container mx-auto p-4 bg-background rounded-lg">
               <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold text-black">
+                <h1 className="text-2xl font-bold text-foreground">
                   Lista de usuários cadastrados
                 </h1>
                 <CustomDialog

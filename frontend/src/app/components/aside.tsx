@@ -4,7 +4,7 @@ import { AvatarDemo } from "./avatar";
 
 export function Aside() {
   return (
-    <aside className="w-64 p-6 bg-white shadow-md flex flex-col justify-between h-full">
+    <aside className="w-64 p-6 bg-background shadow-md flex flex-col justify-between h-full">
       <div>
         <div className="flex justify-center">
           <Image

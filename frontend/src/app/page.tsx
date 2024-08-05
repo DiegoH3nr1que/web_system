@@ -2,7 +2,7 @@
 import { Footer } from "./components/footer";
 import { Aside } from "./components/aside";
 import { Card } from "./components/card";
-import { FaBuilding, FaTools} from "react-icons/fa";
+import { FaBuilding, FaTools } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "./components/table";
@@ -10,25 +10,25 @@ import Table from "./components/table";
 export default function Home() {
   const cards = [
     {
-      color: "border bg-gray-300",
+      color: "border bg-background",
       title: "",
       text: "Ambientes",
       icon: <FaBuilding size={48} />,
     },
     {
-      color: "border bg-gray-300",
+      color: "border bg-background",
       title: "",
       text: "Equipamentos",
       icon: <MdDashboard size={48} />,
     },
     {
-      color: "border bg-gray-300",
+      color: "border bg-background",
       title: "",
       text: "O.S. Alertas",
       icon: <MdForklift size={48} />,
     },
     {
-      color: "border bg-gray-300",
+      color: "border bg-background",
       title: "",
       text: "O.S. Concluidas",
       icon: <FaTools size={48} />,
@@ -153,9 +153,9 @@ export default function Home() {
     <div className="h-screen flex flex-col">
       <div className="flex-1 flex">
         <Aside />
-        <main className="flex-1 flex flex-col p-6 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200">
+        <main className="flex-1 flex flex-col p-6 bg-background">
           <header className="text-left p-4 rounded-md mb-6">
-            <h1 className="text-4xl font-bold uppercase text-blue-900">
+            <h1 className="text-4xl font-bold uppercase text-foreground">
               Sistema de Gestão de Manutenção
             </h1>
           </header>
@@ -172,7 +172,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="container mx-auto p-4 bg-white rounded-lg m-5">
+            <div className="container mx-auto p-4 bg-background rounded-lg m-5">
               <div className=" max-h-full overflow-y-auto shadow-lg">
                 <Table columns={columns} data={data} />
               </div>
@@ -180,10 +180,8 @@ export default function Home() {
           </div>
         </main>
       </div>
-      
-        
+
       <Footer />
     </div>
-    
   );
 }
