@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { FcOk } from "react-icons/fc";
 
 interface Column {
   header: string;
@@ -10,9 +11,10 @@ interface Column {
 interface TableProps {
   columns: Column[];
   data: Record<string, any>[];
+  actions?: (item: Record<string, any>) => React.ReactNode; 
 }
 
-const Table: React.FC<TableProps> = ({ columns, data }) => {
+const Table: React.FC<TableProps> = ({ columns, data, actions }) => {
   return (
     <div className="max-h-80 overflow-y-auto relative">
       <table className="min-w-full bg-background border border-gray-200 rounded-sm text-foreground">
@@ -21,14 +23,12 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`px-4 py-2 ${
-                  column.isNumeric ? "text-right" : "text-left"
-                }`}
+                className={`px-4 py-2 ${column.isNumeric ? "text-right" : "text-left"}`}
               >
                 {column.header}
               </th>
             ))}
-            <th className="px-4 py-2 text-center">Ações</th>
+            {actions && <th className="px-4 py-2 text-center">Ações</th>}
           </tr>
         </thead>
         <tbody>
@@ -37,21 +37,16 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
               {columns.map((column, colIndex) => (
                 <td
                   key={colIndex}
-                  className={`px-4 py-2 ${
-                    column.isNumeric ? "text-right" : "text-left"
-                  }`}
+                  className={`px-4 py-2 ${column.isNumeric ? "text-right" : "text-left"}`}
                 >
                   {item[column.accessor]}
                 </td>
               ))}
-              <td className="px-4 py-2 text-center">
-                <button className="text-blue-500 hover:text-blue-700 mr-2">
-                  <FaEdit />
-                </button>
-                <button className="text-red-500 hover:text-red-700">
-                  <FaTrash />
-                </button>
-              </td>
+              {actions && (
+                <td className="px-4 py-2 text-center">
+                  {actions(item)}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -3,7 +3,8 @@ import { Footer } from "../components/footer";
 import Table from "../components/table";
 import { FcHighPriority } from "react-icons/fc";
 import { CustomDialog } from "../components/dialog";
-
+import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 export default function ManutencaoPage() {
   const cards = [
@@ -126,6 +127,24 @@ export default function ManutencaoPage() {
     },
     {
       color: "border bg-gray-300",
+      maintenance_id: "12",
+      reason: "Quebrou a placa",
+      text: "Auditório",
+      icon: <FcHighPriority size={48} />,
+      description: "Detalhes da manutenção do Auditório.",
+      person: "Aguinaldo",
+      priority: "Média",
+      status: "Pendente",
+      equip: "Equipe A",
+      date: "02/08/2024",
+    },
+  ];
+
+
+  const cards2 = [
+    
+    {
+      color: "border bg-gray-300",
       maintenance_id: "10",
       reason: "Quebrou a placa",
       text: "Auditório",
@@ -150,20 +169,9 @@ export default function ManutencaoPage() {
       equip: "Equipe A",
       date: "02/08/2024",
     },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "12",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-  ];
+  ]
+
+
 
   const statusOptions = [
     { value: "pendente", label: "Pendente" },
@@ -171,6 +179,21 @@ export default function ManutencaoPage() {
     { value: "concluída", label: "Concluída" },
     { value: "cancelada", label: "Cancelada" },
   ];
+
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case "Pendente":
+        return "bg-yellow-100 text-yellow-800";
+      case "Em andamento":
+        return "bg-blue-100 text-blue-800";
+      case "Concluída":
+        return "bg-green-100 text-green-800";
+      case "Cancelada":
+        return "bg-red-100 text-red-800";
+      default:
+        return "";
+    }
+  };
 
   const PriorityOptions = [
     { value: "minimo", label: "Mínima" },
@@ -183,6 +206,7 @@ export default function ManutencaoPage() {
     { value: "equipe_b", label: "Equipe B" },
     { value: "equipe_c", label: "Equipe C" },
   ];
+
   const columns = [
     { header: "Descrição", accessor: "text" },
     { header: "Razão", accessor: "reason" },
@@ -193,6 +217,28 @@ export default function ManutencaoPage() {
     { header: "Status", accessor: "status" },
     { header: "Data", accessor: "date" },
   ];
+
+  const formattedDataMan = cards.map((item) => ({
+    ...item,
+    status: (
+      <span className={`px-2 py-1 rounded ${getStatusClass(item.status)}`}>
+        {item.status}
+      </span>
+    ),
+  }));
+
+
+
+
+
+  const formattedDataHist = cards2.map((item) => ({
+    ...item,
+    status: (
+      <span className={`px-2 py-1 rounded ${getStatusClass(item.status)}`}>
+        {item.status}
+      </span>
+    ),
+  }));
 
   return (
     <div className="h-screen flex flex-col">
@@ -259,10 +305,50 @@ export default function ManutencaoPage() {
           </div>
           <div className="rounded-md container mx-auto p-4 bg-background w-full">
             <div className="text-2xl font-bold text-foreground mb-2">
+              <h1>Manutenções</h1>
+            </div>
+            <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
+              <Table
+                columns={columns}
+                data={formattedDataMan}
+                actions={(item) => (
+                  <div className="flex space-x-2">
+                    <button className="text-foreground">
+                      <FaCheck />
+                    </button>
+                    <button className="text-foreground mr-2">
+                      <FaEdit />
+                    </button>
+                    <button className="text-foreground mr-2">
+                      <FaTrash />
+                    </button>
+                  </div>
+                )}
+              />
+            </div>
+          </div>
+          <div className="rounded-md container mx-auto p-4 bg-background w-full">
+            <div className="text-2xl font-bold text-foreground mb-2">
               <h1>Histórico</h1>
             </div>
             <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
-              <Table columns={columns} data={cards} />
+              <Table
+                columns={columns}
+                data={formattedDataHist}
+                actions={(item) => (
+                  <div className="flex space-x-2">
+                    <button className="text-foreground mr-2">
+                      <FaEdit />
+                    </button>
+                    <button className="text-foreground mr-2">
+                      <FaTrash />
+                    </button>
+                    <button className="text-foreground mr-2">
+                    <BiDotsHorizontalRounded />
+                    </button>
+                  </div>
+                )}
+              />
             </div>
           </div>
         </main>

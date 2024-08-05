@@ -21,7 +21,7 @@ interface DialogProps {
     label: string;
     type: string;
     defaultValue?: string;
-    options?: { value: string; label: string }[];  // Adicione a propriedade options para campos do tipo select
+    options?: { value: string; label: string }[];
   }[];
 }
 

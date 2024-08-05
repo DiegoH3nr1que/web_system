@@ -4,11 +4,9 @@ import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
-import { Button } from "@/components/ui/button";
 import { CustomDialog } from "../components/dialog";
 
 export default function userPage() {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const columns = [
     { header: "Username", accessor: "username" },
@@ -163,7 +161,20 @@ export default function userPage() {
                 />
               </div>
               <div className="max-h-96 overflow-y-auto">
-                <Table columns={columns} data={data} />
+                <Table
+                  columns={columns}
+                  data={data}
+                  actions={(item) => (
+                    <div className="flex space-x-2">
+                      <button className="text-foreground mr-2">
+                        <FaEdit />
+                      </button>
+                      <button className="text-foreground mr-2">
+                        <FaTrash />
+                      </button>
+                    </div>
+                  )}
+                />
               </div>
             </div>
           </div>
