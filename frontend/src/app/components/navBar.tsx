@@ -15,7 +15,7 @@ export function NavBar() {
     <nav className="mt-8 space-y-2">
       {links.map((obj) => (
         <Link key={obj.target} href={obj.target} passHref>
-          <div className="flex items-center gap-4 p-2 rounded hover:bg-gray-300 transition text-foreground cursor-pointer">
+          <div className="flex items-center gap-4 p-2 rounded hover:bg-secondary transition text-foreground cursor-pointer">
             {obj.icon}
             {obj.text}
           </div>

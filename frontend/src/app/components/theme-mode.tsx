@@ -42,9 +42,23 @@ export function ModeToggle() {
             <Moon className="mr-2 h-4 w-4" />
             <span>dark</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            <span>More...</span>
+          <DropdownMenuItem onClick={() => setTheme("red")}>
+            <span>Red</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("red-dark")}>
+            <span>Red Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("green")}>
+            <span>Green</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("green-dark")}>
+            <span>Green Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("netflix")}>
+            <span>Netflix</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("netflix-dark")}>
+            <span>Netflix Dark</span>
           </DropdownMenuItem>
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
