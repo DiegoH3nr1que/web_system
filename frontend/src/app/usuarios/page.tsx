@@ -7,7 +7,6 @@ import Table from "../components/table";
 import { CustomDialog } from "../components/dialog";
 
 export default function userPage() {
-
   const columns = [
     { header: "Username", accessor: "username" },
     { header: "Data de nascimento", accessor: "data_de_nascimento" },
@@ -147,6 +146,7 @@ export default function userPage() {
                 <CustomDialog
                   triggerLabel="Criar Usuário"
                   title="Criar Usuário"
+                  TypeButton="Criar"
                   description="Insira todos os campos corretamente!"
                   fields={[
                     { id: "username", label: "Username", type: "text" },
@@ -166,12 +166,28 @@ export default function userPage() {
                   data={data}
                   actions={(item) => (
                     <div className="flex space-x-2">
-                      <button className="text-foreground mr-2">
-                        <FaEdit />
-                      </button>
-                      <button className="text-foreground mr-2">
-                        <FaTrash />
-                      </button>
+                      <CustomDialog
+                        triggerLabel={<FaEdit />}
+                        title="Editar Usuário"
+                        TypeButton="Editar"
+                        description="Insira todos os campos corretamente!"
+                        fields={[
+                          { id: "username", label: "Username", type: "text" },
+                          {
+                            id: "data_nascimento",
+                            label: "Data de nascimento",
+                            type: "Date",
+                          },
+                          { id: "email", label: "Email", type: "email" },
+                          { id: "senha", label: "Senha", type: "password" },
+                        ]}
+                      />{" "}
+                      <CustomDialog
+                        triggerLabel={<FaTrash />}
+                        title="Deletar Usuário "
+                        TypeButton="Deletar"
+                        description=""
+                      />
                     </div>
                   )}
                 />

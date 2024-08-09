@@ -28,10 +28,34 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+           attribute="class"
+           defaultTheme="system"
+           enableSystem
+           themes={[
+             "light",
+             "dark",
+             "red",
+             "red-dark",
+             "green",
+             "green-dark",
+             "netflix",
+             "netflix-dark",
+             "nord",
+             "nord-dark",
+             "nature",
+             "nature-dark",
+             "dracula",
+             "dracula-dark",
+             "laracon-dark",
+             "gold",
+             "gold-dark",
+             "azarath",
+             "azarath-dark",
+             "poimandres",
+             "poimandres-dark",
+             "discord",
+             "discord-dark",
+           ]}
         >
           {children}
         </ThemeProvider>

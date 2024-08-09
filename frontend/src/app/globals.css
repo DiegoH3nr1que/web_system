@@ -662,3 +662,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Adicione esse CSS no seu arquivo de estilos global ou inline */
+.scroll-invisivel {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE e Edge */
+}
+
+.scroll-invisivel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera */
+}

@@ -1,7 +1,4 @@
 import React from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { FcOk } from "react-icons/fc";
-
 interface Column {
   header: string;
   accessor: string;
@@ -16,7 +13,7 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ columns, data, actions }) => {
   return (
-    <div className="max-h-80 overflow-y-auto relative">
+    <div className="max-h-80 overflow-y-auto scroll-invisivel relative">
       <table className="min-w-full bg-background border border-gray-200 rounded-sm text-foreground">
         <thead className=" uppercase text-sm bg-background text-foreground sticky top-0">
           <tr>

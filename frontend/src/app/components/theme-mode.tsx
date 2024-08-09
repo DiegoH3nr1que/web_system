@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Cloud,
   CreditCard,
@@ -11,9 +12,10 @@ import {
   Plus,
   PlusCircle,
   UserPlus,
+  Moon,
+  Sun
 } from "lucide-react";
 import * as React from "react";
-import { Moon, Sun} from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   DropdownMenuItem,
@@ -33,14 +35,12 @@ export function ModeToggle() {
         <span>Theme</span>
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
-        <DropdownMenuSubContent>
+        <DropdownMenuSubContent className="max-h-60 overflow-y-auto">
           <DropdownMenuItem onClick={() => setTheme("light")}>
-            <Sun className="mr-2 h-4 w-4" />
             <span>Light</span>
-          </DropdownMenuItem>{" "}
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setTheme("dark")}>
-            <Moon className="mr-2 h-4 w-4" />
-            <span>dark</span>
+            <span>Dark</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setTheme("red")}>
             <span>Red</span>
@@ -60,10 +60,53 @@ export function ModeToggle() {
           <DropdownMenuItem onClick={() => setTheme("netflix-dark")}>
             <span>Netflix Dark</span>
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("nord")}>
+            <span>Nord</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("nord-dark")}>
+            <span>Nord Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("nature")}>
+            <span>Nature</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("nature-dark")}>
+            <span>Nature Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dracula")}>
+            <span>Dracula</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dracula-dark")}>
+            <span>Dracula Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("laracon-dark")}>
+            <span>Laracon Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("gold")}>
+            <span>Gold</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("gold-dark")}>
+            <span>Gold Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("azarath")}>
+            <span>Azarath</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("azarath-dark")}>
+            <span>Azarath Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("poimandres")}>
+            <span>Poimandres</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("poimandres-dark")}>
+            <span>Poimandres Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("discord")}>
+            <span>Discord</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("discord-dark")}>
+            <span>Discord Dark</span>
+          </DropdownMenuItem>
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
     </DropdownMenuSub>
   );
 }
-
-
