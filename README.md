@@ -42,7 +42,7 @@ Imagine uma grande empresa industrial que fabrica peças automotivas. A empresa 
 
 --------------------------------------------
 
-# Documento de Requisitos de Sistema
+# Documento de Requisitos de Sistema (PRD)
 
 # *Introdução & objetivo*
 
@@ -65,10 +65,10 @@ A implementação deste sistema de gerenciamento de manutenções é essencial p
 
 # *Personas*
 
-1. **Big Ken:** é um supervisor de manutenção que necessita acompanhar de perto todas as operações relacionadas à manutenção. Através da aplicação, Joaquim pode visualizar relatórios e métricas detalhadas que o auxiliam na projeção de cenários futuros. Isso permite que ele tome decisões informadas, resultando em melhorias financeiras e maior agilidade nas tarefas diárias.
+1. **Big Ken:** é um supervisor de manutenção que necessita acompanhar de perto todas as operações.  Através da aplicação, ele pode visualizar relatórios e métricas detalhadas que o auxiliam na projeção de cenários futuros. Isso permite que ele tome decisões informadas, resultando em melhorias financeiras e maior agilidade nas tarefas diárias.
 2. **O Felix Junior:** é um técnico de manutenção experiente, responsável por realizar os procedimentos de manutenção em máquinas e equipamentos. Ele precisa ter uma visão clara e atualizada das tarefas que deve executar, incluindo informações sobre qual máquina ou equipamento precisa ser reparado, o nível de prioridade de cada manutenção e detalhes técnicos relevantes.
-3. **Big Brain:**  Ele é operador de máquina responsável por garantir o funcionamento eficiente das máquinas e equipamentos no chão de fábrica. Quando ocorre um problema, ele precisa solicitar a manutenção, detalhando o ocorrido e especificando se é uma manutenção preditiva, corretiva, ou preventiva. Além disso, Marcos deve visualizar a equipe designada para realizar a manutenção e acompanhar o status da mesma.
-4. **Stingy**: é o diretor financeiro da empresa, responsável por gerenciar e analisar todas as informações financeiras e operacionais. Embora não seja diretamente envolvido na manutenção, Ricardo precisa ter visibilidade completa do sistema de manutenção para avaliar o impacto financeiro e operacional dessas atividades. Ele monitora o tempo consumido nas manutenções, o que pode resultar em perdas de produção, e examina os materiais utilizados para realizar as manutenções, a fim de realizar uma análise detalhada dos custos
+3. **Big Brain:**  Ele é operador de máquina responsável por garantir o funcionamento eficiente das máquinas e equipamentos no chão de fábrica. Quando ocorre um problema, ele precisa solicitar a manutenção, detalhando o ocorrido e especificando se é uma manutenção preditiva, corretiva, ou preventiva. Além disso, ele deve visualizar a equipe designada para realizar a manutenção e acompanhar o status da mesma.
+4. **Stingy**: é o diretor financeiro da empresa, responsável por gerenciar e analisar todas as informações financeiras e operacionais. Embora não seja diretamente envolvido na manutenção, ele precisa ter visibilidade completa do sistema de manutenção para avaliar o impacto financeiro e operacional dessas atividades. Ele monitora o tempo consumido nas manutenções, o que pode resultar em perdas de produção, e examina os materiais utilizados para realizar as manutenções, a fim de realizar uma análise detalhada dos custos
 
 💡 **Dicas Adicionais:**
 
@@ -111,7 +111,7 @@ A implementação deste sistema de gerenciamento de manutenções é essencial p
     
     - O sistema deve controlar os acessos a diferentes funcionalidades da aplicação web com base no perfil do usuário.
 
-**P1** = **Crítico | P1 = Importante | P2 = Bom ter**
+**P1** = **Crítico | P2 = Importante | P3 = Bom ter**
 
 ### *Casos de uso*
 
@@ -128,18 +128,18 @@ A implementação deste sistema de gerenciamento de manutenções é essencial p
 
 # *Requisitos Não Funcionais*
 
-1. **NF1** Interface Amigável e Intuitiva**:** A interface do sistema deve ser fácil de usar e intuitiva para todos os usuários, independentemente do nível de conhecimento técnico. **P1**
+1. **NF1** Interface Amigável e Intuitiva**:** A interface do sistema deve ser fácil de usar e intuitiva para todos os usuários, independentemente do nível de conhecimento técnico. **P3**
     
     **Critérios de Aceitação:**
     
     - Usuários conseguem navegar e utilizar o sistema sem a necessidade de treinamento extensivo.
     - Feedbacks de testes de usabilidade devem indicar uma alta taxa de satisfação com a interface.
-2. **NF2 Responsividade:** A aplicação web deve ser responsiva e funcionar perfeitamente em diferentes dispositivos, como computadores, tablets e smartphones. **P2**
+2. **NF2 Responsividade:** A aplicação web deve ser responsiva e funcionar perfeitamente em diferentes dispositivos, como computadores, tablets e smartphones. **P3**
     
     **Critérios de Aceitação:**
     
     - O sistema deve adaptar sua interface e funcionalidades ao tamanho da tela e ao dispositivo do usuário sem perda de desempenho ou usabilidade.
-3. **NF3 Segurança:** O sistema deve implementar medidas robustas de segurança para proteger os dados, evitando acessos não autorizados e protegendo a aplicação contra ataques cibernéticos. **P2** 
+3. **NF3 Segurança:** O sistema deve implementar medidas robustas de segurança para proteger os dados, evitando acessos não autorizados e protegendo a aplicação contra ataques cibernéticos. **P1**
     
     **Critérios de Aceitação:**
     
@@ -194,7 +194,7 @@ Nosso projeto visa manter o foco nas funcionalidades e requisitos previamente de
 
 # *User Experience*
 
-*Não há nenhuma prototipação para User Experience nesse projeto.* 
+*Não há nenhuma prototipação para User Experience nesse projeto* 
 
 # **Dependências**
 
