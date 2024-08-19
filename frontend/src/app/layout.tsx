@@ -3,6 +3,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "./components/theme-provider";
+import { AuthProvider } from "./context/authContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,38 +28,40 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-           attribute="class"
-           defaultTheme="system"
-           enableSystem
-           themes={[
-             "light",
-             "dark",
-             "red",
-             "red-dark",
-             "green",
-             "green-dark",
-             "netflix",
-             "netflix-dark",
-             "nord",
-             "nord-dark",
-             "nature",
-             "nature-dark",
-             "dracula",
-             "dracula-dark",
-             "laracon-dark",
-             "gold",
-             "gold-dark",
-             "azarath",
-             "azarath-dark",
-             "poimandres",
-             "poimandres-dark",
-             "discord",
-             "discord-dark",
-           ]}
-        >
-          {children}
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            themes={[
+              "light",
+              "dark",
+              "red",
+              "red-dark",
+              "green",
+              "green-dark",
+              "netflix",
+              "netflix-dark",
+              "nord",
+              "nord-dark",
+              "nature",
+              "nature-dark",
+              "dracula",
+              "dracula-dark",
+              "laracon-dark",
+              "gold",
+              "gold-dark",
+              "azarath",
+              "azarath-dark",
+              "poimandres",
+              "poimandres-dark",
+              "discord",
+              "discord-dark",
+            ]}
+          >
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,186 +1,67 @@
-"use client";
+'use client';
+import { useState } from "react";
+import { useAuth } from "./context/authContext";
 import { Footer } from "./components/footer";
-import { Aside } from "./components/aside";
-import { Card } from "./components/card";
-import { FaBuilding, FaTools } from "react-icons/fa";
-import { MdDashboard, MdForklift } from "react-icons/md";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import Table from "./components/table";
 
-export default function Home() {
-  const cards = [
-    {
-      color: "border bg-background",
-      title: "",
-      text: "Ambientes",
-      icon: <FaBuilding size={48} />,
-    },
-    {
-      color: "border bg-background",
-      title: "",
-      text: "Equipamentos",
-      icon: <MdDashboard size={48} />,
-    },
-    {
-      color: "border bg-background",
-      title: "",
-      text: "O.S. Alertas",
-      icon: <MdForklift size={48} />,
-    },
-    {
-      color: "border bg-background",
-      title: "",
-      text: "O.S. Concluidas",
-      icon: <FaTools size={48} />,
-    },
-  ];
+export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
-  const columns = [
-    { header: "Ambiente", accessor: "ambiente" },
-    { header: "Equipamento", accessor: "equipamento" },
-    { header: "Solicitação", accessor: "solicitacao", isNumeric: true },
-    { header: "Atendimento", accessor: "atendimento", isNumeric: true },
-  ];
-
-  const data = [
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-  ];
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    login(username, password);
+  };
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="flex-1 flex">
-        <Aside />
-        <main className="flex-1 flex flex-col p-6 bg-background">
-          <header className="text-left p-4 rounded-md mb-6">
-            <h1 className="text-4xl font-bold uppercase text-foreground">
-              Sistema de Gestão de Manutenção
-            </h1>
-          </header>
-
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {cards.map((props) => (
-                <Card
-                  color={props.color}
-                  title={props.title}
-                  text={props.text}
-                  icon={props.icon}
-                />
-              ))}
+    <div className="h-screen flex flex-col justify-between bg-background">
+      <div className="flex flex-col items-center justify-center flex-grow">
+        <div className="w-full max-w-md bg-background p-8 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label
+                className="block text-foreground text-sm font-bold mb-2"
+                htmlFor="username"
+              >
+                Usuário
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-foreground leading-tight focus:outline-none focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Digite seu usuário"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
-
-            <div className="container mx-auto p-4 bg-background rounded-lg m-5">
-              <div className=" max-h-full overflow-y-auto shadow-lg">
-                <Table columns={columns} data={data} />
-              </div>
+            <div className="mb-6">
+              <label
+                className="block text-foreground text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Senha
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-foreground mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="password"
+                type="password"
+                placeholder="Digite sua senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-          </div>
-        </main>
+            <div className="flex items-center justify-between">
+              <button
+                className="bg-background hover:bg-background text-foreground font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-
       <Footer />
     </div>
   );

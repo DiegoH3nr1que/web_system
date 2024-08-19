@@ -1,10 +1,11 @@
+'use client';
 import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import Table from "../components/table";
 import { FcHighPriority } from "react-icons/fc";
 import { CustomDialog } from "../components/dialog";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import ProtectedRoute from "../components/protectedRouter";
 
 export default function ManutencaoPage() {
   const cards = [
@@ -233,317 +234,319 @@ export default function ManutencaoPage() {
   }));
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="flex-1 flex">
-        <Aside />
-        <main className="flex-1 flex flex-col p-6 bg-background w-full">
-          <div className="flex items-center justify-between p-4 rounded-md mb-6">
-            <h1 className="text-4xl font-bold uppercase text-foreground">
-              Manutenções
-            </h1>
+    <ProtectedRoute>
+      <div className="h-screen flex flex-col">
+        <div className="flex-1 flex">
+          <Aside />
+          <main className="flex-1 flex flex-col p-6 bg-background w-full">
+            <div className="flex items-center justify-between p-4 rounded-md mb-6">
+              <h1 className="text-4xl font-bold uppercase text-foreground">
+                Manutenções
+              </h1>
 
-            <CustomDialog
-              triggerLabel="Nova ocorrência de manutenção"
-              title="Detalhes da Manutenção"
-              TypeButton="Criar"
-              description="Veja os detalhes da manutenção selecionada!"
-              fields={[
-                {
-                  id: "maintenance_id",
-                  label: "ID da Manutenção",
-                  type: "text",
-                  defaultValue: "",
-                },
-                {
-                  id: "description",
-                  label: "Descrição",
-                  type: "text",
-                  defaultValue: "",
-                },
-                {
-                  id: "status",
-                  label: "Status",
-                  type: "select",
-                  defaultValue: "",
-                  options: statusOptions,
-                },
-                {
-                  id: "priority",
-                  label: "Prioridade",
-                  type: "select",
-                  defaultValue: "",
-                  options: PriorityOptions,
-                },
-                {
-                  id: "responsible",
-                  label: "Solicitante",
-                  type: "text",
-                  defaultValue: "",
-                },
-                {
-                  id: "date",
-                  label: "Data da manutenção",
-                  type: "date",
-                  defaultValue: "",
-                },
-                {
-                  id: "equip",
-                  label: "Equipe de manutenção",
-                  type: "select",
-                  defaultValue: "",
-                  options: EquipOptions,
-                },
-              ]}
-            />
-          </div>
-          <div className="rounded-md container mx-auto p-4 bg-background w-full">
-            <div className="text-2xl font-bold text-foreground mb-2">
-              <h1>Manutenções</h1>
-            </div>
-            <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
-              <Table
-                columns={columns}
-                data={formattedDataMan}
-                actions={(item) => (
-                  <div className="flex space-x-2">
-                    <CustomDialog
-                      triggerLabel={<FaCheck />}
-                      title="Detalhes da Manutenção"
-                      TypeButton="Salvar"
-                      description="Veja os detalhes da manutenção selecionada!"
-                      fields={[
-                        {
-                          id: "maintenance_id",
-                          label: "ID da Manutenção",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "description",
-                          label: "Descrição",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "status",
-                          label: "Status",
-                          type: "select",
-                          defaultValue: "",
-                          options: statusOptions,
-                        },
-                        {
-                          id: "priority",
-                          label: "Prioridade",
-                          type: "select",
-                          defaultValue: "",
-                          options: PriorityOptions,
-                        },
-                        {
-                          id: "responsible",
-                          label: "Solicitante",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "date",
-                          label: "Data da manutenção",
-                          type: "date",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "equip",
-                          label: "Equipe de manutenção",
-                          type: "select",
-                          defaultValue: "",
-                          options: EquipOptions,
-                        },
-                        {
-                          id: "items",
-                          label: "Materiais Utilizados",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "comments",
-                          label: "Comentários",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                      ]}
-                    />
-                    <CustomDialog
-                      triggerLabel={<FaEdit />}
-                      title="Detalhes da Manutenção"
-                      TypeButton="Salvar"
-                      description="Veja os detalhes da manutenção selecionada!"
-                      fields={[
-                        {
-                          id: "maintenance_id",
-                          label: "ID da Manutenção",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "description",
-                          label: "Descrição",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "status",
-                          label: "Status",
-                          type: "select",
-                          defaultValue: "",
-                          options: statusOptions,
-                        },
-                        {
-                          id: "priority",
-                          label: "Prioridade",
-                          type: "select",
-                          defaultValue: "",
-                          options: PriorityOptions,
-                        },
-                        {
-                          id: "responsible",
-                          label: "Solicitante",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "date",
-                          label: "Data da manutenção",
-                          type: "date",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "equip",
-                          label: "Equipe de manutenção",
-                          type: "select",
-                          defaultValue: "",
-                          options: EquipOptions,
-                        },
-                      ]}
-                    />
-                    <CustomDialog
-                      triggerLabel={<FaTrash />}
-                      title="Detalhes da Manutenção"
-                      description="Veja os detalhes da manutenção selecionada!"
-                      TypeButton="Deletar"
-                      fields={[
-                        {
-                          id: "reasons",
-                          label: "Motivos da exclusão",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                      ]}
-                    />
-                  </div>
-                )}
+              <CustomDialog
+                triggerLabel="Nova ocorrência de manutenção"
+                title="Detalhes da Manutenção"
+                TypeButton="Criar"
+                description="Veja os detalhes da manutenção selecionada!"
+                fields={[
+                  {
+                    id: "maintenance_id",
+                    label: "ID da Manutenção",
+                    type: "text",
+                    defaultValue: "",
+                  },
+                  {
+                    id: "description",
+                    label: "Descrição",
+                    type: "text",
+                    defaultValue: "",
+                  },
+                  {
+                    id: "status",
+                    label: "Status",
+                    type: "select",
+                    defaultValue: "",
+                    options: statusOptions,
+                  },
+                  {
+                    id: "priority",
+                    label: "Prioridade",
+                    type: "select",
+                    defaultValue: "",
+                    options: PriorityOptions,
+                  },
+                  {
+                    id: "responsible",
+                    label: "Solicitante",
+                    type: "text",
+                    defaultValue: "",
+                  },
+                  {
+                    id: "date",
+                    label: "Data da manutenção",
+                    type: "date",
+                    defaultValue: "",
+                  },
+                  {
+                    id: "equip",
+                    label: "Equipe de manutenção",
+                    type: "select",
+                    defaultValue: "",
+                    options: EquipOptions,
+                  },
+                ]}
               />
             </div>
-          </div>
-          <div className="rounded-md container mx-auto p-4 bg-background w-full">
-            <div className="text-2xl font-bold text-foreground mb-2">
-              <h1>Histórico</h1>
+            <div className="rounded-md container mx-auto p-4 bg-background w-full">
+              <div className="text-2xl font-bold text-foreground mb-2">
+                <h1>Manutenções</h1>
+              </div>
+              <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
+                <Table
+                  columns={columns}
+                  data={formattedDataMan}
+                  actions={(item) => (
+                    <div className="flex space-x-2">
+                      <CustomDialog
+                        triggerLabel={<FaCheck />}
+                        title="Detalhes da Manutenção"
+                        TypeButton="Salvar"
+                        description="Veja os detalhes da manutenção selecionada!"
+                        fields={[
+                          {
+                            id: "maintenance_id",
+                            label: "ID da Manutenção",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "description",
+                            label: "Descrição",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "status",
+                            label: "Status",
+                            type: "select",
+                            defaultValue: "",
+                            options: statusOptions,
+                          },
+                          {
+                            id: "priority",
+                            label: "Prioridade",
+                            type: "select",
+                            defaultValue: "",
+                            options: PriorityOptions,
+                          },
+                          {
+                            id: "responsible",
+                            label: "Solicitante",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "date",
+                            label: "Data da manutenção",
+                            type: "date",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "equip",
+                            label: "Equipe de manutenção",
+                            type: "select",
+                            defaultValue: "",
+                            options: EquipOptions,
+                          },
+                          {
+                            id: "items",
+                            label: "Materiais Utilizados",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "comments",
+                            label: "Comentários",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                        ]}
+                      />
+                      <CustomDialog
+                        triggerLabel={<FaEdit />}
+                        title="Detalhes da Manutenção"
+                        TypeButton="Salvar"
+                        description="Veja os detalhes da manutenção selecionada!"
+                        fields={[
+                          {
+                            id: "maintenance_id",
+                            label: "ID da Manutenção",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "description",
+                            label: "Descrição",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "status",
+                            label: "Status",
+                            type: "select",
+                            defaultValue: "",
+                            options: statusOptions,
+                          },
+                          {
+                            id: "priority",
+                            label: "Prioridade",
+                            type: "select",
+                            defaultValue: "",
+                            options: PriorityOptions,
+                          },
+                          {
+                            id: "responsible",
+                            label: "Solicitante",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "date",
+                            label: "Data da manutenção",
+                            type: "date",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "equip",
+                            label: "Equipe de manutenção",
+                            type: "select",
+                            defaultValue: "",
+                            options: EquipOptions,
+                          },
+                        ]}
+                      />
+                      <CustomDialog
+                        triggerLabel={<FaTrash />}
+                        title="Detalhes da Manutenção"
+                        description="Veja os detalhes da manutenção selecionada!"
+                        TypeButton="Deletar"
+                        fields={[
+                          {
+                            id: "reasons",
+                            label: "Motivos da exclusão",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                        ]}
+                      />
+                    </div>
+                  )}
+                />
+              </div>
             </div>
-            <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
-              <Table
-                columns={columns}
-                data={formattedDataHist}
-                actions={(item) => (
-                  <div className="flex space-x-2">
-                    {" "}
-                    <CustomDialog
-                      triggerLabel={<FaEdit />}
-                      title="Detalhes da Manutenção"
-                      TypeButton="Salvar"
-                      description="Veja os detalhes da manutenção selecionada!"
-                      fields={[
-                        {
-                          id: "maintenance_id",
-                          label: "ID da Manutenção",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "description",
-                          label: "Descrição",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "status",
-                          label: "Status",
-                          type: "select",
-                          defaultValue: "",
-                          options: statusOptions,
-                        },
-                        {
-                          id: "priority",
-                          label: "Prioridade",
-                          type: "select",
-                          defaultValue: "",
-                          options: PriorityOptions,
-                        },
-                        {
-                          id: "responsible",
-                          label: "Solicitante",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "date",
-                          label: "Data da manutenção",
-                          type: "date",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "equip",
-                          label: "Equipe de manutenção",
-                          type: "select",
-                          defaultValue: "",
-                          options: EquipOptions,
-                        },
-                        {
-                          id: "items",
-                          label: "Materiais Utilizados",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                        {
-                          id: "comments",
-                          label: "Comentários",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                      ]}
-                    />
-                    <CustomDialog
-                      triggerLabel={<FaTrash />}
-                      title="Detalhes da Manutenção"
-                      description="Veja os detalhes da manutenção selecionada!"
-                      TypeButton="Deletar"
-                      fields={[
-                        {
-                          id: "reasons",
-                          label: "Motivos da exclusão",
-                          type: "text",
-                          defaultValue: "",
-                        },
-                      ]}
-                    />
-                    {/* <button className="text-foreground mr-2">
+            <div className="rounded-md container mx-auto p-4 bg-background w-full">
+              <div className="text-2xl font-bold text-foreground mb-2">
+                <h1>Histórico</h1>
+              </div>
+              <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
+                <Table
+                  columns={columns}
+                  data={formattedDataHist}
+                  actions={(item) => (
+                    <div className="flex space-x-2">
+                      {" "}
+                      <CustomDialog
+                        triggerLabel={<FaEdit />}
+                        title="Detalhes da Manutenção"
+                        TypeButton="Salvar"
+                        description="Veja os detalhes da manutenção selecionada!"
+                        fields={[
+                          {
+                            id: "maintenance_id",
+                            label: "ID da Manutenção",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "description",
+                            label: "Descrição",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "status",
+                            label: "Status",
+                            type: "select",
+                            defaultValue: "",
+                            options: statusOptions,
+                          },
+                          {
+                            id: "priority",
+                            label: "Prioridade",
+                            type: "select",
+                            defaultValue: "",
+                            options: PriorityOptions,
+                          },
+                          {
+                            id: "responsible",
+                            label: "Solicitante",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "date",
+                            label: "Data da manutenção",
+                            type: "date",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "equip",
+                            label: "Equipe de manutenção",
+                            type: "select",
+                            defaultValue: "",
+                            options: EquipOptions,
+                          },
+                          {
+                            id: "items",
+                            label: "Materiais Utilizados",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                          {
+                            id: "comments",
+                            label: "Comentários",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                        ]}
+                      />
+                      <CustomDialog
+                        triggerLabel={<FaTrash />}
+                        title="Detalhes da Manutenção"
+                        description="Veja os detalhes da manutenção selecionada!"
+                        TypeButton="Deletar"
+                        fields={[
+                          {
+                            id: "reasons",
+                            label: "Motivos da exclusão",
+                            type: "text",
+                            defaultValue: "",
+                          },
+                        ]}
+                      />
+                      {/* <button className="text-foreground mr-2">
                       <BiDotsHorizontalRounded />
                     </button> */}
-                  </div>
-                )}
-              />
+                    </div>
+                  )}
+                />
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </ProtectedRoute>
   );
 }

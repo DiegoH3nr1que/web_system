@@ -57,7 +57,7 @@ export function CustomDialog({
               {fields.map((field) => (
                 <div
                   key={field.id}
-                  className="grid grid-cols-4 items-center gap-4"
+                  className="grid grid-cols-4 items-center gap-4 mr-2"
                 >
                   <Label htmlFor={field.id} className="text-right">
                     {field.label} {field.required && "*"}
