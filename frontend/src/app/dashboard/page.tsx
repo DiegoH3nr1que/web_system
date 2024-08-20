@@ -5,7 +5,7 @@ import { Card } from "../components/card";
 import { FaBuilding, FaTools } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import Table from "../components/table";
+import { ChartComponent } from "../components/chart";
 import ProtectedRoute from "../components/protectedRouter";
 import { RealTimeClock } from "../components/realTimeClock";
 
@@ -178,7 +178,7 @@ export default function Home() {
 
               <div className="container mx-auto p-4 bg-background rounded-lg m-5">
                 <div className=" max-h-full overflow-y-auto shadow-lg">
-                  <Table columns={columns} data={data} />
+                  <ChartComponent/>
                 </div>
               </div>
             </div>
