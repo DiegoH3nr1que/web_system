@@ -26,6 +26,11 @@
     --destructive-foreground: 3 0% 100%;
     --ring: 229 100% 62%;
     --radius: 0.5rem;
+    --chart-1: 173 58% 39%;
+    --chart-2: 12 76% 61%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -48,6 +53,11 @@
     --destructive: 3 89% 54%;
     --destructive-foreground: 0 0% 100%;
     --ring: 229 100% 62%;
+    --chart-1: 173 58% 39%;
+    --chart-2: 12 76% 61%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
   .red {
@@ -672,3 +682,4 @@
 .scroll-invisivel::-webkit-scrollbar {
   display: none; /* Chrome, Safari e Opera */
 }
+
