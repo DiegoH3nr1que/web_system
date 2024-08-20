@@ -5,6 +5,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
 import { CustomDialog } from "../components/dialog";
 import ProtectedRoute from "../components/protectedRouter";
+import { RealTimeClock } from "../components/realTimeClock";
 
 export default function equipesPage() {
   const columns = [
@@ -12,7 +13,11 @@ export default function equipesPage() {
     { header: "técnicos", accessor: "tecnicos" },
     { header: "Quantidade", accessor: "quantidade" },
     { header: "Data criação", accessor: "data_criacao" },
-    { header: "Número de manutenções", accessor: "num_manutencoes" },
+    {
+      header: "Manutenções realizadas",
+      accessor: "num_manutencoes_realizadas",
+    },
+    { header: "Manutenções pendentes ", accessor: "num_manutencoes_pendentes" },
   ];
 
   const data = [
@@ -21,7 +26,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -30,7 +36,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -39,7 +46,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -48,7 +56,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -57,7 +66,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -66,7 +76,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -75,7 +86,8 @@ export default function equipesPage() {
       tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
       quantidade: 3,
       data_criacao: "03/05/2024",
-      num_manutencoes: 5,
+      num_manutencoes_realizadas: 5,
+      num_manutencoes_pendentes: 2,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -87,10 +99,11 @@ export default function equipesPage() {
         <div className="flex-1 flex">
           <Aside />
           <main className="flex-1 flex flex-col p-6 bg-background">
-            <header className="text-left p-4 rounded-md mb-6">
+            <header className="text-left p-4 rounded-md mb-6 flex justify-between">
               <h1 className="text-4xl font-bold uppercase text-foreground">
                 Equipes
               </h1>
+              <RealTimeClock />
             </header>
 
             <div className="flex-1">
@@ -116,11 +129,6 @@ export default function equipesPage() {
                         id: "data_criacao",
                         label: "Data criação",
                         type: "Date",
-                      },    
-                      {
-                        id: "num_manutencoes",
-                        label: "Número de manutenções",
-                        type: "number",
                       },
                     ]}
                   />
@@ -154,8 +162,13 @@ export default function equipesPage() {
                               type: "Date",
                             },
                             {
-                              id: "num_manutencoes",
-                              label: "Número de manutenções",
+                              id: "num_manutencoes_realizadas",
+                              label: "Manutenções Realizadas",
+                              type: "number",
+                            },
+                            {
+                              id: "num_manutencoes_pendentes",
+                              label: "Manutenções Pendentes",
                               type: "number",
                             },
                           ]}

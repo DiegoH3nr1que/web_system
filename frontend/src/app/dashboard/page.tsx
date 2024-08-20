@@ -7,6 +7,7 @@ import { MdDashboard, MdForklift } from "react-icons/md";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
 import ProtectedRoute from "../components/protectedRouter";
+import { RealTimeClock } from "../components/realTimeClock";
 
 export default function Home() {
   const cards = [
@@ -156,10 +157,11 @@ export default function Home() {
         <div className="flex-1 flex">
           <Aside />
           <main className="flex-1 flex flex-col p-6 bg-background">
-            <header className="text-left p-4 rounded-md mb-6">
+            <header className="text-left p-4 rounded-md mb-6 flex justify-between">
               <h1 className="text-4xl font-bold uppercase text-foreground">
                 Sistema de Gestão de Manutenção
               </h1>
+              <RealTimeClock/>
             </header>
 
             <div>

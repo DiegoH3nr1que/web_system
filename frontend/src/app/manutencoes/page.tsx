@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import Table from "../components/table";
@@ -6,6 +6,7 @@ import { FcHighPriority } from "react-icons/fc";
 import { CustomDialog } from "../components/dialog";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import ProtectedRoute from "../components/protectedRouter";
+import { RealTimeClock } from "../components/realTimeClock";
 
 export default function ManutencaoPage() {
   const cards = [
@@ -243,64 +244,64 @@ export default function ManutencaoPage() {
               <h1 className="text-4xl font-bold uppercase text-foreground">
                 Manutenções
               </h1>
-
-              <CustomDialog
-                triggerLabel="Nova ocorrência de manutenção"
-                title="Detalhes da Manutenção"
-                TypeButton="Criar"
-                description="Veja os detalhes da manutenção selecionada!"
-                fields={[
-                  {
-                    id: "maintenance_id",
-                    label: "ID da Manutenção",
-                    type: "text",
-                    defaultValue: "",
-                  },
-                  {
-                    id: "description",
-                    label: "Descrição",
-                    type: "text",
-                    defaultValue: "",
-                  },
-                  {
-                    id: "status",
-                    label: "Status",
-                    type: "select",
-                    defaultValue: "",
-                    options: statusOptions,
-                  },
-                  {
-                    id: "priority",
-                    label: "Prioridade",
-                    type: "select",
-                    defaultValue: "",
-                    options: PriorityOptions,
-                  },
-                  {
-                    id: "responsible",
-                    label: "Solicitante",
-                    type: "text",
-                    defaultValue: "",
-                  },
-                  {
-                    id: "date",
-                    label: "Data da manutenção",
-                    type: "date",
-                    defaultValue: "",
-                  },
-                  {
-                    id: "equip",
-                    label: "Equipe de manutenção",
-                    type: "select",
-                    defaultValue: "",
-                    options: EquipOptions,
-                  },
-                ]}
-              />
+              <RealTimeClock />
             </div>
             <div className="rounded-md container mx-auto p-4 bg-background w-full">
-              <div className="text-2xl font-bold text-foreground mb-2">
+              <div className="text-2xl font-bold text-foreground mb-2 flex justify-between">
                 <h1>Manutenções</h1>
+                <CustomDialog
+                  triggerLabel="Nova ocorrência de manutenção"
+                  title="Detalhes da Manutenção"
+                  TypeButton="Criar"
+                  description="Veja os detalhes da manutenção selecionada!"
+                  fields={[
+                    {
+                      id: "maintenance_id",
+                      label: "ID da Manutenção",
+                      type: "text",
+                      defaultValue: "",
+                    },
+                    {
+                      id: "description",
+                      label: "Descrição",
+                      type: "text",
+                      defaultValue: "",
+                    },
+                    {
+                      id: "status",
+                      label: "Status",
+                      type: "select",
+                      defaultValue: "",
+                      options: statusOptions,
+                    },
+                    {
+                      id: "priority",
+                      label: "Prioridade",
+                      type: "select",
+                      defaultValue: "",
+                      options: PriorityOptions,
+                    },
+                    {
+                      id: "responsible",
+                      label: "Solicitante",
+                      type: "text",
+                      defaultValue: "",
+                    },
+                    {
+                      id: "date",
+                      label: "Data da manutenção",
+                      type: "date",
+                      defaultValue: "",
+                    },
+                    {
+                      id: "equip",
+                      label: "Equipe de manutenção",
+                      type: "select",
+                      defaultValue: "",
+                      options: EquipOptions,
+                    },
+                  ]}
+                />
               </div>
               <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
                 <Table

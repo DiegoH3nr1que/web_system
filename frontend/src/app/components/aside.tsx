@@ -17,7 +17,7 @@ export function Aside() {
         </div>
         <NavBar />
       </div>
-      <div className="mt-auto">
+      <div className="mt-auto flex items-center">
         <AvatarDemo />
       </div>
     </aside>
