@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { FaBuilding, FaTools, FaUsers } from 'react-icons/fa';
-import { MdDashboard, MdForklift, MdLogin } from 'react-icons/md';
+import { MdDashboard, MdForklift } from 'react-icons/md';
+import { BiAddToQueue } from "react-icons/bi";
 
 export function NavBar() {
   const links = [
     { target: "/dashboard", text: "Dashboard", icon: <MdDashboard /> },
+    { target: "/equipes", text: "Equipes", icon: <BiAddToQueue /> },
     { target: "/ambientes", text: "Ambientes", icon: <FaBuilding /> },
     { target: "/equipamentos", text: "Equipamentos", icon: <MdForklift /> },
     { target: "/manutencoes", text: "Manutenções", icon: <FaTools /> },

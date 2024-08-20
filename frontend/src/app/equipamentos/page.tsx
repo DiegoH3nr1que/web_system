@@ -3,7 +3,7 @@ import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import ProtectedRoute from "../components/protectedRouter";
 
-export default function equipPage() {
+export default function equipamentosPage() {
   return (
     <ProtectedRoute>
       <div className="h-screen flex flex-col">

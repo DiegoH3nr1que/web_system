@@ -43,12 +43,12 @@ export function AvatarDemo() {
           <AvatarFallback>DS</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 ml-16">
+      <DropdownMenuContent className="w-56 ml-16 text-foreground">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
+            <User className="mr-2 h-4 w-4 text-foreground" />
             <span>Profile</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -58,22 +58,22 @@ export function AvatarDemo() {
           <ModeToggle />
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <UserPlus className="mr-2 h-4 w-4" />
+              <UserPlus className="mr-2 h-4 w-4 text-foreground" />
               <span>Invite users</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
                 <DropdownMenuItem>
-                  <Mail className="mr-2 h-4 w-4" />
+                  <Mail className="mr-2 h-4 w-4 text-foreground" />
                   <span>Email</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <MessageSquare className="mr-2 h-4 w-4" />
+                  <MessageSquare className="mr-2 h-4 w-4 text-foreground" />
                   <span>Message</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <PlusCircle className="mr-2 h-4 w-4" />
+                  <PlusCircle className="mr-2 h-4 w-4 text-foreground" />
                   <span>More...</span>
                 </DropdownMenuItem>
               </DropdownMenuSubContent>
@@ -82,16 +82,16 @@ export function AvatarDemo() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Github className="mr-2 h-4 w-4"/>
+          <Github className="mr-2 h-4 w-4 text-foreground"/>
           <span>GitHub</span>
         </DropdownMenuItem>
         <DropdownMenuItem disabled>
-          <Cloud className="mr-2 h-4 w-4" />
+          <Cloud className="mr-2 h-4 w-4 text-foreground" />
           <span>API</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="mr-2 h-4 w-4 text-foreground" />
           <button onClick={logout}>Log out</button>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
