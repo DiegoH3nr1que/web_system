@@ -11,7 +11,7 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     login(username, password);
-  };
+  };  
 
   return (
     <div className="h-screen flex flex-col justify-between bg-background">

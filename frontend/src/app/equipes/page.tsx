@@ -175,7 +175,7 @@ export default function equipesPage() {
                         />{" "}
                         <CustomDialog
                           triggerLabel={<FaTrash />}
-                          title="Deletar Usuário "
+                          title="Deletar Equipe "
                           TypeButton="Deletar"
                           description=""
                         />
