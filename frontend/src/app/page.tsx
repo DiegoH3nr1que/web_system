@@ -16,8 +16,8 @@ export default function Login() {
   return (
     <div className="h-screen flex flex-col justify-between bg-background">
       <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="w-full max-w-md bg-background p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <div className="w-full max-w-md bg-foreground p-8 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-center text-background mb-6">Login</h2>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label
