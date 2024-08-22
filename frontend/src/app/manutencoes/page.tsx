@@ -542,9 +542,6 @@ export default function ManutencaoPage() {
                           },
                         ]}
                       />
-                      {/* <button className="text-foreground mr-2">
-                      <BiDotsHorizontalRounded />
-                    </button> */}
                     </div>
                   )}
                 />
