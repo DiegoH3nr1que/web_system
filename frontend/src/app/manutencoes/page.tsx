@@ -312,7 +312,7 @@ export default function ManutencaoPage() {
                       <CustomDialog
                         triggerLabel={<FaCheck />}
                         title="Detalhes da Manutenção"
-                        TypeButton="Salvar"
+                        TypeButton="Finalizar"
                         description="Veja os detalhes da manutenção selecionada!"
                         fields={[
                           {
@@ -371,6 +371,12 @@ export default function ManutencaoPage() {
                             label: "Comentários",
                             type: "text",
                             defaultValue: "",
+                          },
+                          
+                          {
+                            id: "performance_time",
+                            label: "Tempo de manutenção",
+                            type: "Time",
                           },
                         ]}
                       />

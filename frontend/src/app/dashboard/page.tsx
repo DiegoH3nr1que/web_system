@@ -8,6 +8,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { ChartComponent } from "../components/chart";
 import ProtectedRoute from "../components/protectedRouter";
 import { RealTimeClock } from "../components/realTimeClock";
+import { ChartBarComponent } from "../components/chart_bar_horizontal";
 
 export default function Home() {
   const cards = [
@@ -37,120 +38,6 @@ export default function Home() {
     },
   ];
 
-  const columns = [
-    { header: "Ambiente", accessor: "ambiente" },
-    { header: "Equipamento", accessor: "equipamento" },
-    { header: "Solicitação", accessor: "solicitacao", isNumeric: true },
-    { header: "Atendimento", accessor: "atendimento", isNumeric: true },
-  ];
-
-  const data = [
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-  ];
-
   return (
     <ProtectedRoute>
       <div className="h-screen flex flex-col">
@@ -177,8 +64,9 @@ export default function Home() {
               </div>
 
               <div className="container mx-auto p-4 bg-background rounded-lg m-5">
-                <div className=" max-h-full overflow-y-auto shadow-lg">
-                  <ChartComponent/>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-full overflow-y-auto shadow-lg">
+                  <ChartComponent />
+                  <ChartBarComponent />
                 </div>
               </div>
             </div>

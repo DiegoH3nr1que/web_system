@@ -51,7 +51,7 @@ export function ChartComponent() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Manutenções</CardTitle>
+        <CardTitle>Total de manutenções por mês</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
