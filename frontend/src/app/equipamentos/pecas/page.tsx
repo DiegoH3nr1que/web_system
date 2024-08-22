@@ -7,7 +7,7 @@ import { CustomDialog } from "@/app/components/dialog";
 import ProtectedRoute from "@/app/components/protectedRouter";
 import { RealTimeClock } from "@/app/components/realTimeClock";
 
-export default function maquinasPage() {
+export default function PecasPage() {
   const columns = [
     { header: "Nome", accessor: "nome" },
     { header: "Tipo", accessor: "tipo" },
