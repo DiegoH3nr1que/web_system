@@ -20,7 +20,7 @@ export default function PecasPage() {
 
   const data = [
     {
-      nome: "Máquina X",
+      nome: "Peça X",
       entrada: 10,
       saida: 2,
       data: "03/01/2024",
@@ -28,7 +28,7 @@ export default function PecasPage() {
       estoque: 50,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -36,7 +36,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -44,7 +44,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -52,7 +52,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -60,7 +60,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -68,7 +68,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -76,7 +76,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -84,7 +84,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -92,7 +92,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -100,7 +100,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -108,7 +108,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -116,7 +116,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -124,7 +124,7 @@ export default function PecasPage() {
       estoque: 100,
     },
     {
-      nome: "Máquina Y",
+      nome: "Peça Y",
       entrada: 20,
       saida: 5,
       data: "04/01/2024",
@@ -159,11 +159,19 @@ export default function PecasPage() {
                     description="Insira todos os campos corretamente!"
                     fields={[
                       { id: "nome", label: "Nome", type: "text" },
+                      { id: "codigo", label: "Código", type: "text" },
+                      { id: "fornecedor", label: "Fornecedor", type: "text" },
                       { id: "entrada", label: "Entradas", type: "number" },
                       { id: "saida", label: "Saídas", type: "number" },
                       { id: "data", label: "Data", type: "date" },
                       { id: "quantidade", label: "Quantidade", type: "number" },
                       { id: "estoque", label: "Estoque", type: "number" },
+                      {
+                        id: "valor_unitario",
+                        label: "Valor Unitário",
+                        type: "number",
+                      },
+                      { id: "imagem", label: "Upload de Imagem", type: "file" },
                     ]}
                   />
                 </div>
@@ -180,7 +188,17 @@ export default function PecasPage() {
                           description="Insira todos os campos corretamente!"
                           fields={[
                             { id: "nome", label: "Nome", type: "text" },
-                            { id: "entrada", label: "Entradas", type: "number" },
+                            { id: "codigo", label: "Código", type: "text" },
+                            {
+                              id: "fornecedor",
+                              label: "Fornecedor",
+                              type: "text",
+                            },
+                            {
+                              id: "entrada",
+                              label: "Entradas",
+                              type: "number",
+                            },
                             { id: "saida", label: "Saídas", type: "number" },
                             { id: "data", label: "Data", type: "date" },
                             {
@@ -189,6 +207,16 @@ export default function PecasPage() {
                               type: "number",
                             },
                             { id: "estoque", label: "Estoque", type: "number" },
+                            {
+                              id: "valor_unitario",
+                              label: "Valor Unitário",
+                              type: "number",
+                            },
+                            {
+                              id: "imagem",
+                              label: "Upload de Imagem",
+                              type: "file",
+                            },
                           ]}
                         />
                       ),
@@ -211,7 +239,9 @@ export default function PecasPage() {
                 </div>
               </div>
             </div>
-            <PecasEstoquePieChart />
+            <div className="flex justify-center my-6">
+              <PecasEstoquePieChart />
+            </div>
           </main>
         </div>
         <Footer />

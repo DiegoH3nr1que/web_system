@@ -13,19 +13,19 @@ import {
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
 const pecasData = [
-  { nome: "Máquina X", estoque: 50, fill: "hsl(var(--chart-1))" },
-  { nome: "Máquina Y", estoque: 100, fill: "hsl(var(--chart-2))" },
+  { nome: "Peça X", estoque: 50, fill: "hsl(var(--chart-1))" },
+  { nome: "Peça Y", estoque: 100, fill: "hsl(var(--chart-2))" },
 ];
 
 const chartConfig = {
   estoque: {
     label: "Estoque",
   },
-  "Máquina X": {
+  "Peça X": {
     label: "Máquina X",
     color: "hsl(var(--chart-1))",
   },
-  "Máquina Y": {
+  "Peça Y": {
     label: "Máquina Y",
     color: "hsl(var(--chart-2))",
   },
