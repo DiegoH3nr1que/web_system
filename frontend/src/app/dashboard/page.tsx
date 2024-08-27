@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <ProtectedRoute>
-      <div className="h-screen flex flex-col">
+      <div className="h-screen flex flex-col overflow-y-auto scroll-invisivel relative">
         <div className="flex-1 flex">
           <Aside />
           <main className="flex-1 flex flex-col p-6 bg-background">

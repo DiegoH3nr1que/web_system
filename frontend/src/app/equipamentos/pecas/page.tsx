@@ -6,97 +6,136 @@ import Table from "@/app/components/table";
 import { CustomDialog } from "@/app/components/dialog";
 import ProtectedRoute from "@/app/components/protectedRouter";
 import { RealTimeClock } from "@/app/components/realTimeClock";
+import { PecasEstoquePieChart } from "@/app/components/pieChart";
 
 export default function PecasPage() {
   const columns = [
     { header: "Nome", accessor: "nome" },
-    { header: "Tipo", accessor: "tipo" },
-    { header: "Modelo", accessor: "modelo" },
-    { header: "Data fabricação", accessor: "data_fabricacao" },
-    {
-      header: "Número Série",
-      accessor: "num_serie",
-    },
-    { header: "Localização ", accessor: "localizacao" },
+    { header: "Entradas", accessor: "entrada" },
+    { header: "Saídas", accessor: "saida" },
+    { header: "Data", accessor: "data" },
+    { header: "Quantidade", accessor: "quantidade" },
+    { header: "Estoque", accessor: "estoque" },
   ];
 
   const data = [
     {
       nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      entrada: 10,
+      saida: 2,
+      data: "03/01/2024",
+      quantidade: 8,
+      estoque: 50,
     },
     {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
     },
     {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
     },
     {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
     },
     {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
     },
     {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
     },
     {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
+    },
+    {
+      nome: "Máquina Y",
+      entrada: 20,
+      saida: 5,
+      data: "04/01/2024",
+      quantidade: 15,
+      estoque: 100,
     },
   ];
 
-
   return (
     <ProtectedRoute>
-      <div className="h-screen flex flex-col">
+      <div className="h-screen flex flex-col overflow-y-auto scroll-invisivel relative">
         <div className="flex-1 flex">
           <Aside />
           <main className="flex-1 flex flex-col p-6 bg-background">
@@ -120,40 +159,20 @@ export default function PecasPage() {
                     description="Insira todos os campos corretamente!"
                     fields={[
                       { id: "nome", label: "Nome", type: "text" },
-                      {
-                        id: "tipo",
-                        label: "Tipo",
-                        type: "Text",
-                      },
-                      {
-                        id: "modelo",
-                        label: "Modelo",
-                        type: "number",
-                      },
-                      {
-                        id: "data_fabricacao",
-                        label: "Data fabricação",
-                        type: "Date",
-                      },
-                      {
-                        id: "num_serie",
-                        label: "Número de Série",
-                        type: "Date",
-                      },
-                      {
-                        id: "localizacao",
-                        label: "Localização",
-                        type: "Date",
-                      },
+                      { id: "entrada", label: "Entradas", type: "number" },
+                      { id: "saida", label: "Saídas", type: "number" },
+                      { id: "data", label: "Data", type: "date" },
+                      { id: "quantidade", label: "Quantidade", type: "number" },
+                      { id: "estoque", label: "Estoque", type: "number" },
                     ]}
                   />
                 </div>
                 <div className="max-h-96 overflow-y-auto">
                   <Table
                     columns={columns}
-                    data={data}
-                    actions={(item) => (
-                      <div className="flex space-x-2">
+                    data={data.map((item) => ({
+                      ...item,
+                      editar: (
                         <CustomDialog
                           triggerLabel={<FaEdit />}
                           title="Editar Peças"
@@ -161,45 +180,38 @@ export default function PecasPage() {
                           description="Insira todos os campos corretamente!"
                           fields={[
                             { id: "nome", label: "Nome", type: "text" },
+                            { id: "entrada", label: "Entradas", type: "number" },
+                            { id: "saida", label: "Saídas", type: "number" },
+                            { id: "data", label: "Data", type: "date" },
                             {
-                              id: "tipo",
-                              label: "Tipo",
-                              type: "Text",
-                            },
-                            {
-                              id: "modelo",
-                              label: "Modelo",
+                              id: "quantidade",
+                              label: "Quantidade",
                               type: "number",
                             },
-                            {
-                              id: "data_fabricacao",
-                              label: "Data fabricação",
-                              type: "Date",
-                            },
-                            {
-                              id: "num_serie",
-                              label: "Número de Série",
-                              type: "number",
-                            },
-                            {
-                              id: "localizacao",
-                              label: "Localização",
-                              type: "text",
-                            },
+                            { id: "estoque", label: "Estoque", type: "number" },
                           ]}
-                        />{" "}
+                        />
+                      ),
+                      deletar: (
                         <CustomDialog
                           triggerLabel={<FaTrash />}
-                          title="Deletar Peça "
+                          title="Deletar Peça"
                           TypeButton="Deletar"
-                          description=""
+                          description="Deseja realmente deletar esta peça?"
                         />
+                      ),
+                    }))}
+                    actions={(item) => (
+                      <div className="flex space-x-2">
+                        {item.editar}
+                        {item.deletar}
                       </div>
                     )}
                   />
                 </div>
               </div>
             </div>
+            <PecasEstoquePieChart />
           </main>
         </div>
         <Footer />
