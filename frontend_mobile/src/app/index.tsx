@@ -1,9 +1,35 @@
-import { Text, View } from "react-native";
 
-export default function Index() {
+import { createStackNavigator } from "@react-navigation/stack";
+import Dashboard from "../components/dashboard";
+import Login from "../components/login";
+
+type RootStackParamList = {
+  Login: undefined; // Adiciona "Login" aqui
+  Dashboard: undefined; // Mantém "Dashboard" aqui
+};
+
+
+const Stack = createStackNavigator<RootStackParamList>();
+
+
+
+export default function SistemaManutencao() {
   return (
-    <View className="flex-1 items-center justify-center bg-blue-500">
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+
   );
+
+  
+  
 }
