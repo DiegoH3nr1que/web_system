@@ -3,6 +3,7 @@ import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { Card } from "./card";
 import { Footer } from "./footer";
+import TableComponent from "./table";
 
 export default function Dashboard() {
   const cards = [
@@ -39,7 +40,9 @@ export default function Dashboard() {
           <Text className="text-center font-serif font-extrabold text-xl mb-10">
             SISTEMA DE GESTÃO DE MANUTENÇÃO
           </Text>
-          <View className="grid grid-cols-2 gap-4 hover:scale-105 transition">
+
+          {/* View ajustada para centralizar os cartões */}
+          <View className="flex flex-wrap justify-center items-center gap-4">
             {cards.map((props, index) => (
               <Card
                 key={index}
@@ -50,6 +53,7 @@ export default function Dashboard() {
               />
             ))}
           </View>
+          <TableComponent/>
         </View>
       </ScrollView>
       <Footer />

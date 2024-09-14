@@ -23,12 +23,12 @@ export default function Login({ navigation }: { navigation: any }) {
   return (
     <ScrollView contentContainerStyle={{ flex: 1 }} className="bg-slate-200">
       <View className="flex-1 justify-center p-6">
-        <View className="rounded bg-slate-500 p-10">
+        <View className="rounded-lg bg-slate-500 p-10">
           <Text className="text-center font-serif font-extrabold text-2xl mb-6">
             Sistema de Manutenção
           </Text>
-          <Text className="text-left font-serif font-extrabold mb-2">
-            Nome de Usuário:
+          <Text className="text-center font-serif font-extrabold mb-2">
+            USUÁRIO
           </Text>
           <TextInput
             className="bg-white p-4 rounded-md mb-4 text-black"
@@ -36,8 +36,8 @@ export default function Login({ navigation }: { navigation: any }) {
             value={username}
             onChangeText={setUsername}
           />
-          <Text className="text-left font-serif font-extrabold mb-2">
-            Senha:
+          <Text className="text-center font-serif font-extrabold mb-2">
+            SENHA
           </Text>
           <TextInput
             className="bg-white p-4 rounded-md mb-6"

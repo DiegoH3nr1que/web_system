@@ -4,8 +4,8 @@ import Dashboard from "../components/dashboard";
 import Login from "../components/login";
 
 type RootStackParamList = {
-  Login: undefined; // Adiciona "Login" aqui
-  Dashboard: undefined; // Mantém "Dashboard" aqui
+  Login: undefined; 
+  Dashboard: undefined; 
 };
 
 
