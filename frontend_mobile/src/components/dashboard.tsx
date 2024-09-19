@@ -4,6 +4,7 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import { Card } from "./card";
 import { Footer } from "./footer";
 import TableComponent from "./table";
+import Header from "./header";
 
 export default function Dashboard() {
   const cards = [
@@ -33,26 +34,28 @@ export default function Dashboard() {
     },
   ];
 
-  return (
-    <SafeAreaView style={{ flex: 1 }} className="bg-slate-200 w-screen h-screen">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View>
-          <Text className="text-center font-serif font-extrabold text-xl my-10">
-            SISTEMA DE GESTÃO DE MANUTENÇÃO
-          </Text>
+  const handleNotificationPress = () => {
+    console.log("Notificações pressionadas!");
+  };
 
-          {/* View ajustada para centralizar os cartões */}
-          <View className="p-4">
-            {cards.map((props, index) => (
-              <Card
-                key={index}
-                color={props.color}
-                title={props.title}
-                text={props.text}
-                icon={props.icon}
-              />
-            ))}
-          </View>
+  const handleUserPress = () => {
+    console.log("Usuário pressionado!");
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }} className="bg-slate-200">
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Header onNotificationPress={handleNotificationPress} onUserPress={handleUserPress} />
+        <View className="p-4">
+          {cards.map((props, index) => (
+            <Card
+              key={index}
+              color={props.color}
+              title={props.title}
+              text={props.text}
+              icon={props.icon}
+            />
+          ))}
           <TableComponent />
         </View>
       </ScrollView>
