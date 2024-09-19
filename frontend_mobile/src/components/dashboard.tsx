@@ -34,15 +34,15 @@ export default function Dashboard() {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }} className="bg-slate-200">
+    <SafeAreaView style={{ flex: 1 }} className="bg-slate-200 w-screen h-screen">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 p-4">
-          <Text className="text-center font-serif font-extrabold text-xl mb-10">
+        <View>
+          <Text className="text-center font-serif font-extrabold text-xl my-10">
             SISTEMA DE GESTÃO DE MANUTENÇÃO
           </Text>
 
           {/* View ajustada para centralizar os cartões */}
-          <View className="flex flex-wrap justify-center items-center gap-4">
+          <View className="p-4">
             {cards.map((props, index) => (
               <Card
                 key={index}
@@ -53,7 +53,7 @@ export default function Dashboard() {
               />
             ))}
           </View>
-          <TableComponent/>
+          <TableComponent />
         </View>
       </ScrollView>
       <Footer />

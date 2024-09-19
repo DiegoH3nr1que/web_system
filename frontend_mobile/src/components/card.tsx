@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Pressable, Animated } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 interface CardInterface {
@@ -11,18 +11,43 @@ interface CardInterface {
 }
 
 export function Card({ color, title, text, reason, icon }: CardInterface) {
+  const [scaleValue] = useState(new Animated.Value(1));
+
+  const handlePressIn = () => {
+    Animated.spring(scaleValue, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scaleValue, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const animatedStyle = {
+    transform: [{ scale: scaleValue }],
+  };
+
   return (
-    <View
-      className={`p-4 ml-3 flex flex-row items-center rounded-lg mb-3 shadow-md ${color || 'bg-white'}`}
+    <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      style={{ marginBottom: 12 }}
     >
-      <View className="flex-1">
+      <Animated.View
+        style={[animatedStyle]}
+        className={`flex-row justify-around items-center p-2 rounded-lg ${color || 'bg-white'}`}
+      >
         {title && (
           <Text className="text-lg font-semibold text-gray-800">{title}</Text>
         )}
         {reason && <Text className="text-sm text-gray-600 mt-1">{reason}</Text>}
         {text && <Text className="text-sm text-gray-600 mt-1">{text}</Text>}
-      </View>
-      {icon && <View>{icon}</View>}
-    </View>
+        {icon && <View>{icon}</View>}
+      </Animated.View>
+    </Pressable>
   );
 }
