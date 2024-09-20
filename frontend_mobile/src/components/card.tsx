@@ -8,9 +8,10 @@ interface CardInterface {
   reason?: string;
   text?: string;
   icon?: React.ReactNode;
+  onPress?: () => void;
 }
 
-export function Card({ color, title, text, reason, icon }: CardInterface) {
+export function Card({ color, title, text, reason, icon, onPress }: CardInterface) {
   const [scaleValue] = useState(new Animated.Value(1));
 
   const handlePressIn = () => {
@@ -35,6 +36,7 @@ export function Card({ color, title, text, reason, icon }: CardInterface) {
     <Pressable
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      onPress={onPress}
       style={{ marginBottom: 12 }}
     >
       <Animated.View

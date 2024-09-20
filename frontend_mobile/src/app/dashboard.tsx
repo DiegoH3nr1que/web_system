@@ -5,6 +5,7 @@ import { Card } from "../components/card";
 import { Footer } from "../components/footer";
 import TableComponent from "../components/table";
 import Header from "../components/header";
+import { router } from 'expo-router';
 
 export default function DashboardScreen() {
   const cards = [
@@ -19,6 +20,7 @@ export default function DashboardScreen() {
       title: "Equipamentos",
       text: "Equipamentos",
       icon: <Feather name="cpu" size={48} color="black" />,
+      onPress: () => router.push('/equipament'),
     },
     {
       color: "border bg-background",
@@ -54,6 +56,7 @@ export default function DashboardScreen() {
               title={props.title}
               text={props.text}
               icon={props.icon}
+              onPress={props.onPress}
             />
           ))}
           <TableComponent />
