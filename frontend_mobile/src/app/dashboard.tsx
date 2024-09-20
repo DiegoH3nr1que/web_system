@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import { Card } from "./card";
-import { Footer } from "./footer";
-import TableComponent from "./table";
-import Header from "./header";
+import { Card } from "../components/card";
+import { Footer } from "../components/footer";
+import TableComponent from "../components/table";
+import Header from "../components/header";
 
-export default function Dashboard() {
+export default function DashboardScreen() {
   const cards = [
     {
       color: "border bg-background",
