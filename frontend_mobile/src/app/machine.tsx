@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 
 export default function MachineDetails() {
@@ -10,7 +11,7 @@ export default function MachineDetails() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
-      imagem: "https://via.placeholder.com/150", // Imagem mockada
+      imagem: "https://via.placeholder.com/150",
       manutencoes: [
         { data: "10/02/2024", descricao: "Troca de óleo" },
         { data: "12/05/2024", descricao: "Substituição de correias" },
@@ -24,7 +25,7 @@ export default function MachineDetails() {
       data_fabricacao: "12/06/2023",
       num_serie: "SN987654321",
       localizacao: "Fábrica 2 - Setor A",
-      imagem: "https://via.placeholder.com/150", // Imagem mockada
+      imagem: "https://via.placeholder.com/150",
       manutencoes: [
         { data: "20/01/2024", descricao: "Reparação do motor elétrico" },
         { data: "15/03/2024", descricao: "Substituição de bateria" },
@@ -32,6 +33,17 @@ export default function MachineDetails() {
       ],
     },
   ];
+
+  // Estado para controlar a exibição do histórico de manutenções
+  const [historicoVisivel, setHistoricoVisivel] = useState(
+    Array(machines.length).fill(false)
+  );
+
+  const toggleHistorico = (index) => {
+    const novoEstado = [...historicoVisivel];
+    novoEstado[index] = !novoEstado[index];
+    setHistoricoVisivel(novoEstado);
+  };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="p-4 my-8">
@@ -77,22 +89,38 @@ export default function MachineDetails() {
               <Text className="text-lg text-gray-800">{item.localizacao}</Text>
             </View>
 
-            {/* Histórico de Manutenções */}
-            <View className="mt-6">
-              <Text className="text-lg font-bold mb-2 text-gray-800">
-                Histórico de Manutenções
+            {/* Botão para ver/ocultar histórico de manutenções */}
+            <TouchableOpacity
+              className="bg-gray-700 p-4 rounded-md mt-4"
+              onPress={() => toggleHistorico(index)}
+            >
+              <Text className="text-center text-white font-bold">
+                {historicoVisivel[index]
+                  ? "Ocultar Histórico"
+                  : "Ver Histórico"}
               </Text>
-              {item.manutencoes.map((manutencao, manutencaoIndex) => (
-                <View key={manutencaoIndex} className="mb-2">
-                  <Text className="text-sm text-gray-600">
-                    Data: {manutencao.data}
-                  </Text>
-                  <Text className="text-sm text-gray-600">
-                    Descrição: {manutencao.descricao}
-                  </Text>
-                </View>
-              ))}
-            </View>
+            </TouchableOpacity>
+
+            {/* Histórico de Manutenções Condicional */}
+            {historicoVisivel[index] && (
+              <View className="mt-4">
+                <Text className="text-lg font-bold mb-2 text-gray-800">
+                  Histórico de Manutenções
+                </Text>
+                {item.manutencoes.map((manutencao, manutencaoIndex) => (
+                  <View key={manutencaoIndex} className="mb-2">
+                    <View className=" flex flex-1 border border-black-500 rounded-md">
+                      <Text className="text-sm text-gray-600 m-1">
+                        Data: {manutencao.data}
+                      </Text>
+                      <Text className="text-sm text-gray-600 m-1">
+                        Descrição: {manutencao.descricao}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            )}
 
             <View className="flex flex-row justify-between mt-6">
               <TouchableOpacity
