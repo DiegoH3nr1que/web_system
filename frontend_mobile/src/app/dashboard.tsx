@@ -14,6 +14,7 @@ export default function DashboardScreen() {
       title: "Equipes",
       text: "Gerenciamento",
       icon: <Ionicons name="home-outline" size={48} color="black" />,
+      onPress: () => router.push("/team"),
     },
     {
       color: "border bg-background",
