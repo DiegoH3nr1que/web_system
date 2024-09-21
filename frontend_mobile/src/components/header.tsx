@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({
   onUserPress,
 }) => {
   return (
-    <View className="flex-row items-center justify-between my-5 px-4">
+    <View className="flex-row items-center justify-between my-8 px-5">
       <Text
         className="text-lg font-bold flex-wrap text-center"
         style={{ flex: 1 }}

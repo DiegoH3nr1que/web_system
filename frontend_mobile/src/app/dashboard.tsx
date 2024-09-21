@@ -5,33 +5,33 @@ import { Card } from "../components/card";
 import { Footer } from "../components/footer";
 import TableComponent from "../components/table";
 import Header from "../components/header";
-import { router } from 'expo-router';
+import { router } from "expo-router";
 
 export default function DashboardScreen() {
   const cards = [
     {
       color: "border bg-background",
-      title: "Ambientes",
-      text: "Ambientes",
+      title: "Equipes",
+      text: "Gerenciamento",
       icon: <Ionicons name="home-outline" size={48} color="black" />,
     },
     {
       color: "border bg-background",
-      title: "Equipamentos",
-      text: "Equipamentos",
+      title: "Máquinas",
+      text: "Gerenciamento",
       icon: <Feather name="cpu" size={48} color="black" />,
-      onPress: () => router.push('/equipament'),
+      onPress: () => router.push("/machine"),
     },
     {
       color: "border bg-background",
-      title: "O.S. Alertas",
-      text: "O.S. Alertas",
+      title: "Manutenções",
+      text: "Gerenciamento",
       icon: <Ionicons name="alert-circle-outline" size={48} color="black" />,
     },
     {
       color: "border bg-background",
-      title: "O.S. Concluídas",
-      text: "O.S. Concluídas",
+      title: "Peças",
+      text: "Gerenciamento",
       icon: <Feather name="check-circle" size={48} color="black" />,
     },
   ];
@@ -47,7 +47,10 @@ export default function DashboardScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }} className="bg-slate-200">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Header onNotificationPress={handleNotificationPress} onUserPress={handleUserPress} />
+        <Header
+          onNotificationPress={handleNotificationPress}
+          onUserPress={handleUserPress}
+        />
         <View className="p-4">
           {cards.map((props, index) => (
             <Card
@@ -59,8 +62,9 @@ export default function DashboardScreen() {
               onPress={props.onPress}
             />
           ))}
-          <TableComponent />
         </View>
+
+        <TableComponent />
       </ScrollView>
       <Footer />
     </SafeAreaView>
