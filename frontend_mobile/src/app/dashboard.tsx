@@ -35,6 +35,7 @@ export default function DashboardScreen() {
       title: "Peças",
       text: "Gerenciamento",
       icon: <Feather name="check-circle" size={48} color="black" />,
+      onPress: () => router.push("/maintenanceParts"),
     },
   ];
 
