@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   FlatList,
+  Switch,
 } from "react-native";
 import { useState } from "react";
 
@@ -47,6 +48,8 @@ export default function TeamManagement() {
   const [nomeEquipe, setNomeEquipe] = useState("");
   const [nomeColaborador, setNomeColaborador] = useState("");
   const [especialidadeColaborador, setEspecialidadeColaborador] = useState("");
+  const [disponibilidadeColaborador, setDisponibilidadeColaborador] =
+    useState<boolean>(true); // Inicializando como true
   const [colaboradores, setColaboradores] = useState<Colaborador[]>([]);
 
   const addColaborador = () => {
@@ -56,7 +59,7 @@ export default function TeamManagement() {
         {
           nome: nomeColaborador,
           especialidade: especialidadeColaborador,
-          disponibilidade: true,
+          disponibilidade: disponibilidadeColaborador,
         },
       ]);
       setNomeColaborador("");
@@ -113,6 +116,14 @@ export default function TeamManagement() {
           placeholderTextColor="gray"
         />
 
+        <View className="flex-row items-center mb-4">
+          <Text className="text-gray-800 mr-2">Disponível:</Text>
+          <Switch
+            value={disponibilidadeColaborador}
+            onValueChange={setDisponibilidadeColaborador}
+          />
+        </View>
+
         <TouchableOpacity
           className="bg-gray-700 p-4 rounded-md mb-4"
           onPress={addColaborador}
@@ -136,7 +147,8 @@ export default function TeamManagement() {
           data={colaboradores}
           renderItem={({ item }) => (
             <Text className="text-gray-600">
-              {item.nome} - {item.especialidade}
+              {item.nome} - {item.especialidade} -{" "}
+              {item.disponibilidade ? "Disponível" : "Indisponível"}
             </Text>
           )}
           keyExtractor={(item, index) => index.toString()}
