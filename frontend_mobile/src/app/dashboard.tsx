@@ -28,6 +28,7 @@ export default function DashboardScreen() {
       title: "Manutenções",
       text: "Gerenciamento",
       icon: <Ionicons name="alert-circle-outline" size={48} color="black" />,
+      onPress: () => router.push("/maintenance"),
     },
     {
       color: "border bg-background",
