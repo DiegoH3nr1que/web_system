@@ -1,8 +1,14 @@
-import { router } from 'expo-router';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { router } from "expo-router";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useState } from "react";
 import { Footer } from "../components/footer";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -11,20 +17,23 @@ export default function Login() {
 
   const handleLogin = () => {
     if (username === "admin" && password === "password") {
-      router.push('/dashboard');
+      router.push("/dashboard");
     } else {
       alert("Credenciais inválidas");
     }
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }} className="bg-gradient-to-r from-gray-200 to-gray-400">
+    <ScrollView
+      contentContainerStyle={{ flex: 1 }}
+      className="bg-gradient-to-r from-gray-200 to-gray-400"
+    >
       <View className="flex-1 justify-center p-6">
         <View className="rounded-lg bg-white shadow-lg p-10 border bg-background">
-          <Text className="text-center font-serif font-extrabold text-3xl text-gray-800 mb-6">
+          <Text className="text-center font-extrabold text-3xl text-gray-800 mb-6">
             Sistema de Manutenção
           </Text>
-          
+
           <View className="flex-row items-center mb-4">
             <Ionicons name="person-outline" size={24} color="gray" />
             <TextInput
@@ -34,7 +43,7 @@ export default function Login() {
               onChangeText={setUsername}
             />
           </View>
-          
+
           <View className="relative flex-row items-center mb-6">
             <Ionicons name="lock-closed-outline" size={24} color="gray" />
             <TextInput
@@ -48,7 +57,9 @@ export default function Login() {
               className="absolute right-3 top-3"
               onPress={() => setShowPassword(!showPassword)}
             >
-              <Text className="text-gray-800">{showPassword ? "Ocultar" : "Mostrar"}</Text>
+              <Text className="text-gray-800">
+                {showPassword ? "Ocultar" : "Mostrar"}
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -60,16 +71,22 @@ export default function Login() {
           </TouchableOpacity>
 
           <View className="flex-row justify-between mb-4 space-x-4">
-            <TouchableOpacity onPress={() => alert("Redirecionar para recuperação de senha")}>
+            <TouchableOpacity
+              onPress={() => alert("Redirecionar para recuperação de senha")}
+            >
               <View className="flex-row items-center">
                 <Ionicons name="help-circle-outline" size={20} color="gray" />
-                <Text className="text-gray-800 underline ml-1">Esqueceu a senha?</Text>
+                <Text className="text-gray-800 underline ml-1">
+                  Esqueceu a senha?
+                </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('/register')}>
+            <TouchableOpacity onPress={() => router.push("/register")}>
               <View className="flex-row items-center">
                 <Ionicons name="person-add-outline" size={20} color="gray" />
-                <Text className="text-gray-800 underline ml-1">Cadastrar-se</Text>
+                <Text className="text-gray-800 underline ml-1">
+                  Cadastrar-se
+                </Text>
               </View>
             </TouchableOpacity>
           </View>

@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
   TextInput,
   FlatList,
   Switch,
@@ -81,82 +80,86 @@ export default function TeamManagement() {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="p-4 my-8">
-      <Text className="text-2xl font-bold mb-4 text-center text-gray-800">
-        Gerenciamento de Equipes
-      </Text>
-
-      {/* Formulário para Cadastrar Equipe */}
-      <View className="my-6 p-4 border rounded-lg bg-white shadow-md">
-        <Text className="text-xl font-bold mb-2 text-gray-800">
-          Cadastrar Nova Equipe
-        </Text>
-
-        <TextInput
-          value={nomeEquipe}
-          onChangeText={setNomeEquipe}
-          placeholder="Nome da Equipe"
-          className="border border-gray-300 rounded-md p-2 mb-4"
-          placeholderTextColor="gray"
-        />
-
-        <TextInput
-          value={nomeColaborador}
-          onChangeText={setNomeColaborador}
-          placeholder="Nome do Colaborador"
-          className="border border-gray-300 rounded-md p-2 mb-4"
-          placeholderTextColor="gray"
-        />
-
-        <TextInput
-          value={especialidadeColaborador}
-          onChangeText={setEspecialidadeColaborador}
-          placeholder="Especialidade do Colaborador"
-          className="border border-gray-300 rounded-md p-2 mb-4"
-          placeholderTextColor="gray"
-        />
-
-        <View className="flex-row items-center mb-4">
-          <Text className="text-gray-800 mr-2">Disponível:</Text>
-          <Switch
-            value={disponibilidadeColaborador}
-            onValueChange={setDisponibilidadeColaborador}
-          />
-        </View>
-
-        <TouchableOpacity
-          className="bg-gray-700 p-4 rounded-md mb-4"
-          onPress={addColaborador}
-        >
-          <Text className="text-center text-white font-bold">
-            Adicionar Colaborador
+    <FlatList
+      data={teams}
+      ListHeaderComponent={() => (
+        <View className="p-4 my-8">
+          <Text className="text-2xl font-bold mb-4 text-center text-gray-800">
+            Gerenciamento de Equipes
           </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          className="bg-gray-700 p-4 rounded-md"
-          onPress={cadastrarEquipe}
-        >
-          <Text className="text-center text-white font-bold">
-            Cadastrar Equipe
-          </Text>
-        </TouchableOpacity>
-
-        {/* Listagem de Colaboradores Adicionados */}
-        <FlatList
-          data={colaboradores}
-          renderItem={({ item }) => (
-            <Text className="text-gray-600">
-              {item.nome} - {item.especialidade} -{" "}
-              {item.disponibilidade ? "Disponível" : "Indisponível"}
+          {/* Formulário para Cadastrar Equipe */}
+          <View className="my-6 p-4 border rounded-lg bg-white shadow-md">
+            <Text className="text-xl font-bold mb-2 text-gray-800">
+              Cadastrar Nova Equipe
             </Text>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          className="mt-4"
-        />
-      </View>
 
-      {teams.map((team) => (
+            <TextInput
+              value={nomeEquipe}
+              onChangeText={setNomeEquipe}
+              placeholder="Nome da Equipe"
+              className="border border-gray-300 rounded-md p-2 mb-4"
+              placeholderTextColor="gray"
+            />
+
+            <TextInput
+              value={nomeColaborador}
+              onChangeText={setNomeColaborador}
+              placeholder="Nome do Colaborador"
+              className="border border-gray-300 rounded-md p-2 mb-4"
+              placeholderTextColor="gray"
+            />
+
+            <TextInput
+              value={especialidadeColaborador}
+              onChangeText={setEspecialidadeColaborador}
+              placeholder="Especialidade do Colaborador"
+              className="border border-gray-300 rounded-md p-2 mb-4"
+              placeholderTextColor="gray"
+            />
+
+            <View className="flex-row items-center mb-4">
+              <Text className="text-gray-800 mr-2">Disponível:</Text>
+              <Switch
+                value={disponibilidadeColaborador}
+                onValueChange={setDisponibilidadeColaborador}
+              />
+            </View>
+
+            <TouchableOpacity
+              className="bg-gray-700 p-4 rounded-md mb-4"
+              onPress={addColaborador}
+            >
+              <Text className="text-center text-white font-bold">
+                Adicionar Colaborador
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              className="bg-gray-700 p-4 rounded-md"
+              onPress={cadastrarEquipe}
+            >
+              <Text className="text-center text-white font-bold">
+                Cadastrar Equipe
+              </Text>
+            </TouchableOpacity>
+
+            {/* Listagem de Colaboradores Adicionados */}
+            <FlatList
+              data={colaboradores}
+              renderItem={({ item }) => (
+                <Text className="text-gray-600">
+                  {item.nome} - {item.especialidade} -{" "}
+                  {item.disponibilidade ? "Disponível" : "Indisponível"}
+                </Text>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              className="mt-4"
+            />
+          </View>
+        </View>
+      )}
+      renderItem={({ item: team }) => (
         <View
           key={team.id}
           className="my-4 p-4 border rounded-lg bg-white shadow-md"
@@ -181,7 +184,8 @@ export default function TeamManagement() {
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
-      ))}
-    </ScrollView>
+      )}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 }
