@@ -54,10 +54,12 @@ export default function Login() {
               secureTextEntry={!showPassword}
             />
             <TouchableOpacity
-              className="absolute right-3 top-3"
+              className="absolute right-3 top-3 flex justify-center" // Adicionando flex para centralizar
               onPress={() => setShowPassword(!showPassword)}
+              style={{ width: 60 }} // Definindo uma largura fixa para o botão
             >
-              <Text className="text-gray-800">
+              <Text className="text-gray-800 text-center my-2">
+                {/* Centralizando o texto */}
                 {showPassword ? "Ocultar" : "Mostrar"}
               </Text>
             </TouchableOpacity>
@@ -81,7 +83,7 @@ export default function Login() {
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push("/register")}>
+            <TouchableOpacity onPress={() => alert("Redirecionar para página de registro")}>
               <View className="flex-row items-center">
                 <Ionicons name="person-add-outline" size={20} color="gray" />
                 <Text className="text-gray-800 underline ml-1">
