@@ -33,7 +33,8 @@ export default function HistoricoManutencao() {
       equipe: "Equipe B",
       data: "02/08/2024",
       comentario: "",
-      imagem: "https://via.placeholder.com/100",
+      imagem:
+        "https://res.cloudinary.com/dwzoumrho/image/upload/f_auto,q_auto:good/v1602780695/M%C3%A1quina-de-Troca-de-%C3%93leo-de-C%C3%A2mbio-Autom%C3%A1tico-2_vhllzr.png",
     },
     {
       id: 2,
@@ -45,7 +46,8 @@ export default function HistoricoManutencao() {
       equipe: "Equipe A",
       data: "10/09/2024",
       comentario: "",
-      imagem: "https://via.placeholder.com/100",
+      imagem:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGj0cPzZA3VR3M_CIlByn5I8qc_rbQOKn3rg&s",
     },
   ]);
 

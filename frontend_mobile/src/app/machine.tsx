@@ -11,7 +11,8 @@ export default function MachineDetails() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
-      imagem: "https://via.placeholder.com/150",
+      imagem:
+        "https://evanplast.com.br/wp-content/uploads/2020/11/injetora-de-plastico-768x451.png",
       manutencoes: [
         { data: "10/02/2024", descricao: "Troca de óleo" },
         { data: "12/05/2024", descricao: "Substituição de correias" },
@@ -20,12 +21,13 @@ export default function MachineDetails() {
     },
     {
       nome: "Máquina Y",
-      tipo: "Comercial",
+      tipo: "Industrial",
       modelo: 2023,
       data_fabricacao: "12/06/2023",
       num_serie: "SN987654321",
       localizacao: "Fábrica 2 - Setor A",
-      imagem: "https://via.placeholder.com/150",
+      imagem:
+        "https://metalurgicatresj.com.br/wp-content/uploads/2024/07/maquina1.png",
       manutencoes: [
         { data: "20/01/2024", descricao: "Reparação do motor elétrico" },
         { data: "15/03/2024", descricao: "Substituição de bateria" },
