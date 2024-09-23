@@ -89,6 +89,14 @@ export default function HistoricoManutencao() {
     setComentario(""); // Limpa o campo de comentário após marcar
   };
 
+  const finalizarManutencao = (id: number) => {
+    setManutencoes((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, status: "Finalizada" } : item
+      )
+    );
+  };
+
   return (
     <FlatList
       data={manutencoes}
@@ -183,9 +191,21 @@ export default function HistoricoManutencao() {
               </TouchableOpacity>
             </View>
           )}
+
+          {item.status === "Em Andamento" && (
+            <TouchableOpacity
+              className="bg-gray-600 p-2 rounded-md mt-4"
+              onPress={() => finalizarManutencao(item.id)}
+            >
+              <Text className="text-center text-white font-bold">
+                Finalizar Manutenção
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       )}
       keyExtractor={(item) => item.id.toString()}
     />
   );
 }
+
