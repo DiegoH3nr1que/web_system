@@ -23,7 +23,6 @@ type Equipe = {
 };
 
 export default function TeamManagement() {
-  // Dados mockados para equipes e colaboradores
   const [teams, setTeams] = useState<Equipe[]>([
     {
       id: 1,
@@ -43,12 +42,11 @@ export default function TeamManagement() {
     },
   ]);
 
-  // Estado para os novos dados da equipe
   const [nomeEquipe, setNomeEquipe] = useState("");
   const [nomeColaborador, setNomeColaborador] = useState("");
   const [especialidadeColaborador, setEspecialidadeColaborador] = useState("");
   const [disponibilidadeColaborador, setDisponibilidadeColaborador] =
-    useState<boolean>(true); // Inicializando como true
+    useState<boolean>(true);
   const [colaboradores, setColaboradores] = useState<Colaborador[]>([]);
 
   const addColaborador = () => {
@@ -83,14 +81,13 @@ export default function TeamManagement() {
     <FlatList
       data={teams}
       ListHeaderComponent={() => (
-        <View className="p-4 my-8">
-          <Text className="text-2xl font-bold mb-4 text-center text-gray-800">
+        <View className="p-4 my-4">
+          <Text className="text-xl font-bold mb-2 text-center text-gray-800">
             Gerenciamento de Equipes
           </Text>
 
-          {/* Formulário para Cadastrar Equipe */}
-          <View className="my-6 p-4 border rounded-lg bg-white shadow-md">
-            <Text className="text-xl font-bold mb-2 text-gray-800">
+          <View className="my-4 p-4 border rounded-lg bg-white shadow-md">
+            <Text className="text-lg font-bold mb-2 text-gray-800">
               Cadastrar Nova Equipe
             </Text>
 
@@ -98,7 +95,7 @@ export default function TeamManagement() {
               value={nomeEquipe}
               onChangeText={setNomeEquipe}
               placeholder="Nome da Equipe"
-              className="border border-gray-300 rounded-md p-2 mb-4"
+              className="border border-gray-300 rounded-md p-2 mb-3"
               placeholderTextColor="gray"
             />
 
@@ -106,7 +103,7 @@ export default function TeamManagement() {
               value={nomeColaborador}
               onChangeText={setNomeColaborador}
               placeholder="Nome do Colaborador"
-              className="border border-gray-300 rounded-md p-2 mb-4"
+              className="border border-gray-300 rounded-md p-2 mb-3"
               placeholderTextColor="gray"
             />
 
@@ -114,11 +111,11 @@ export default function TeamManagement() {
               value={especialidadeColaborador}
               onChangeText={setEspecialidadeColaborador}
               placeholder="Especialidade do Colaborador"
-              className="border border-gray-300 rounded-md p-2 mb-4"
+              className="border border-gray-300 rounded-md p-2 mb-3"
               placeholderTextColor="gray"
             />
 
-            <View className="flex-row items-center mb-4">
+            <View className="flex-row items-center mb-3">
               <Text className="text-gray-800 mr-2">Disponível:</Text>
               <Switch
                 value={disponibilidadeColaborador}
@@ -127,7 +124,7 @@ export default function TeamManagement() {
             </View>
 
             <TouchableOpacity
-              className="bg-gray-700 p-4 rounded-md mb-4"
+              className="bg-gray-700 p-3 rounded-md mb-3"
               onPress={addColaborador}
             >
               <Text className="text-center text-white font-bold">
@@ -136,7 +133,7 @@ export default function TeamManagement() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="bg-gray-700 p-4 rounded-md"
+              className="bg-gray-700 p-3 rounded-md"
               onPress={cadastrarEquipe}
             >
               <Text className="text-center text-white font-bold">
@@ -144,17 +141,16 @@ export default function TeamManagement() {
               </Text>
             </TouchableOpacity>
 
-            {/* Listagem de Colaboradores Adicionados */}
             <FlatList
               data={colaboradores}
               renderItem={({ item }) => (
-                <Text className="text-gray-600">
+                <Text className="text-gray-600 text-sm">
                   {item.nome} - {item.especialidade} -{" "}
                   {item.disponibilidade ? "Disponível" : "Indisponível"}
                 </Text>
               )}
               keyExtractor={(item, index) => index.toString()}
-              className="mt-4"
+              className="mt-2"
             />
           </View>
         </View>
@@ -162,20 +158,20 @@ export default function TeamManagement() {
       renderItem={({ item: team }) => (
         <View
           key={team.id}
-          className="my-4 p-4 border rounded-lg bg-white shadow-md"
+          className="my-2 p-3 border rounded-lg bg-white shadow-md"
+          style={{ marginHorizontal: 16 }} // Adicionando margin horizontal
         >
-          <Text className="text-xl font-bold text-gray-800">{team.nome}</Text>
+          <Text className="text-lg font-bold text-gray-800">{team.nome}</Text>
           <FlatList
             data={team.colaboradores}
             renderItem={({ item }) => (
-              <View className="flex flex-row justify-between mb-2">
-                <Text className="text-gray-600">
+              <View className="flex flex-row justify-between mb-1">
+                <Text className="text-gray-600 text-sm">
                   {item.nome} - {item.especialidade}
                 </Text>
                 <Text
-                  className={`font-bold ${
-                    item.disponibilidade ? "text-green-500" : "text-red-500"
-                  }`}
+                  className={`font-bold text-sm ${item.disponibilidade ? "text-green-500" : "text-red-500"
+                    }`}
                 >
                   {item.disponibilidade ? "Disponível" : "Indisponível"}
                 </Text>
@@ -186,6 +182,7 @@ export default function TeamManagement() {
         </View>
       )}
       keyExtractor={(item) => item.id.toString()}
+      contentContainerStyle={{ paddingHorizontal: 10 }}
     />
   );
 }

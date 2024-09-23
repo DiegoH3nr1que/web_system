@@ -60,12 +60,14 @@ const PecasPage = () => {
       <View className="mb-4">
         <TextInput
           placeholder="Nome"
+          placeholderTextColor="gray"
           value={nome}
           onChangeText={setNome}
           className="border p-2 mb-2"
         />
         <TextInput
           placeholder="Entradas"
+          placeholderTextColor="gray"
           value={entrada}
           onChangeText={setEntrada}
           keyboardType="numeric"
@@ -73,6 +75,7 @@ const PecasPage = () => {
         />
         <TextInput
           placeholder="Saídas"
+          placeholderTextColor="gray"
           value={saida}
           onChangeText={setSaida}
           keyboardType="numeric"
@@ -80,12 +83,14 @@ const PecasPage = () => {
         />
         <TextInput
           placeholder="Data (DD/MM/AAAA)"
+          placeholderTextColor="gray"
           value={data}
           onChangeText={setData}
           className="border p-2 mb-2"
         />
         <TextInput
           placeholder="Quantidade"
+          placeholderTextColor="gray"
           value={quantidade}
           onChangeText={setQuantidade}
           keyboardType="numeric"
@@ -93,6 +98,7 @@ const PecasPage = () => {
         />
         <TextInput
           placeholder="Estoque"
+          placeholderTextColor="gray"
           value={estoque}
           onChangeText={setEstoque}
           keyboardType="numeric"

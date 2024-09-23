@@ -38,7 +38,8 @@ export default function Login() {
             <Ionicons name="person-outline" size={24} color="gray" />
             <TextInput
               className="bg-gray-100 border border-gray-300 p-4 rounded-md flex-1 ml-2 text-black"
-              placeholder="Digite seu nome de usuário"
+              placeholder="Digite nome de usuário"
+              placeholderTextColor="gray"
               value={username}
               onChangeText={setUsername}
             />
@@ -50,6 +51,7 @@ export default function Login() {
               className="bg-gray-100 border border-gray-300 p-4 rounded-md flex-1 ml-2"
               placeholder="Digite sua senha"
               value={password}
+              placeholderTextColor="gray"
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
             />
