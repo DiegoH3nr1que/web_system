@@ -5,6 +5,7 @@ import {
   TextInput,
   FlatList,
   Image,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ type Manutencao = {
   equipe: string;
   data: string;
   comentario?: string; // Campo opcional para comentários
+  materiais?: string; // Materiais utilizados na manutenção
   imagem: string; // URL da imagem da manutenção
 };
 
@@ -33,6 +35,7 @@ export default function HistoricoManutencao() {
       equipe: "Equipe B",
       data: "02/08/2024",
       comentario: "",
+      materiais: "",
       imagem:
         "https://res.cloudinary.com/dwzoumrho/image/upload/f_auto,q_auto:good/v1602780695/M%C3%A1quina-de-Troca-de-%C3%93leo-de-C%C3%A2mbio-Autom%C3%A1tico-2_vhllzr.png",
     },
@@ -46,6 +49,7 @@ export default function HistoricoManutencao() {
       equipe: "Equipe A",
       data: "10/09/2024",
       comentario: "",
+      materiais: "",
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGj0cPzZA3VR3M_CIlByn5I8qc_rbQOKn3rg&s",
     },
@@ -57,6 +61,7 @@ export default function HistoricoManutencao() {
   const [responsavel, setResponsavel] = useState("");
   const [equipe, setEquipe] = useState("");
   const [comentario, setComentario] = useState("");
+  const [materiais, setMateriais] = useState("");
 
   const adicionarManutencao = () => {
     if (descricao && razao && responsavel) {
@@ -70,6 +75,7 @@ export default function HistoricoManutencao() {
         equipe,
         data: new Date().toLocaleDateString(),
         comentario: "",
+        materiais: "",
         imagem: "https://via.placeholder.com/100",
       };
       setManutencoes([...manutencoes, novaManutencao]);
@@ -90,11 +96,27 @@ export default function HistoricoManutencao() {
   };
 
   const finalizarManutencao = (id: number) => {
+    const manutencao = manutencoes.find((item) => item.id === id);
+    // Verificar se o comentário e materiais foram preenchidos
+    if (!comentario || !materiais) {
+      Alert.alert(
+        "Erro",
+        "Por favor, preencha o comentário e os materiais utilizados antes de finalizar a manutenção."
+      );
+      return;
+    }
+
     setManutencoes((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, status: "Finalizada" } : item
+        item.id === id
+          ? { ...item, status: "Finalizada", comentario, materiais }
+          : item
       )
     );
+
+    // Limpar campos após finalizar
+    setComentario("");
+    setMateriais("");
   };
 
   return (
@@ -193,14 +215,58 @@ export default function HistoricoManutencao() {
           )}
 
           {item.status === "Em Andamento" && (
-            <TouchableOpacity
-              className="bg-gray-600 p-2 rounded-md mt-4"
-              onPress={() => finalizarManutencao(item.id)}
-            >
-              <Text className="text-center text-white font-bold">
-                Finalizar Manutenção
+            <View style={{ marginTop: 20 }}>
+              <TextInput
+                value={comentario}
+                onChangeText={setComentario}
+                placeholder="Comentário sobre a manutenção"
+                className="border border-gray-300 rounded-md p-2 mb-4"
+                placeholderTextColor="gray"
+              />
+              <TextInput
+                value={materiais}
+                onChangeText={setMateriais}
+                placeholder="Materiais utilizados"
+                className="border border-gray-300 rounded-md p-2 mb-4"
+                placeholderTextColor="gray"
+              />
+              <TouchableOpacity
+                className="bg-green-600 p-2 rounded-md"
+                onPress={() => finalizarManutencao(item.id)}
+              >
+                <Text className="text-center text-white font-bold">
+                  Finalizar Manutenção
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {/* Exibir comentário e materiais após finalização */}
+          {item.status === "Finalizada" && (
+            <View style={{ marginTop: 20 }}>
+              <View
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: "gray",
+                  marginBottom: 10,
+                }}
+              />
+              <Text className="text-gray-600 font-bold">Comentário:</Text>
+              <Text className="text-gray-600">{item.comentario}</Text>
+
+              <View
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: "gray",
+                  marginVertical: 10,
+                }}
+              />
+
+              <Text className="text-gray-600 font-bold">
+                Materiais Utilizados:
               </Text>
-            </TouchableOpacity>
+              <Text className="text-gray-600">{item.materiais}</Text>
+            </View>
           )}
         </View>
       )}
@@ -208,4 +274,3 @@ export default function HistoricoManutencao() {
     />
   );
 }
-
