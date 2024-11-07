@@ -1,23 +1,31 @@
 "use client";
+"use client";
+import { useState } from "react";
 import { Aside } from "@/app/components/aside";
 import { Footer } from "@/app/components/footer";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEllipsisH } from "react-icons/fa";
 import Table from "@/app/components/table";
 import { CustomDialog } from "@/app/components/dialog";
 import ProtectedRoute from "@/app/components/protectedRouter";
 import { RealTimeClock } from "@/app/components/realTimeClock";
+import ImageUpload from "@/app/components/upload_image";
 
 export default function MaquinasPage() {
+  const [ selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedMachine, setSelectedMachine] = useState<any>(null);
+
+  const handleImageUpload = (file: File | null) => {
+    setSelectedImage(file);
+  };
+
   const columns = [
     { header: "Nome", accessor: "nome" },
     { header: "Tipo", accessor: "tipo" },
     { header: "Modelo", accessor: "modelo" },
     { header: "Data fabricação", accessor: "data_fabricacao" },
-    {
-      header: "Número Série",
-      accessor: "num_serie",
-    },
-    { header: "Localização ", accessor: "localizacao" },
+    { header: "Número Série", accessor: "num_serie" },
+    { header: "Localização", accessor: "localizacao" },
+    { header: "", accessor: "info" },
   ];
 
   const data = [
@@ -28,6 +36,18 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
+      editar: <FaEdit />,
+      deletar: <FaTrash />,
+    },    
+    {
+      nome: "Máquina X",
+      tipo: "Industrial",
+      modelo: 2024,
+      data_fabricacao: "03/01/2024",
+      num_serie: "SN123456789",
+      localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -38,6 +58,7 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -48,6 +69,7 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -58,6 +80,7 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -68,6 +91,7 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -78,6 +102,7 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
@@ -88,14 +113,32 @@ export default function MaquinasPage() {
       data_fabricacao: "03/01/2024",
       num_serie: "SN123456789",
       localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
       editar: <FaEdit />,
       deletar: <FaTrash />,
     },
-  ];
-
-  const TypeOptions = [
-    { value: "maquina", label: "Máquina" },
-    { value: "peca", label: "Peça" },
+    {
+      nome: "Máquina X",
+      tipo: "Industrial",
+      modelo: 2024,
+      data_fabricacao: "03/01/2024",
+      num_serie: "SN123456789",
+      localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
+      editar: <FaEdit />,
+      deletar: <FaTrash />,
+    },
+    {
+      nome: "Máquina X",
+      tipo: "Industrial",
+      modelo: 2024,
+      data_fabricacao: "03/01/2024",
+      num_serie: "SN123456789",
+      localizacao: "Fábrica 1 - Setor B",
+      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
+      editar: <FaEdit />,
+      deletar: <FaTrash />,
+    },
   ];
 
   return (
@@ -124,16 +167,8 @@ export default function MaquinasPage() {
                     description="Insira todos os campos corretamente!"
                     fields={[
                       { id: "nome", label: "Nome", type: "text" },
-                      {
-                        id: "tipo",
-                        label: "Tipo",
-                        type: "Text",
-                      },
-                      {
-                        id: "modelo",
-                        label: "Modelo",
-                        type: "number",
-                      },
+                      { id: "tipo", label: "Tipo", type: "Text" },
+                      { id: "modelo", label: "Modelo", type: "number" },
                       {
                         id: "data_fabricacao",
                         label: "Data fabricação",
@@ -142,14 +177,13 @@ export default function MaquinasPage() {
                       {
                         id: "num_serie",
                         label: "Número de Série",
-                        type: "Date",
+                        type: "text",
                       },
-                      {
-                        id: "localizacao",
-                        label: "Localização",
-                        type: "Date",
-                      },
+                      { id: "localizacao", label: "Localização", type: "text" },
                     ]}
+                    extraContent={
+                      <ImageUpload onImageUpload={handleImageUpload} />
+                    }
                   />
                 </div>
                 <div className="max-h-96 overflow-y-auto">
@@ -159,22 +193,55 @@ export default function MaquinasPage() {
                     actions={(item) => (
                       <div className="flex space-x-2">
                         <CustomDialog
+                          triggerLabel={<FaEllipsisH className="cursor-pointer" />}
+                          title="Detalhes da Máquina"
+                          description="Informações detalhadas da máquina selecionada"
+                          TypeButton="Fechar"
+                          fields={[]}
+                          extraContent={
+                            <div className="flex flex-col items-center">
+                              {selectedImage && (
+                                <img
+                                  src={
+                                    selectedImage
+                                      ? URL.createObjectURL(selectedImage)
+                                      : ""
+                                  }
+                                  alt="Imagem da Máquina"
+                                  className="w-48 h-48 object-cover mb-4"
+                                />
+                              )}
+                              <p>
+                                <strong>Nome:</strong> Máquina X
+                              </p>
+                              <p>
+                                <strong>Tipo:</strong> Industrial
+                              </p>
+                              <p>
+                                <strong>Modelo:</strong> 2024
+                              </p>
+                              <p>
+                                <strong>Data de Fabricação:</strong> 03/01/2024
+                              </p>
+                              <p>
+                                <strong>Número de Série:</strong> SN123456789
+                              </p>
+                              <p>
+                                <strong>Localização:</strong> Fábrica 1 - Setor
+                                B
+                              </p>
+                            </div>
+                          }
+                        />
+                        <CustomDialog
                           triggerLabel={<FaEdit />}
                           title="Editar Máquinas"
                           TypeButton="Editar"
                           description="Insira todos os campos corretamente!"
                           fields={[
                             { id: "nome", label: "Nome", type: "text" },
-                            {
-                              id: "tipo",
-                              label: "Tipo",
-                              type: "Text",
-                            },
-                            {
-                              id: "modelo",
-                              label: "Modelo",
-                              type: "number",
-                            },
+                            { id: "tipo", label: "Tipo", type: "Text" },
+                            { id: "modelo", label: "Modelo", type: "number" },
                             {
                               id: "data_fabricacao",
                               label: "Data fabricação",
@@ -183,7 +250,7 @@ export default function MaquinasPage() {
                             {
                               id: "num_serie",
                               label: "Número de Série",
-                              type: "number",
+                              type: "int",
                             },
                             {
                               id: "localizacao",
@@ -191,10 +258,10 @@ export default function MaquinasPage() {
                               type: "text",
                             },
                           ]}
-                        />{" "}
+                        />
                         <CustomDialog
                           triggerLabel={<FaTrash />}
-                          title="Deletar Máquina "
+                          title="Deletar Máquina"
                           TypeButton="Deletar"
                           description=""
                         />

@@ -21,6 +21,7 @@ export function NavBar() {
       ]
     },
     { target: "/manutencoes", text: "Manutenções", icon: <FaTools /> },
+    { target: "/relatorios", text: "Relatórios", icon: <FaBuilding /> },
     { target: "/usuarios", text: "Usuários", icon: <FaUsers /> },
   ];
 

@@ -12,28 +12,24 @@ import {
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
-const pecasData = [
-  { nome: "Peça X", estoque: 50, fill: "hsl(var(--chart-1))" },
-  { nome: "Peça Y", estoque: 100, fill: "hsl(var(--chart-2))" },
-];
-
-const chartConfig = {
-  estoque: {
-    label: "Estoque",
-  },
-  "Peça X": {
-    label: "Máquina X",
-    color: "hsl(var(--chart-1))",
-  },
-  "Peça Y": {
-    label: "Máquina Y",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
+interface ChartDataItem {
+  nome: string;
+  valor: number;
+  fill: string;
+}
 
 interface CustomTooltipProps {
   active?: boolean;
   payload?: any;
+}
+
+interface CustomPieChartProps {
+  data: ChartDataItem[];
+  dataKey: string;
+  nameKey: string;
+  title: string;
+  description: string;
+  config?: ChartConfig; // Nova prop opcional para configurar o gráfico
 }
 
 const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
@@ -42,7 +38,7 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
       <div className="bg-white p-2 shadow-lg rounded-md text-sm text-black">
         <p className="mb-1">{payload[0].name}</p>
         <p>
-          <span className="font-semibold">{chartConfig.estoque.label}</span>
+          <span className="font-semibold">Quantidade:</span>
           <span className="ml-2">{payload[0].value}</span>
         </p>
       </div>
@@ -51,27 +47,34 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   return null;
 };
 
-export function PecasEstoquePieChart() {
-  const totalEstoque = React.useMemo(() => {
-    return pecasData.reduce((acc, curr) => acc + curr.estoque, 0);
-  }, []);
+export function CustomPieChart({
+  data,
+  dataKey,
+  nameKey,
+  title,
+  description,
+  config = {},
+}: CustomPieChartProps) {
+  const totalValue = React.useMemo(() => {
+    return data.reduce((acc, curr) => acc + curr.valor, 0);
+  }, [data]);
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Estoque de Peças</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
-          config={chartConfig}
+          config={config}
           className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
             <Tooltip content={<CustomTooltip />} />
             <Pie
-              data={pecasData}
-              dataKey="estoque"
-              nameKey="nome"
+              data={data}
+              dataKey={dataKey}
+              nameKey={nameKey}
               innerRadius={60}
               strokeWidth={5}
             >
@@ -90,14 +93,14 @@ export function PecasEstoquePieChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalEstoque.toLocaleString()}
+                          {totalValue.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Estoque Total
+                          Total
                         </tspan>
                       </text>
                     );
@@ -110,10 +113,7 @@ export function PecasEstoquePieChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Estoque atualizado
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Mostrando o total de estoque para as peças cadastradas.
+          {description}
         </div>
       </CardFooter>
     </Card>

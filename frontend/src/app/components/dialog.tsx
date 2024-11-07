@@ -32,6 +32,7 @@ interface DialogProps {
     options?: { value: string; label: string }[];
     required?: boolean;
   }[];
+  extraContent?: ReactElement;
 }
 
 export function CustomDialog({
@@ -40,6 +41,7 @@ export function CustomDialog({
   description,
   TypeButton,
   fields,
+  extraContent,
 }: DialogProps) {
   return (
     <Dialog>
@@ -93,6 +95,7 @@ export function CustomDialog({
               ))}
             </div>
           )}
+          {extraContent && <div className="py-4">{extraContent}</div>}
           <DialogFooter>
             <Button type="submit">{TypeButton}</Button>
           </DialogFooter>

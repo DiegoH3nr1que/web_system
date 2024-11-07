@@ -6,9 +6,16 @@ import Table from "@/app/components/table";
 import { CustomDialog } from "@/app/components/dialog";
 import ProtectedRoute from "@/app/components/protectedRouter";
 import { RealTimeClock } from "@/app/components/realTimeClock";
-import { PecasEstoquePieChart } from "@/app/components/pieChart";
+import { CustomPieChart } from "@/app/components/pieChart";
 
 export default function PecasPage() {
+  const pecasData = [
+    { nome: "Peça X", valor: 50, fill: "hsl(var(--chart-1))" },
+    { nome: "Peça Y", valor: 100, fill: "hsl(var(--chart-2))" },
+  ];
+
+
+
   const columns = [
     { header: "Nome", accessor: "nome" },
     { header: "Entradas", accessor: "entrada" },
@@ -240,7 +247,13 @@ export default function PecasPage() {
               </div>
             </div>
             <div className="flex justify-center my-6">
-              <PecasEstoquePieChart />
+              <CustomPieChart
+                data={pecasData}
+                dataKey="valor"
+                nameKey="nome"
+                title="Estoque de Peças"
+                description="Mostrando o total de peças em estoque"
+              />
             </div>
           </main>
         </div>
