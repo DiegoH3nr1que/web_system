@@ -76,22 +76,24 @@ export default function RelatoriosDesempenhoPage() {
                 </p>
               </div>
             </section>
-            <CustomPieChart
-              data={pecasData}
-              dataKey="valor"
-              nameKey="nome"
-              title="Estoque de Peças"
-              description="Mostrando o total de peças em estoque"
-            />
-            <CustomPieChart
-              data={ManutencoesData}
-              dataKey="valor"
-              nameKey="nome"
-              title="Manutenções por máquina"
-              description="Mostrando as manutenções por máquina e total"
-            />
-
-            <section className="mt-6"></section>
+            <section className="mt-6">
+              <div className="flex justify-center my-6 gap-5">
+                <CustomPieChart
+                  data={pecasData}
+                  dataKey="valor"
+                  nameKey="nome"
+                  title="Estoque de Peças"
+                  description="Mostrando o total de peças em estoque"
+                />
+                <CustomPieChart
+                  data={ManutencoesData}
+                  dataKey="valor"
+                  nameKey="nome"
+                  title="Manutenções por máquina"
+                  description="Mostrando as manutenções por máquina e total"
+                />
+              </div>
+            </section>
           </main>
         </div>
         <Footer />
