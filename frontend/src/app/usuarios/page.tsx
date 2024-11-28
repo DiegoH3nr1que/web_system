@@ -11,6 +11,7 @@ import { UserDialog } from "../components/user_dialog";
 interface User {
   id: number;
   username: string;
+  email:string;
   role: string;
 }
 
@@ -44,6 +45,7 @@ export default function UserPage() {
   const handleCreateUser = async (userData: {
     username: string;
     password: string;
+    email?: string;
     role: string;
   }) => {
     try {
@@ -82,6 +84,7 @@ export default function UserPage() {
   const columns = [
     { header: "Username", accessor: "username" },
     { header: "Role", accessor: "role" },
+    { header: "Email", accessor: "email" },
   ];
 
   return (
@@ -127,6 +130,7 @@ export default function UserPage() {
                             title="Editar Usuário"
                             user={{
                               username: item.username,
+                              email: item.email,
                               role: item.role,
                             }}
                             onSubmit={(updatedData) =>

@@ -21,14 +21,15 @@ import { Button } from "@/components/ui/button";
 interface UserDialogProps {
     triggerLabel: string | React.ReactElement;
     title: string;
-    user?: { username: string; role: string }; // Passado apenas para edição
-    onSubmit: (data: { username: string; password: string; role: string }) => void;
+    user?: { username: string; role: string, email: string }; // Passado apenas para edição
+    onSubmit: (data: { username: string; password: string; email?: string; role: string }) => void;
   }
   
 
 export function UserDialog({ triggerLabel, title, user, onSubmit }: UserDialogProps) {
   const [username, setUsername] = useState(user?.username || "");
   const [password, setPassword] = useState(""); // Sempre exigido para criação
+  const [email, setEmail] = useState(""); // Sempre exigido para criação
   const [role, setRole] = useState(user?.role || "user");
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -39,7 +40,7 @@ export function UserDialog({ triggerLabel, title, user, onSubmit }: UserDialogPr
       onSubmit({ username,password, role });
     } else {
       // Para criação, senha é obrigatória
-      onSubmit({ username, password, role });
+      onSubmit({ username, password, email, role });
     }
   };
 
@@ -71,6 +72,18 @@ export function UserDialog({ triggerLabel, title, user, onSubmit }: UserDialogPr
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+            {!user && ( // Exibe o campo de email para criação
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
