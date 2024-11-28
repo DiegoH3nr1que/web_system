@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from app.database import Base, engine
 from app.routers import machines, maintenances, inventory, users
 from app import auth
-
+from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
 
@@ -14,6 +14,18 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",  
     redoc_url="/redoc" 
+)
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"], 
+    allow_headers=["*"], 
 )
 
 
