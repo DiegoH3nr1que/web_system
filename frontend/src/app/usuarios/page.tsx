@@ -11,7 +11,7 @@ import { UserDialog } from "../components/user_dialog";
 interface User {
   id: number;
   username: string;
-  email:string;
+  email: string;
   role: string;
 }
 
@@ -45,7 +45,7 @@ export default function UserPage() {
   const handleCreateUser = async (userData: {
     username: string;
     password: string;
-    email?: string;
+    email: string;
     role: string;
   }) => {
     try {
@@ -58,13 +58,18 @@ export default function UserPage() {
 
   // Lidar com a edição de usuários
   const handleEditUser = async (
-    userId: number,
-    updatedData: { username: string; role: string }
+    user_id: number,
+    updatedData: {
+      username: string;
+      password: string;
+      email: string;
+      role: string;
+    }
   ) => {
     try {
-      const response = await api.put(`/users/${userId}`, updatedData);
+      const response = await api.put(`/users/${user_id}`, updatedData);
       setUsers((prevUsers) =>
-        prevUsers.map((user) => (user.id === userId ? response.data : user))
+        prevUsers.map((user) => (user.id === user_id ? response.data : user))
       );
     } catch (err: any) {
       alert(err.message || "Erro ao editar usuário.");
@@ -72,10 +77,10 @@ export default function UserPage() {
   };
 
   // Lidar com a exclusão de usuários
-  const handleDeleteUser = async (userId: number) => {
+  const handleDeleteUser = async (user_id: number) => {
     try {
-      await api.delete(`/users/${userId}`);
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+      await api.delete(`/users/${user_id}`);
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== user_id));
     } catch (err: any) {
       alert(err.message || "Erro ao excluir usuário.");
     }
@@ -124,15 +129,8 @@ export default function UserPage() {
                       actions={(item) => (
                         <div className="flex justify-center items-center gap-4">
                           <UserDialog
-                            triggerLabel={
-                              <FaEdit />
-                            }
+                            triggerLabel={<FaEdit />}
                             title="Editar Usuário"
-                            user={{
-                              username: item.username,
-                              email: item.email,
-                              role: item.role,
-                            }}
                             onSubmit={(updatedData) =>
                               handleEditUser(item.id, updatedData)
                             }

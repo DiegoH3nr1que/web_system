@@ -21,8 +21,8 @@ import { Button } from "@/components/ui/button";
 interface UserDialogProps {
     triggerLabel: string | React.ReactElement;
     title: string;
-    user?: { username: string; role: string, email: string }; // Passado apenas para edição
-    onSubmit: (data: { username: string; password: string; email?: string; role: string }) => void;
+    user?: { username: string; email: string, role: string, password: string }; // Passado apenas para edição
+    onSubmit: (data: { username: string; password: string; email: string; role: string }) => void;
   }
   
 
@@ -37,7 +37,7 @@ export function UserDialog({ triggerLabel, title, user, onSubmit }: UserDialogPr
 
     // Para edição, senha não é enviada
     if (user) {
-      onSubmit({ username,password, role });
+      onSubmit({ username,password, email, role });
     } else {
       // Para criação, senha é obrigatória
       onSubmit({ username, password, email, role });
