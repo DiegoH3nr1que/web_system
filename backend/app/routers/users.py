@@ -15,7 +15,7 @@ def get_password_hash(password):
 @router.post("/register", response_model=UserResponse)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     hashed_password = get_password_hash(user.password)
-    db_user = User(username=user.username, hashed_password=hashed_password, role=user.role)
+    db_user = User(username=user.username, hashed_password=hashed_password, email=user.email,  role=user.role)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
