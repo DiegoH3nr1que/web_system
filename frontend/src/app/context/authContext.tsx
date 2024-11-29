@@ -8,7 +8,7 @@ interface User {
 
 interface AuthContextProps {
   user: User | null;
-  login: (username: string, password: string) => void;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -16,22 +16,42 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [authToken, setAuthToken] = useState<string | null>(null);
   const router = useRouter();
 
-  // Função de login
-  const login = useCallback((username: string, password: string) => {
-    if (username === "admin" && password === "password") {
-      setUser({ username });
-      router.push("/dashboard");
-    } else {
-      console.error("Login failed: incorrect username or password");
-    }
-  }, [router]);
+  const login = useCallback(
+    async (username: string, password: string) => {
+      try {
+        const response = await fetch("http://localhost:8000/auth/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ username, password }),
+        });
 
-  // Função de logout
+        if (!response.ok) {
+          throw new Error("Login failed: invalid credentials");
+        }
+
+        const data = await response.json();
+        setAuthToken(data.access_token);
+        localStorage.setItem("authToken", data.access_token);
+        setUser({ username });
+        router.push("/dashboard");
+      } catch (error) {
+        console.error("Login failed:", error);
+        alert("Login failed. Please check your username and password.");
+      }
+    },
+    [router]
+  );
+
   const logout = useCallback(() => {
-    setUser(null); // Atualiza o estado do usuário
-    router.push("/"); // Navega para a página inicial
+    setUser(null);
+    setAuthToken(null);
+    localStorage.removeItem("authToken");
+    router.push("/");
   }, [router]);
 
   return (
