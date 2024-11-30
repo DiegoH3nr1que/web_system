@@ -99,6 +99,8 @@ export function UserDialog({ triggerLabel, title, user, onSubmit }: UserDialogPr
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="tecnico">Técnico</SelectItem>
+                  <SelectItem value="suporte">Suporte</SelectItem>
                   <SelectItem value="user">User</SelectItem>
                 </SelectContent>
               </Select>
