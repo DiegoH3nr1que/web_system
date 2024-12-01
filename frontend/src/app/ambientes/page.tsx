@@ -1,135 +1,89 @@
 "use client";
+import { useState, useEffect } from "react";
+import api from "@/services/axiosInstance";
 import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
-import { CustomDialog } from "../components/dialog";
+import { EnvironmentDialog } from "../components/environment_dialog";
 import ProtectedRoute from "../components/protectedRouter";
 import { RealTimeClock } from "../components/realTimeClock";
 
+// Interface para os dados do ambiente
+interface Environment {
+  id: number;
+  name: string;
+  type: string;
+  location: string;
+  condition: string;
+  maintenance_team?: string;
+  maintenances_done: number;
+}
+
 export default function AmbientesPage() {
+  const [environments, setEnvironments] = useState<Environment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Buscar ambientes do backend
+  const fetchEnvironments = async () => {
+    try {
+      const response = await api.get<Environment[]>("/environments");
+      setEnvironments(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar ambientes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Criar um novo ambiente
+  const createEnvironment = async (data: Omit<Environment, "id">) => {
+    try {
+      const response = await api.post<Environment>("/environments", data);
+      setEnvironments((prev) => [...prev, response.data]);
+    } catch (error) {
+      console.error("Erro ao criar ambiente:", error);
+    }
+  };
+
+  // Atualizar um ambiente existente
+  const updateEnvironment = async (id: number, data: Partial<Environment>) => {
+    try {
+      const response = await api.put<Environment>(`/environments/${id}`, data);
+      setEnvironments((prev) =>
+        prev.map((env) => (env.id === id ? response.data : env))
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar ambiente:", error);
+    }
+  };
+
+  // Deletar um ambiente
+  const deleteEnvironment = async (id: number) => {
+    try {
+      await api.delete(`/environments/${id}`);
+      setEnvironments((prev) => prev.filter((env) => env.id !== id));
+    } catch (error) {
+      console.error("Erro ao deletar ambiente:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchEnvironments();
+  }, []);
+
   const columns = [
-    { header: "Nome", accessor: "nome" },
-    { header: "Tipo do Ambiente", accessor: "tipo_ambiente" },
-    { header: "Localização", accessor: "localizacao" },
-    { header: "Condição do ambiente", accessor: "condicao_ambiente" },
-    { header: "Equipe de manutenção", accessor: "equipe_manutencao" },
-    { header: "Manutenções Realizadas", accessor: "manutencoes_realizadas" },
+    { header: "Nome", accessor: "name" },
+    { header: "Tipo", accessor: "type" },
+    { header: "Localização", accessor: "location" },
+    { header: "Condição", accessor: "condition" },
+    { header: "Equipe de Manutenção", accessor: "maintenance_team" },
+    { header: "Manutenções Realizadas", accessor: "maintenances_done" },
   ];
 
-  const statusOptions = [
-    { value: "normal", label: "Normal" },
-    { value: "em_manutencao", label: "Em manutenção" },
-    { value: "aguardando_limpeza", label: "Aguardando Limpeza" },
-    { value: "manutencao_cancelada", label: "Manutenção Cancelada" },
-  ];
-
-  const equipeOptions = [
-    { value: "equipe_a", label: "Equipe A" },
-    { value: "equipe_b", label: "Equipe B" },
-    { value: "equipe_c", label: "Equipe C" },
-    { value: "equipe_d", label: "Equipe D" },
-    { value: "equipe_e", label: "Equipe E" },
-  ];
-
-  const data = [
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-    {
-      nome: "Sala de Controle Principal",
-      tipo_ambiente: "Sala automação",
-      localizacao: "Setor A, Ala Norte",
-      condicao_ambiente: "Em manutenção",
-      equipe_manutencao: "Equipe B",
-      manutencoes_realizadas: 4,
-    },
-  ];
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <ProtectedRoute>
@@ -150,67 +104,30 @@ export default function AmbientesPage() {
                   <h1 className="text-2xl font-bold text-foreground">
                     Lista de Ambientes cadastrados
                   </h1>
-                  <CustomDialog
+                  <EnvironmentDialog
                     triggerLabel="Cadastrar Ambiente"
                     title="Cadastrar Ambiente"
-                    TypeButton="Cadastrar"
-                    description="Insira todos os campos corretamente!"
-                    fields={[
-                      { id: "nome", label: "Nome", type: "text" },
-                      {
-                        id: "tipo_ambiente",
-                        label: "Tipo de Ambiente",
-                        type: "text",
-                      },
-                      { id: "localizacao", label: "Localização", type: "text" },
-                      
-                    ]}
+                    onSubmit={createEnvironment}
                   />
                 </div>
                 <div className="max-h-96 overflow-y-auto">
-                  <Table
+                  <Table<Environment>
                     columns={columns}
-                    data={data}
+                    data={environments}
                     actions={(item) => (
                       <div className="flex space-x-2">
-                        <CustomDialog
+                        <EnvironmentDialog
                           triggerLabel={<FaEdit />}
                           title="Editar Ambiente"
-                          TypeButton="Editar"
-                          description="Insira todos os campos corretamente!"
-                          fields={[
-                            { id: "nome", label: "Nome", type: "text" },
-                            {
-                              id: "tipo_ambiente",
-                              label: "Tipo de Ambiente",
-                              type: "text",
-                            },
-                            { id: "localizacao", label: "Localização", type: "text" },
-                            {
-                              id: "condicao_ambiente",
-                              label: "Condição do ambiente",
-                              type: "select",
-                              options: statusOptions,
-                            },
-                            {
-                              id: "equipe_manutencao",
-                              label: "Equipe de Manutenção",
-                              type: "select",
-                              options: equipeOptions,
-                            },
-                            {
-                              id: "manutencoes_realizadas",
-                              label: "Manutençoes Realizadas",
-                              type: "number",
-                            },
-                          ]}
+                          environment={item}
+                          onSubmit={(data) => updateEnvironment(item.id, data)}
                         />
-                        <CustomDialog
-                          triggerLabel={<FaTrash />}
-                          title="Deletar Ambiente "
-                          TypeButton="Deletar"
-                          description=""
-                        />
+                        <button
+                          className="text-red-500"
+                          onClick={() => deleteEnvironment(item.id)}
+                        >
+                          <FaTrash />
+                        </button>
                       </div>
                     )}
                   />
