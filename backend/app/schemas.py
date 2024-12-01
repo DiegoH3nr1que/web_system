@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-
+from typing import List, Optional
 # Máquinas
 class MachineCreate(BaseModel):
     name: str
@@ -64,3 +64,24 @@ class UserResponse(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+
+# Times
+class TeamCreate(BaseModel):
+    team_name: str
+    technical_ids: List[int] 
+
+class TeamUpdate(BaseModel):
+    team_name: Optional[str] = None
+    technical_ids: Optional[List[int]] = None
+
+class TeamResponse(BaseModel):
+    team_id: int
+    team_name: str
+    technical_count: int
+    technical_names: List[str]
+    quant_maintenanc_realized: int
+    quant_maintenanc_finalized: int
+    creation_date: datetime
+    class Config:
+        orm_mode = True

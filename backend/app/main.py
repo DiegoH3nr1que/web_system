@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.security import OAuth2PasswordBearer
 from app.database import Base, engine
-from app.routers import machines, maintenances, inventory, users
+from app.routers import machines, maintenances, inventory, users, teams
 from app import auth
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -36,3 +36,4 @@ app.include_router(maintenances.router)
 app.include_router(inventory.router)
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(teams.router)
