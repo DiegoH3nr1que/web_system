@@ -30,6 +30,27 @@ def create_team(team_data: TeamCreate, db: Session = Depends(get_db)):
 
     return {"message": "Team created successfully", "team_id": new_team.id, "creation_date": new_team.creation_date}
 
+@router.get("/", response_model=list[dict])
+def list_teams(db: Session = Depends(get_db)):
+    # Buscar todos os times no banco de dados
+    teams = db.query(Team).all()
+
+    # Transformar os dados para incluir os nomes dos técnicos
+    result = []
+    for team in teams:
+        technical_names = [user.username for user in team.users]
+        result.append({
+            "team_id": team.id,
+            "team_name": team.team_name,
+            "technical_count": team.technical_count,
+            "technical_names": technical_names,
+            "quant_maintenanc_realized": team.quant_maintenanc_realized,
+            "quant_maintenanc_finalized": team.quant_maintenanc_finalized,
+            "creation_date": team.creation_date,
+        })
+
+    return result
+
 
 @router.get("/{team_id}", response_model=dict)
 def get_team_by_id(team_id: int, db: Session = Depends(get_db)):
