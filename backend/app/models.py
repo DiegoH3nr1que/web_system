@@ -40,11 +40,31 @@ class Part(Base):
     name = Column(String, index=True)
     code = Column(String, unique=True)
     quantity = Column(Integer)
+class Team(Base):
+    __tablename__ = "teams"
+    id = Column(Integer, primary_key=True, index=True)
+    team_name = Column(String, nullable=False, index=True)
+    technical_count = Column(Integer, default=0)
+    creation_date = Column(DateTime, default=datetime.utcnow)
+    quant_maintenanc_realized = Column(Integer, default=0)  
+    quant_maintenanc_finalized = Column(Integer, default=0)  
+
+    # Relacionamento com a tabela User
+    users = relationship("User", secondary="team_users", back_populates="teams")
+
+class TeamUser(Base):
+    __tablename__ = "team_users"
+    team_id = Column(Integer, ForeignKey("teams.id"), primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), primary_key=True)
 
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
+    hashed_password = Column(String, nullable=False)
     email = Column(String, unique=True, index=True)
     role = Column(String, default="user")
+    
+    # Relacionamento com times
+    teams = relationship("Team", secondary="team_users", back_populates="users")
+
