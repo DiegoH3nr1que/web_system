@@ -14,6 +14,16 @@ class Machine(Base):
     manufacture_date = Column(DateTime)
     maintenances = relationship("Maintenance", back_populates="machine")
 
+class Environment(Base):
+    __tablename__ = "environments"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True, nullable=False)
+    type = Column(String, nullable=False)
+    location = Column(String, nullable=False)
+    condition = Column(String, default="normal")
+    maintenance_team = Column(String, nullable=True)
+    maintenances_done = Column(Integer, default=0)
+
 class Maintenance(Base):
     __tablename__ = "maintenances"
     id = Column(Integer, primary_key=True, index=True)
