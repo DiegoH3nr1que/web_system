@@ -22,13 +22,19 @@ def create_team(team_data: TeamCreate, db: Session = Depends(get_db)):
     new_team = Team(
         team_name=team_data.team_name,
         technical_count=len(users),
-        users=users  # Associa os usuários encontrados
+        users=users,  # Associa os usuários encontrados
+        quant_maintenanc_realized=team_data.quant_maintenanc_realized,
+        quant_maintenanc_finalized=team_data.quant_maintenanc_finalized,
     )
     db.add(new_team)
     db.commit()
     db.refresh(new_team)
 
-    return {"message": "Team created successfully", "team_id": new_team.id, "creation_date": new_team.creation_date}
+    return {
+        "message": "Team created successfully",
+        "team_id": new_team.id,
+        "creation_date": new_team.creation_date,
+    }
 
 @router.get("/", response_model=list[dict])
 def list_teams(db: Session = Depends(get_db)):

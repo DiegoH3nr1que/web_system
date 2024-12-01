@@ -65,11 +65,12 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-
 # Times
 class TeamCreate(BaseModel):
     team_name: str
-    technical_ids: List[int] 
+    technical_ids: List[int]
+    quant_maintenanc_realized: int
+    quant_maintenanc_finalized: int
 
 class TeamUpdate(BaseModel):
     team_name: Optional[str] = None
