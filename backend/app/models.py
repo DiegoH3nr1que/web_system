@@ -14,15 +14,15 @@ class Machine(Base):
     manufacture_date = Column(DateTime)
     maintenances = relationship("Maintenance", back_populates="machine")
 
-class environment(Base):
-    __tablename__ = "environment"
+class Environment(Base):
+    __tablename__ = "environments"
     id = Column(Integer, primary_key=True, index=True)
-    nome = Column(String, index=True, nullable=False)
-    tipo_ambiente = Column(String, nullable=False)
-    localizacao = Column(String, nullable=False)
-    condicao_ambiente = Column(String, default="normal")
-    equipe_manutencao = Column(String, nullable=True)
-    manutencoes_realizadas = Column(Integer, default=0)
+    name = Column(String, index=True, nullable=False)
+    type = Column(String, nullable=False)
+    location = Column(String, nullable=False)
+    condition = Column(String, default="normal")
+    maintenance_team = Column(String, nullable=True)
+    maintenances_done = Column(Integer, default=0)
 
 class Maintenance(Base):
     __tablename__ = "maintenances"

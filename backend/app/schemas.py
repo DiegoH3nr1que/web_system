@@ -15,6 +15,34 @@ class MachineResponse(MachineCreate):
     class Config:
         orm_mode = True
 
+class EnvironmentCreate(BaseModel):
+    name: str
+    type: str
+    location: str
+    condition: str = "normal"
+    maintenance_team: str | None = None
+    maintenances_done: int = 0
+
+class EnvironmentUpdate(BaseModel):
+    name: str | None = None
+    type: str | None = None
+    location: str | None = None
+    condition: str | None = None
+    maintenance_team: str | None = None
+    maintenances_done: int | None = None
+
+class EnvironmentResponse(BaseModel):
+    id: int
+    name: str
+    type: str
+    location: str
+    condition: str
+    maintenance_team: str | None
+    maintenances_done: int
+
+    class Config:
+        orm_mode = True
+
 # Manutenções
 class MaintenanceCreate(BaseModel):
     description: str
