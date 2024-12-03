@@ -102,10 +102,12 @@ class TeamCreate(BaseModel):
 
 class TeamUpdate(BaseModel):
     team_name: Optional[str] = None
-    technical_ids: Optional[List[int]] = None
+    technical_ids: Optional[List[int]] = None    
+    quant_maintenanc_realized: int = None
+    quant_maintenanc_finalized: int = None
 
 class TeamResponse(BaseModel):
-    team_id: int
+    id: int
     team_name: str
     technical_count: int
     technical_names: List[str]

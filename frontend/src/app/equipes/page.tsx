@@ -1,95 +1,101 @@
 "use client";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Table from "../components/table";
-import { CustomDialog } from "../components/dialog";
 import ProtectedRoute from "../components/protectedRouter";
 import { RealTimeClock } from "../components/realTimeClock";
+import { TeamDialog } from "../components/team_dialog";
 
-export default function equipesPage() {
+interface Team {
+  id: number;
+  team_name: string;
+  technical_ids: number[];
+  quant_maintenanc_realized: number;
+  quant_maintenanc_finalized: number;
+}
+
+export default function UserPage() {
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const api = axios.create({
+    baseURL: "http://127.0.0.1:8000", // URL base do backend
+    timeout: 5000,
+  });
+
+  // Buscar usuários do backend
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await api.get("/teams/");
+        setTeams(response.data);
+      } catch (err: any) {
+        setError(err.message || "Erro ao carregar equipes.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeams();
+  }, []);
+
+  // Lidar com a criação de novos times
+  const handleCreateTeam = async (teamData: {
+    team_name: string;
+    technical_ids: number[];
+    quant_maintenanc_realized: number;
+    quant_maintenanc_finalized: number;
+  }) => {
+    try {
+      const response = await api.post("/teams/register", teamData);
+      setTeams((prevTeams) => [...prevTeams, response.data]);
+    } catch (err: any) {
+      alert(err.message || "Erro ao criar equipe.");
+    }
+  };
+
+  // Lidar com a edição de times
+  const handleEditTeam = async (
+    team_id: number,
+    updatedData: {
+      team_name: string;
+      technical_ids: number[];
+      quant_maintenanc_realized: number;
+      quant_maintenanc_finalized: number;
+    }
+  ) => {
+    try {
+      const response = await api.put(`/teams/${team_id}`, updatedData);
+      setTeams((prevTeams) =>
+        prevTeams.map((team) => (team.id === team_id ? response.data : team))
+      );
+    } catch (err: any) {
+      alert(err.message || "Erro ao editar equipe.");
+    }
+  };
+
+  // Lidar com a exclusão de usuários
+  const handleDeleteTeam = async (team_id: number) => {
+    try {
+      await api.delete(`/teams/${team_id}`);
+      setTeams((prevTeams) => prevTeams.filter((team) => team.id !== team_id));
+    } catch (err: any) {
+      alert(err.message || "Erro ao excluir equipe.");
+    }
+  };
+
   const columns = [
-    { header: "Equipe", accessor: "equipe" },
-    { header: "técnicos", accessor: "tecnicos" },
-    { header: "Quantidade", accessor: "quantidade" },
-    { header: "Data criação", accessor: "data_criacao" },
+    { header: "Id", accessor: "id" },
+    { header: "Nome", accessor: "team_name" },
+    { header: "Técnicos", accessor: "technical_names"},
+    { header: "Manutenções à fazer", accessor: "quant_maintenanc_realized" },
     {
-      header: "Manutenções realizadas",
-      accessor: "num_manutencoes_realizadas",
-    },
-    { header: "Manutenções pendentes ", accessor: "num_manutencoes_pendentes" },
-  ];
-
-  const data = [
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      equipe: "Equipe A - Manutenção Pred",
-      tecnicos: ["Diego, ", "Aguinaldo, ", "Gabriel"],
-      quantidade: 3,
-      data_criacao: "03/05/2024",
-      num_manutencoes_realizadas: 5,
-      num_manutencoes_pendentes: 2,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
+      header: "Manutenções finalizadas",
+      accessor: "quant_maintenanc_finalized",
     },
   ];
 
@@ -110,78 +116,43 @@ export default function equipesPage() {
               <div className="container mx-auto p-4 bg-background rounded-lg">
                 <div className="flex justify-between items-center mb-4">
                   <h1 className="text-2xl font-bold text-foreground">
-                    Lista de Equipes cadastradas
+                    Lista de equipes cadastradas
                   </h1>
-                  <CustomDialog
+                  <TeamDialog
                     triggerLabel="Criar Equipe"
                     title="Criar Equipe"
-                    TypeButton="Criar"
-                    description="Insira todos os campos corretamente!"
-                    fields={[
-                      { id: "equipe", label: "Equipe", type: "text" },
-                      {
-                        id: "tecnicos",
-                        label: "Técnicos",
-                        type: "text",
-                      },
-                      { id: "quantidade", label: "Quantidade", type: "number" },
-                      {
-                        id: "data_criacao",
-                        label: "Data criação",
-                        type: "Date",
-                      },
-                    ]}
+                    onSubmit={handleCreateTeam}
                   />
                 </div>
                 <div className="max-h-96 overflow-y-auto">
-                  <Table
-                    columns={columns}
-                    data={data}
-                    actions={(item) => (
-                      <div className="flex space-x-2">
-                        <CustomDialog
-                          triggerLabel={<FaEdit />}
-                          title="Editar Usuário"
-                          TypeButton="Editar"
-                          description="Insira todos os campos corretamente!"
-                          fields={[
-                            { id: "equipe", label: "Equipe", type: "text" },
-                            {
-                              id: "tecnicos",
-                              label: "Técnicos",
-                              type: "text",
-                            },
-                            {
-                              id: "quantidade",
-                              label: "Quantidade",
-                              type: "number",
-                            },
-                            {
-                              id: "data_criacao",
-                              label: "Data criação",
-                              type: "Date",
-                            },
-                            {
-                              id: "num_manutencoes_realizadas",
-                              label: "Manutenções Realizadas",
-                              type: "number",
-                            },
-                            {
-                              id: "num_manutencoes_pendentes",
-                              label: "Manutenções Pendentes",
-                              type: "number",
-                            },
-                          ]}
-                        />{" "}
-                        <CustomDialog
-                          triggerLabel={<FaTrash />}
-                          title="Deletar Equipe "
-                          TypeButton="Deletar"
-                          description=""
-                        />
-                      </div>
-                    )}
-                  />
+                  {loading ? (
+                    <p>Carregando equipes...</p>
+                  ) : error ? (
+                    <p className="text-red-500">{error}</p>
+                  ) : (
+                    <Table
+                      columns={columns}
+                      data={teams}
+                      actions={(item) => (
+                        <div className="flex justify-center items-center gap-4">
+                          <TeamDialog
+                            triggerLabel={<FaEdit />}
+                            title="Editar Equipe"
+                            onSubmit={(updatedData) =>
+                              handleEditTeam(item.id, updatedData)
+                            }
+                          />
+                          <button
+                            onClick={() => handleDeleteTeam(item.id)}
+                            className="text-red-500 hover:text-red-700 transition-colors"
+                            title="Excluir Equipe"
+                          >
+                            <FaTrash className="cursor-pointer" />
+                          </button>
+                        </div>
+                      )}
+                    />
+                  )}
                 </div>
               </div>
             </div>
