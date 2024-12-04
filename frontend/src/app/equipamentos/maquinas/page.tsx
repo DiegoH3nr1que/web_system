@@ -1,5 +1,4 @@
 "use client";
-"use client";
 import { useState } from "react";
 import { Aside } from "@/app/components/aside";
 import { Footer } from "@/app/components/footer";
@@ -9,9 +8,10 @@ import { CustomDialog } from "@/app/components/dialog";
 import ProtectedRoute from "@/app/components/protectedRouter";
 import { RealTimeClock } from "@/app/components/realTimeClock";
 import ImageUpload from "@/app/components/upload_image";
+import Image from "next/image";
 
 export default function MaquinasPage() {
-  const [ selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedMachine, setSelectedMachine] = useState<any>(null);
 
   const handleImageUpload = (file: File | null) => {
@@ -28,118 +28,7 @@ export default function MaquinasPage() {
     { header: "", accessor: "info" },
   ];
 
-  const data = [
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },    
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-    {
-      nome: "Máquina X",
-      tipo: "Industrial",
-      modelo: 2024,
-      data_fabricacao: "03/01/2024",
-      num_serie: "SN123456789",
-      localizacao: "Fábrica 1 - Setor B",
-      imagem: selectedImage ? URL.createObjectURL(selectedImage) : null,
-      editar: <FaEdit />,
-      deletar: <FaTrash />,
-    },
-  ];
+  const data: Record<string, any>[] = [];
 
   return (
     <ProtectedRoute>
@@ -199,9 +88,8 @@ export default function MaquinasPage() {
                           TypeButton="Fechar"
                           fields={[]}
                           extraContent={
-                            <div className="flex flex-col items-center">
-                              {selectedImage && (
-                                <img
+                            <div className="flex flex-col items-center">  {selectedImage && (
+                                <Image
                                   src={
                                     selectedImage
                                       ? URL.createObjectURL(selectedImage)
@@ -212,23 +100,23 @@ export default function MaquinasPage() {
                                 />
                               )}
                               <p>
-                                <strong>Nome:</strong> Máquina X
+                                <strong>Nome:</strong> {item.nome}
                               </p>
                               <p>
-                                <strong>Tipo:</strong> Industrial
+                                <strong>Tipo:</strong> {item.tipo}
                               </p>
                               <p>
-                                <strong>Modelo:</strong> 2024
+                                <strong>Modelo:</strong> {item.modelo}
                               </p>
                               <p>
-                                <strong>Data de Fabricação:</strong> 03/01/2024
+                                <strong>Data de Fabricação:</strong>{" "}
+                                {item.data_fabricacao}
                               </p>
                               <p>
-                                <strong>Número de Série:</strong> SN123456789
+                                <strong>Número de Série:</strong> {item.num_serie}
                               </p>
                               <p>
-                                <strong>Localização:</strong> Fábrica 1 - Setor
-                                B
+                                <strong>Localização:</strong> {item.localizacao}
                               </p>
                             </div>
                           }

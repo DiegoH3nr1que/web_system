@@ -12,6 +12,8 @@ class MachineCreate(BaseModel):
 
 class MachineResponse(MachineCreate):
     id: int
+    has_image: bool = False
+
     class Config:
         orm_mode = True
 
@@ -43,7 +45,6 @@ class EnvironmentResponse(BaseModel):
     class Config:
         orm_mode = True
 
-# Manutenções
 class MaintenanceCreate(BaseModel):
     description: str
     priority: str
@@ -69,7 +70,6 @@ class MaintenanceResponse(BaseModel):
     class Config:
         orm_mode = True
         
-# Estoque
 class PartCreate(BaseModel):
     name: str
     code: str
@@ -80,7 +80,6 @@ class PartResponse(PartCreate):
     class Config:
         orm_mode = True
 
-# Usuários
 class UserCreate(BaseModel):
     username: str
     password: str
@@ -101,12 +100,9 @@ class UserResponse(BaseModel):
     class Config:
         orm_mode = True
 
-# Autenticação
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-# Times
 class TeamCreate(BaseModel):
     team_name: str
     technical_ids: List[int]

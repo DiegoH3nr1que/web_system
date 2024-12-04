@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, LargeBinary, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from app.database import Base
 from datetime import datetime
@@ -12,6 +12,7 @@ class Machine(Base):
     serial_number = Column(String, unique=True)
     location = Column(String)
     manufacture_date = Column(DateTime)
+    image = Column(LargeBinary)
     maintenances = relationship("Maintenance", back_populates="machine")
 
 class Environment(Base):
@@ -49,7 +50,6 @@ class Team(Base):
     quant_maintenanc_realized = Column(Integer, default=0)  
     quant_maintenanc_finalized = Column(Integer, default=0)  
 
-    # Relacionamento com a tabela User
     users = relationship("User", secondary="team_users", back_populates="teams")
 
 class TeamUser(Base):
@@ -64,7 +64,6 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     email = Column(String, unique=True, index=True)
     role = Column(String, default="user")
-    
-    # Relacionamento com times
+
     teams = relationship("Team", secondary="team_users", back_populates="users")
 
