@@ -47,15 +47,28 @@ class EnvironmentResponse(BaseModel):
 class MaintenanceCreate(BaseModel):
     description: str
     priority: str
+    status: str = "pending"
+    requested_date: datetime
     machine_id: int
 
-class MaintenanceResponse(MaintenanceCreate):
+class MaintenanceUpdate(BaseModel):
+    description: str = None
+    priority: str = None
+    status: str = None
+    requested_date: datetime = None
+    machine_id: int = None
+
+class MaintenanceResponse(BaseModel):
     id: int
+    description: str
+    priority: str
     status: str
     requested_date: datetime
+    machine_id: int
+
     class Config:
         orm_mode = True
-
+        
 # Estoque
 class PartCreate(BaseModel):
     name: str
