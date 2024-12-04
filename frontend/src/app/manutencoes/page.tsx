@@ -1,551 +1,139 @@
 "use client";
+import { useState, useEffect } from "react";
+import api from "@/services/axiosInstance";
 import { Aside } from "../components/aside";
 import { Footer } from "../components/footer";
 import Table from "../components/table";
-import { FcHighPriority } from "react-icons/fc";
-import { CustomDialog } from "../components/dialog";
-import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import ProtectedRoute from "../components/protectedRouter";
 import { RealTimeClock } from "../components/realTimeClock";
+import { MaintenanceDialog } from "../components/maintenance_dialog";
+
+// Interface para os dados de manutenção
+interface Maintenance {
+  id: number;
+  description: string;
+  priority: string;
+  status: string;
+  requested_date: string;
+  machine_id: number;
+}
 
 export default function ManutencaoPage() {
-  const cards = [
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "1",
-      text: "Torno Mecânico",
-      reason: "Quebrou a placa",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Torno Mecânico.",
-      person: "Diego",
-      priority: "Média",
-      equip: "Equipe A",
-      status: "Pendente",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "2",
-      text: "Torno CNC",
-      reason: "Quebrou a placa",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Torno CNC.",
-      person: "Diego",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "3",
-      reason: "Quebrou a placa",
-      text: "Sala de automação",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção da Sala de automação.",
-      person: "Diego",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "4",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "5",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "6",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "7",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "8",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "9",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Em andamento",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "12",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Pendente",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-  ];
+  const [maintenances, setMaintenances] = useState<Maintenance[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const cards2 = [
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "10",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Concluída",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-    {
-      color: "border bg-gray-300",
-      maintenance_id: "11",
-      reason: "Quebrou a placa",
-      text: "Auditório",
-      icon: <FcHighPriority size={48} />,
-      description: "Detalhes da manutenção do Auditório.",
-      person: "Aguinaldo",
-      priority: "Média",
-      status: "Cancelada",
-      equip: "Equipe A",
-      date: "02/08/2024",
-    },
-  ];
-
-  const statusOptions = [
-    { value: "pendente", label: "Pendente" },
-    { value: "em andamento", label: "Em andamento" },
-    { value: "concluída", label: "Concluída" },
-    { value: "cancelada", label: "Cancelada" },
-  ];
-
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case "Pendente":
-        return "bg-yellow-100 text-yellow-800";
-      case "Em andamento":
-        return "bg-blue-100 text-blue-800";
-      case "Concluída":
-        return "bg-green-100 text-green-800";
-      case "Cancelada":
-        return "bg-red-100 text-red-800";
-      default:
-        return "";
+  // Função para buscar manutenções
+  const fetchMaintenances = async () => {
+    try {
+      const response = await api.get<Maintenance[]>("/maintenances");
+      setMaintenances(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar manutenções:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const PriorityOptions = [
-    { value: "minimo", label: "Mínima" },
-    { value: "media", label: "Média" },
-    { value: "maximo", label: "Máxima" },
-  ];
+  // Função para criar uma nova manutenção
+  const createMaintenance = async (data: Omit<Maintenance, "id">) => {
+    try {
+      const response = await api.post<Maintenance>("/maintenances", data);
+      setMaintenances((prev) => [...prev, response.data]);
+    } catch (error) {
+      console.error("Erro ao criar manutenção:", error);
+    }
+  };
 
-  const EquipOptions = [
-    { value: "equipe_a", label: "Equipe A" },
-    { value: "equipe_b", label: "Equipe B" },
-    { value: "equipe_c", label: "Equipe C" },
-  ];
+  // Função para atualizar uma manutenção existente
+  const updateMaintenance = async (id: number, data: Partial<Maintenance>) => {
+    try {
+      const response = await api.put<Maintenance>(`/maintenances/${id}`, data);
+      setMaintenances((prev) =>
+        prev.map((maint) => (maint.id === id ? response.data : maint))
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar manutenção:", error);
+    }
+  };
 
+  // Função para deletar uma manutenção
+  const deleteMaintenance = async (id: number) => {
+    try {
+      await api.delete(`/maintenances/${id}`);
+      setMaintenances((prev) => prev.filter((maint) => maint.id !== id));
+    } catch (error) {
+      console.error("Erro ao deletar manutenção:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMaintenances();
+  }, []);
+
+  // Colunas da tabela
   const columns = [
-    { header: "Descrição", accessor: "text" },
-    { header: "Razão", accessor: "reason" },
-    { header: "Prioridade", accessor: "priority" },
     { header: "Descrição", accessor: "description" },
-    { header: "Responsável", accessor: "person" },
-    { header: "Equipe", accessor: "equip" },
+    { header: "Prioridade", accessor: "priority" },
     { header: "Status", accessor: "status" },
-    { header: "Data", accessor: "date" },
+    { header: "Data Solicitada", accessor: "requested_date" },
   ];
-
-  const formattedDataMan = cards.map((item) => ({
-    ...item,
-    status: (
-      <span className={`px-2 py-1 rounded ${getStatusClass(item.status)}`}>
-        {item.status}
-      </span>
-    ),
-  }));
-
-  const formattedDataHist = cards2.map((item) => ({
-    ...item,
-    status: (
-      <span className={`px-2 py-1 rounded ${getStatusClass(item.status)}`}>
-        {item.status}
-      </span>
-    ),
-  }));
 
   return (
     <ProtectedRoute>
-      <div className="h-screen flex flex-col overflow-y-auto scroll-invisivel relative">
+      <div className="h-screen flex flex-col overflow-y-auto">
         <div className="flex-1 flex">
           <Aside />
-          <main className="flex-1 flex flex-col p-6 bg-background w-full">
-            <div className="flex items-center justify-between p-4 rounded-md mb-6">
+          <main className="flex-1 flex flex-col p-6 bg-background">
+            <header className="text-left p-4 rounded-md mb-6 flex justify-between">
               <h1 className="text-4xl font-bold uppercase text-foreground">
                 Manutenções
               </h1>
               <RealTimeClock />
-            </div>
-            <div className="rounded-md container mx-auto p-4 bg-background w-full">
-              <div className="text-2xl font-bold text-foreground mb-2 flex justify-between">
-                <h1>Manutenções</h1>
-                <CustomDialog
-                  triggerLabel="Nova ocorrência de manutenção"
-                  title="Detalhes da Manutenção"
-                  TypeButton="Criar"
-                  description="Veja os detalhes da manutenção selecionada!"
-                  fields={[
-                    {
-                      id: "maintenance_id",
-                      label: "ID da Manutenção",
-                      type: "text",
-                      defaultValue: "",
-                    },
-                    {
-                      id: "description",
-                      label: "Descrição",
-                      type: "text",
-                      defaultValue: "",
-                    },
-                    {
-                      id: "status",
-                      label: "Status",
-                      type: "select",
-                      defaultValue: "",
-                      options: statusOptions,
-                    },
-                    {
-                      id: "priority",
-                      label: "Prioridade",
-                      type: "select",
-                      defaultValue: "",
-                      options: PriorityOptions,
-                    },
-                    {
-                      id: "responsible",
-                      label: "Solicitante",
-                      type: "text",
-                      defaultValue: "",
-                    },
-                    {
-                      id: "date",
-                      label: "Data da manutenção",
-                      type: "date",
-                      defaultValue: "",
-                    },
-                    {
-                      id: "equip",
-                      label: "Equipe de manutenção",
-                      type: "select",
-                      defaultValue: "",
-                      options: EquipOptions,
-                    },
-                  ]}
+            </header>
+
+            <div className="container mx-auto p-4 bg-background rounded-lg">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl font-bold text-foreground">
+                  Lista de Manutenções
+                </h1>
+                <MaintenanceDialog
+                  triggerLabel="Nova Manutenção"
+                  title="Criar Manutenção"
+                  onSubmit={createMaintenance}
                 />
               </div>
-              <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
-                <Table
-                  columns={columns}
-                  data={formattedDataMan}
-                  actions={(item) => (
-                    <div className="flex space-x-2">
-                      <CustomDialog
-                        triggerLabel={<FaCheck />}
-                        title="Detalhes da Manutenção"
-                        TypeButton="Finalizar"
-                        description="Veja os detalhes da manutenção selecionada!"
-                        fields={[
-                          {
-                            id: "maintenance_id",
-                            label: "ID da Manutenção",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "description",
-                            label: "Descrição",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "status",
-                            label: "Status",
-                            type: "select",
-                            defaultValue: "",
-                            options: statusOptions,
-                          },
-                          {
-                            id: "priority",
-                            label: "Prioridade",
-                            type: "select",
-                            defaultValue: "",
-                            options: PriorityOptions,
-                          },
-                          {
-                            id: "responsible",
-                            label: "Solicitante",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "date",
-                            label: "Data da manutenção",
-                            type: "date",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "equip",
-                            label: "Equipe de manutenção",
-                            type: "select",
-                            defaultValue: "",
-                            options: EquipOptions,
-                          },
-                          {
-                            id: "items",
-                            label: "Materiais Utilizados",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "comments",
-                            label: "Comentários",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          
-                          {
-                            id: "performance_time",
-                            label: "Tempo de manutenção",
-                            type: "Time",
-                          },
-                        ]}
-                      />
-                      <CustomDialog
-                        triggerLabel={<FaEdit />}
-                        title="Detalhes da Manutenção"
-                        TypeButton="Salvar"
-                        description="Veja os detalhes da manutenção selecionada!"
-                        fields={[
-                          {
-                            id: "maintenance_id",
-                            label: "ID da Manutenção",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "description",
-                            label: "Descrição",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "status",
-                            label: "Status",
-                            type: "select",
-                            defaultValue: "",
-                            options: statusOptions,
-                          },
-                          {
-                            id: "priority",
-                            label: "Prioridade",
-                            type: "select",
-                            defaultValue: "",
-                            options: PriorityOptions,
-                          },
-                          {
-                            id: "responsible",
-                            label: "Solicitante",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "date",
-                            label: "Data da manutenção",
-                            type: "date",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "equip",
-                            label: "Equipe de manutenção",
-                            type: "select",
-                            defaultValue: "",
-                            options: EquipOptions,
-                          },
-                        ]}
-                      />
-                      <CustomDialog
-                        triggerLabel={<FaTrash />}
-                        title="Detalhes da Manutenção"
-                        description="Veja os detalhes da manutenção selecionada!"
-                        TypeButton="Deletar"
-                        fields={[
-                          {
-                            id: "reasons",
-                            label: "Motivos da exclusão",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                        ]}
-                      />
-                    </div>
-                  )}
-                />
-              </div>
-            </div>
-            <div className="rounded-md container mx-auto p-4 bg-background w-full">
-              <div className="text-2xl font-bold text-foreground mb-2">
-                <h1>Histórico</h1>
-              </div>
-              <div className="grid grid-cols-1 gap-2 max-h-80 w-full overflow-y-auto overflow-x-hidden">
-                <Table
-                  columns={columns}
-                  data={formattedDataHist}
-                  actions={(item) => (
-                    <div className="flex space-x-2">
-                      {" "}
-                      <CustomDialog
-                        triggerLabel={<FaEdit />}
-                        title="Detalhes da Manutenção"
-                        TypeButton="Salvar"
-                        description="Veja os detalhes da manutenção selecionada!"
-                        fields={[
-                          {
-                            id: "maintenance_id",
-                            label: "ID da Manutenção",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "description",
-                            label: "Descrição",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "status",
-                            label: "Status",
-                            type: "select",
-                            defaultValue: "",
-                            options: statusOptions,
-                          },
-                          {
-                            id: "priority",
-                            label: "Prioridade",
-                            type: "select",
-                            defaultValue: "",
-                            options: PriorityOptions,
-                          },
-                          {
-                            id: "responsible",
-                            label: "Solicitante",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "date",
-                            label: "Data da manutenção",
-                            type: "date",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "equip",
-                            label: "Equipe de manutenção",
-                            type: "select",
-                            defaultValue: "",
-                            options: EquipOptions,
-                          },
-                          {
-                            id: "items",
-                            label: "Materiais Utilizados",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                          {
-                            id: "comments",
-                            label: "Comentários",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                        ]}
-                      />
-                      <CustomDialog
-                        triggerLabel={<FaTrash />}
-                        title="Detalhes da Manutenção"
-                        description="Veja os detalhes da manutenção selecionada!"
-                        TypeButton="Deletar"
-                        fields={[
-                          {
-                            id: "reasons",
-                            label: "Motivos da exclusão",
-                            type: "text",
-                            defaultValue: "",
-                          },
-                        ]}
-                      />
-                    </div>
-                  )}
-                />
-              </div>
+
+              {loading ? (
+                <div className="text-center">Carregando...</div>
+              ) : maintenances.length === 0 ? (
+                <div className="text-center text-gray-500">
+                  Nenhuma manutenção cadastrada.
+                </div>
+              ) : (
+                <div className="max-h-96 overflow-y-auto">
+                  <Table<Maintenance>
+                    columns={columns}
+                    data={maintenances}
+                    actions={(item) => (
+                      <div className="flex space-x-2">
+                        <MaintenanceDialog
+                          triggerLabel={<FaEdit />}
+                          title="Editar Manutenção"
+                          maintenance={item}
+                          onSubmit={(data) => updateMaintenance(item.id, data)}
+                        />
+                        <button
+                          className="text-red-500"
+                          onClick={() => deleteMaintenance(item.id)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    )}
+                  />
+                </div>
+              )}
             </div>
           </main>
         </div>
