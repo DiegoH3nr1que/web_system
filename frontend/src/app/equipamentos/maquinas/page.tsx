@@ -1,34 +1,127 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Aside } from "@/app/components/aside";
 import { Footer } from "@/app/components/footer";
 import { FaEdit, FaTrash, FaEllipsisH } from "react-icons/fa";
 import Table from "@/app/components/table";
-import { CustomDialog } from "@/app/components/dialog";
+import { CustomDialog } from "@/app/components/machine_dialog";
 import ProtectedRoute from "@/app/components/protectedRouter";
 import { RealTimeClock } from "@/app/components/realTimeClock";
 import ImageUpload from "@/app/components/upload_image";
-import Image from "next/image";
+import api from "@/services/axiosInstance";
+
+// Funções para comunicação com o backend
+const fetchMachines = async () => {
+  try {
+    const response = await api.get("/machines");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar máquinas:", error);
+    throw error;
+  }
+};
+
+const createMachine = async (formData) => {
+  try {
+    const response = await api.post("/machines", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao criar máquina:", error);
+    throw error;
+  }
+};
+const deleteMachine = async (id) => {
+  try {
+    const response = await api.delete(`/machines/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar máquina:", error);
+    throw error;
+  }
+};
+
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm(
+    "Tem certeza de que deseja deletar esta máquina? Esta ação não pode ser desfeita."
+  );
+  if (confirmDelete) {
+    try {
+      const result = await deleteMachine(id); // Requisição ao backend
+      setMachines((prev) => prev.filter((machine) => machine.id !== id)); // Atualizar lista local
+      alert(result.detail); // Mensagem do backend
+    } catch (error) {
+      alert("Erro ao deletar máquina. Tente novamente mais tarde.");
+    }
+  }
+};
+
 
 export default function MaquinasPage() {
+  const [machines, setMachines] = useState([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [selectedMachine, setSelectedMachine] = useState<any>(null);
 
-  const handleImageUpload = (file: File | null) => {
-    setSelectedImage(file);
+  // Buscar máquinas na inicialização
+  useEffect(() => {
+    const getMachines = async () => {
+      try {
+        const data = await fetchMachines();
+        setMachines(data);
+      } catch (error) {
+        console.error("Erro ao carregar máquinas:", error);
+      }
+    };
+
+    getMachines();
+  }, []);
+
+  // Submissão de nova máquina
+  const handleSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("type", data.type);
+      formData.append("model", data.model);
+      formData.append("serial_number", data.serial_number);
+      formData.append("location", data.location);
+      formData.append("manufacture_date", data.manufacture_date);
+      if (selectedImage) {
+        formData.append("image", selectedImage);
+      }
+
+      const newMachine = await createMachine(formData);
+      setMachines((prev) => [...prev, newMachine]); // Atualiza a lista
+      alert("Máquina cadastrada com sucesso!");
+    } catch (error) {
+      alert("Erro ao cadastrar máquina. Verifique os dados e tente novamente.");
+    }
+  };
+
+  // Deletar uma máquina
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Tem certeza de que deseja deletar esta máquina? Esta ação não pode ser desfeita."
+    );
+    if (confirmDelete) {
+      try {
+        await deleteMachine(id);
+        setMachines((prev) => prev.filter((machine) => machine.id !== id));
+        alert("Máquina deletada com sucesso!");
+      } catch (error) {
+        alert("Erro ao deletar máquina. Tente novamente mais tarde.");
+      }
+    }
   };
 
   const columns = [
-    { header: "Nome", accessor: "nome" },
-    { header: "Tipo", accessor: "tipo" },
-    { header: "Modelo", accessor: "modelo" },
-    { header: "Data fabricação", accessor: "data_fabricacao" },
-    { header: "Número Série", accessor: "num_serie" },
-    { header: "Localização", accessor: "localizacao" },
-    { header: "", accessor: "info" },
+    { header: "Nome", accessor: "name" },
+    { header: "Tipo", accessor: "type" },
+    { header: "Modelo", accessor: "model" },
+    { header: "Data Fabricação", accessor: "manufacture_date" },
+    { header: "Número de Série", accessor: "serial_number" },
+    { header: "Localização", accessor: "location" },
   ];
-
-  const data: Record<string, any>[] = [];
 
   return (
     <ProtectedRoute>
@@ -47,111 +140,63 @@ export default function MaquinasPage() {
               <div className="container mx-auto p-4 bg-background rounded-lg">
                 <div className="flex justify-between items-center mb-4">
                   <h1 className="text-2xl font-bold text-foreground">
-                    Lista de Máquinas cadastradas
+                    Lista de Máquinas
                   </h1>
                   <CustomDialog
-                    triggerLabel="Cadastrar Máquinas"
-                    title="Cadastrar Máquinas"
-                    TypeButton="Cadastrar"
-                    description="Insira todos os campos corretamente!"
+                    triggerLabel="Cadastrar Máquina"
+                    title="Cadastrar Máquina"
+                    description="Preencha os dados abaixo para cadastrar uma nova máquina."
+                    TypeButton="Salvar"
                     fields={[
-                      { id: "nome", label: "Nome", type: "text" },
-                      { id: "tipo", label: "Tipo", type: "Text" },
-                      { id: "modelo", label: "Modelo", type: "number" },
+                      { id: "name", label: "Nome", type: "text", required: true },
+                      { id: "type", label: "Tipo", type: "text", required: true },
                       {
-                        id: "data_fabricacao",
-                        label: "Data fabricação",
-                        type: "Date",
+                        id: "model",
+                        label: "Modelo",
+                        type: "text",
+                        required: true,
                       },
                       {
-                        id: "num_serie",
+                        id: "serial_number",
                         label: "Número de Série",
                         type: "text",
+                        required: true,
                       },
-                      { id: "localizacao", label: "Localização", type: "text" },
+                      {
+                        id: "location",
+                        label: "Localização",
+                        type: "text",
+                        required: true,
+                      },
+                      {
+                        id: "manufacture_date",
+                        label: "Data Fabricação",
+                        type: "date",
+                        required: true,
+                      },
                     ]}
                     extraContent={
-                      <ImageUpload onImageUpload={handleImageUpload} />
+                      <ImageUpload
+                        onImageUpload={(file) => setSelectedImage(file)}
+                      />
                     }
+                    onSubmit={handleSubmit}
                   />
                 </div>
+
                 <div className="max-h-96 overflow-y-auto">
                   <Table
                     columns={columns}
-                    data={data}
+                    data={machines}
                     actions={(item) => (
                       <div className="flex space-x-2">
-                        <CustomDialog
-                          triggerLabel={<FaEllipsisH className="cursor-pointer" />}
-                          title="Detalhes da Máquina"
-                          description="Informações detalhadas da máquina selecionada"
-                          TypeButton="Fechar"
-                          fields={[]}
-                          extraContent={
-                            <div className="flex flex-col items-center">  {selectedImage && (
-                                <Image
-                                  src={
-                                    selectedImage
-                                      ? URL.createObjectURL(selectedImage)
-                                      : ""
-                                  }
-                                  alt="Imagem da Máquina"
-                                  className="w-48 h-48 object-cover mb-4"
-                                />
-                              )}
-                              <p>
-                                <strong>Nome:</strong> {item.nome}
-                              </p>
-                              <p>
-                                <strong>Tipo:</strong> {item.tipo}
-                              </p>
-                              <p>
-                                <strong>Modelo:</strong> {item.modelo}
-                              </p>
-                              <p>
-                                <strong>Data de Fabricação:</strong>{" "}
-                                {item.data_fabricacao}
-                              </p>
-                              <p>
-                                <strong>Número de Série:</strong> {item.num_serie}
-                              </p>
-                              <p>
-                                <strong>Localização:</strong> {item.localizacao}
-                              </p>
-                            </div>
-                          }
+                        <FaTrash
+                          className="cursor-pointer text-red-500"
+                          onClick={() => handleDelete(item.id)}
                         />
-                        <CustomDialog
-                          triggerLabel={<FaEdit />}
-                          title="Editar Máquinas"
-                          TypeButton="Editar"
-                          description="Insira todos os campos corretamente!"
-                          fields={[
-                            { id: "nome", label: "Nome", type: "text" },
-                            { id: "tipo", label: "Tipo", type: "Text" },
-                            { id: "modelo", label: "Modelo", type: "number" },
-                            {
-                              id: "data_fabricacao",
-                              label: "Data fabricação",
-                              type: "Date",
-                            },
-                            {
-                              id: "num_serie",
-                              label: "Número de Série",
-                              type: "int",
-                            },
-                            {
-                              id: "localizacao",
-                              label: "Localização",
-                              type: "text",
-                            },
-                          ]}
-                        />
-                        <CustomDialog
-                          triggerLabel={<FaTrash />}
-                          title="Deletar Máquina"
-                          TypeButton="Deletar"
-                          description=""
+                        <FaEllipsisH
+                          className="cursor-pointer text-gray-500"
+                          onClick={() => alert("Detalhes da máquina")}
                         />
                       </div>
                     )}
