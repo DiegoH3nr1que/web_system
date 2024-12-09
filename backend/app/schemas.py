@@ -17,6 +17,19 @@ class MachineResponse(MachineCreate):
     class Config:
         orm_mode = True
 
+
+class MachineByIDResponse(BaseModel):
+    id: int
+    name: str
+    type: str
+    model: str
+    serial_number: str
+    location: str
+    manufacture_date: str
+
+    class Config:
+        orm_mode = True
+
 class EnvironmentCreate(BaseModel):
     name: str
     type: str

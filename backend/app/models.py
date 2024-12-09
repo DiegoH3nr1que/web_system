@@ -15,6 +15,9 @@ class Machine(Base):
     image = Column(LargeBinary)
     maintenances = relationship("Maintenance", back_populates="machine")
 
+    def formatted_manufacture_date(self):
+        return self.manufacture_date.strftime("%Y-%m-%d") if self.manufacture_date else None
+
 class Environment(Base):
     __tablename__ = "environments"
     id = Column(Integer, primary_key=True, index=True)

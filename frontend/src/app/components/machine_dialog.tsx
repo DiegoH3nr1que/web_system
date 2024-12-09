@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import { ReactElement, useState } from "react";
 
-interface DialogProps {
+interface DialogProps<T = Record<string, any>> {
   triggerLabel: string | ReactElement;
   title: string;
   description: string;
@@ -33,10 +33,10 @@ interface DialogProps {
     required?: boolean;
   }[];
   extraContent?: ReactElement;
-  onSubmit: (data: Record<string, any>) => void; // Função chamada ao submeter o formulário
+  onSubmit: (data: T) => void; // Função chamada ao submeter o formulário
 }
 
-export function CustomDialog({
+export function CustomDialog<T = Record<string, any>>({
   triggerLabel,
   title,
   description,
@@ -44,8 +44,8 @@ export function CustomDialog({
   fields,
   extraContent,
   onSubmit,
-}: DialogProps) {
-  const [formData, setFormData] = useState<Record<string, any>>({});
+}: DialogProps<T>) {
+  const [formData, setFormData] = useState<T | Record<string, any>>({} as T);
 
   const handleInputChange = (id: string, value: any) => {
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -53,7 +53,7 @@ export function CustomDialog({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmit(formData);
+    onSubmit(formData as T); // Garantir que o tipo seja coerente
   };
 
   return (

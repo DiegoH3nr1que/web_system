@@ -10,8 +10,20 @@ import { RealTimeClock } from "@/app/components/realTimeClock";
 import ImageUpload from "@/app/components/upload_image";
 import api from "@/services/axiosInstance";
 
+// Interface para máquina
+interface Machine {
+  id: number;
+  name: string;
+  type: string;
+  model: string;
+  serial_number: string;
+  location: string;
+  manufacture_date: string;
+  image?: string; // URL ou base64 da imagem
+}
+
 // Funções para comunicação com o backend
-const fetchMachines = async () => {
+const fetchMachines = async (): Promise<Machine[]> => {
   try {
     const response = await api.get("/machines");
     return response.data;
@@ -21,7 +33,17 @@ const fetchMachines = async () => {
   }
 };
 
-const createMachine = async (formData) => {
+const getMachineByID = async (id: number): Promise<Machine> => {
+  try {
+    const response = await api.get(`/machines/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar detalhes da máquina:", error);
+    throw error;
+  }
+};
+
+const createMachine = async (formData: FormData): Promise<Machine> => {
   try {
     const response = await api.post("/machines", formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -32,35 +54,20 @@ const createMachine = async (formData) => {
     throw error;
   }
 };
-const deleteMachine = async (id) => {
+
+const deleteMachine = async (id: number): Promise<void> => {
   try {
-    const response = await api.delete(`/machines/${id}`);
-    return response.data;
+    await api.delete(`/machines/${id}`);
   } catch (error) {
     console.error("Erro ao deletar máquina:", error);
     throw error;
   }
 };
 
-const handleDelete = async (id) => {
-  const confirmDelete = window.confirm(
-    "Tem certeza de que deseja deletar esta máquina? Esta ação não pode ser desfeita."
-  );
-  if (confirmDelete) {
-    try {
-      const result = await deleteMachine(id); // Requisição ao backend
-      setMachines((prev) => prev.filter((machine) => machine.id !== id)); // Atualizar lista local
-      alert(result.detail); // Mensagem do backend
-    } catch (error) {
-      alert("Erro ao deletar máquina. Tente novamente mais tarde.");
-    }
-  }
-};
-
-
 export default function MaquinasPage() {
-  const [machines, setMachines] = useState([]);
+  const [machines, setMachines] = useState<Machine[]>([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedMachine, setSelectedMachine] = useState<Machine | null>(null); // Para armazenar os detalhes da máquina selecionada
 
   // Buscar máquinas na inicialização
   useEffect(() => {
@@ -77,7 +84,7 @@ export default function MaquinasPage() {
   }, []);
 
   // Submissão de nova máquina
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data: Omit<Machine, "id">) => {
     try {
       const formData = new FormData();
       formData.append("name", data.name);
@@ -91,7 +98,7 @@ export default function MaquinasPage() {
       }
 
       const newMachine = await createMachine(formData);
-      setMachines((prev) => [...prev, newMachine]); // Atualiza a lista
+      setMachines((prev) => [...prev, newMachine]);
       alert("Máquina cadastrada com sucesso!");
     } catch (error) {
       alert("Erro ao cadastrar máquina. Verifique os dados e tente novamente.");
@@ -99,7 +106,7 @@ export default function MaquinasPage() {
   };
 
   // Deletar uma máquina
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: number) => {
     const confirmDelete = window.confirm(
       "Tem certeza de que deseja deletar esta máquina? Esta ação não pode ser desfeita."
     );
@@ -111,6 +118,16 @@ export default function MaquinasPage() {
       } catch (error) {
         alert("Erro ao deletar máquina. Tente novamente mais tarde.");
       }
+    }
+  };
+
+  // Obter detalhes de uma máquina
+  const handleGetByID = async (id: number) => {
+    try {
+      const machineDetails = await getMachineByID(id);
+      setSelectedMachine(machineDetails); // Atualiza os detalhes da máquina selecionada
+    } catch (error) {
+      alert("Erro ao carregar detalhes da máquina. Tente novamente mais tarde.");
     }
   };
 
@@ -150,12 +167,7 @@ export default function MaquinasPage() {
                     fields={[
                       { id: "name", label: "Nome", type: "text", required: true },
                       { id: "type", label: "Tipo", type: "text", required: true },
-                      {
-                        id: "model",
-                        label: "Modelo",
-                        type: "text",
-                        required: true,
-                      },
+                      { id: "model", label: "Modelo", type: "text", required: true },
                       {
                         id: "serial_number",
                         label: "Número de Série",
@@ -176,9 +188,7 @@ export default function MaquinasPage() {
                       },
                     ]}
                     extraContent={
-                      <ImageUpload
-                        onImageUpload={(file) => setSelectedImage(file)}
-                      />
+                      <ImageUpload onImageUpload={(file) => setSelectedImage(file)} />
                     }
                     onSubmit={handleSubmit}
                   />
@@ -196,13 +206,26 @@ export default function MaquinasPage() {
                         />
                         <FaEllipsisH
                           className="cursor-pointer text-gray-500"
-                          onClick={() => alert("Detalhes da máquina")}
+                          onClick={() => handleGetByID(item.id)}
                         />
                       </div>
                     )}
                   />
                 </div>
               </div>
+
+              {/* Mostrar detalhes da máquina */}
+              {selectedMachine && (
+                <div className="mt-4 p-4 bg-white rounded-lg shadow">
+                  <h2 className="text-2xl font-bold mb-2">Detalhes da Máquina</h2>
+                  <p><strong>Nome:</strong> {selectedMachine.name}</p>
+                  <p><strong>Tipo:</strong> {selectedMachine.type}</p>
+                  <p><strong>Modelo:</strong> {selectedMachine.model}</p>
+                  <p><strong>Número de Série:</strong> {selectedMachine.serial_number}</p>
+                  <p><strong>Localização:</strong> {selectedMachine.location}</p>
+                  <p><strong>Data de Fabricação:</strong> {selectedMachine.manufacture_date}</p>
+                </div>
+              )}
             </div>
           </main>
         </div>

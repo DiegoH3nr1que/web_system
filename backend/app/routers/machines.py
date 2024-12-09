@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.models import Machine
-from app.schemas import MachineCreate, MachineResponse
+from app.schemas import MachineCreate, MachineResponse, MachineByIDResponse
 from app.database import get_db
 from datetime import datetime
 
@@ -16,7 +16,7 @@ async def create_machine(
     serial_number: str = Form(...),
     location: str = Form(...),
     manufacture_date: str = Form(...),
-    image: UploadFile = File(None),  # Imagem opcional
+    image: UploadFile = File(None),
     db: Session = Depends(get_db),
 ):
     """
@@ -67,6 +67,24 @@ def list_machines(db: Session = Depends(get_db)):
     machines = db.query(Machine).all()
     return machines
 
+
+# Endpoint para listar máquinas
+@router.get("/{machine_id}", response_model=MachineResponse)
+def get_machine_by_id(machine_id: int, db: Session = Depends(get_db)):
+    """
+    Endpoint para listar uma máquina específica pelo ID.
+    """
+    # Consultar a máquina pelo ID
+    machine = db.query(Machine).filter(Machine.id == machine_id).first()
+    if not machine:
+        raise HTTPException(status_code=404, detail="Máquina não encontrada")
+    
+    # Convertendo o campo `manufacture_date` para string
+    machine_dict = machine.__dict__.copy()
+    if isinstance(machine.manufacture_date, datetime):
+        machine_dict["manufacture_date"] = machine.manufacture_date.strftime("%Y-%m-%d")
+    
+    return machine_dict
 
 # Endpoint para deletar uma máquina
 @router.delete("/{machine_id}", response_model=dict)
