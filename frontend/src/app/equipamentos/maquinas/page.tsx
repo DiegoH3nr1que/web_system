@@ -67,7 +67,7 @@ const deleteMachine = async (id: number): Promise<void> => {
 export default function MaquinasPage() {
   const [machines, setMachines] = useState<Machine[]>([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [selectedMachine, setSelectedMachine] = useState<Machine | null>(null); // Para armazenar os detalhes da máquina selecionada
+  const [selectedMachine, setSelectedMachine] = useState<Machine | null>(null);
 
   // Buscar máquinas na inicialização
   useEffect(() => {
@@ -127,7 +127,9 @@ export default function MaquinasPage() {
       const machineDetails = await getMachineByID(id);
       setSelectedMachine(machineDetails); // Atualiza os detalhes da máquina selecionada
     } catch (error) {
-      alert("Erro ao carregar detalhes da máquina. Tente novamente mais tarde.");
+      alert(
+        "Erro ao carregar detalhes da máquina. Tente novamente mais tarde."
+      );
     }
   };
 
@@ -165,9 +167,24 @@ export default function MaquinasPage() {
                     description="Preencha os dados abaixo para cadastrar uma nova máquina."
                     TypeButton="Salvar"
                     fields={[
-                      { id: "name", label: "Nome", type: "text", required: true },
-                      { id: "type", label: "Tipo", type: "text", required: true },
-                      { id: "model", label: "Modelo", type: "text", required: true },
+                      {
+                        id: "name",
+                        label: "Nome",
+                        type: "text",
+                        required: true,
+                      },
+                      {
+                        id: "type",
+                        label: "Tipo",
+                        type: "text",
+                        required: true,
+                      },
+                      {
+                        id: "model",
+                        label: "Modelo",
+                        type: "text",
+                        required: true,
+                      },
                       {
                         id: "serial_number",
                         label: "Número de Série",
@@ -188,7 +205,9 @@ export default function MaquinasPage() {
                       },
                     ]}
                     extraContent={
-                      <ImageUpload onImageUpload={(file) => setSelectedImage(file)} />
+                      <ImageUpload
+                        onImageUpload={(file) => setSelectedImage(file)}
+                      />
                     }
                     onSubmit={handleSubmit}
                   />
@@ -216,14 +235,37 @@ export default function MaquinasPage() {
 
               {/* Mostrar detalhes da máquina */}
               {selectedMachine && (
-                <div className="mt-4 p-4 bg-white rounded-lg shadow">
-                  <h2 className="text-2xl font-bold mb-2">Detalhes da Máquina</h2>
-                  <p><strong>Nome:</strong> {selectedMachine.name}</p>
-                  <p><strong>Tipo:</strong> {selectedMachine.type}</p>
-                  <p><strong>Modelo:</strong> {selectedMachine.model}</p>
-                  <p><strong>Número de Série:</strong> {selectedMachine.serial_number}</p>
-                  <p><strong>Localização:</strong> {selectedMachine.location}</p>
-                  <p><strong>Data de Fabricação:</strong> {selectedMachine.manufacture_date}</p>
+                <div className="mt-4 p-4 bg-foreground rounded-lg shadow relative text-background">
+                  {/* Botão de fechamento */}
+                  <button
+                    className="absolute top-2 right-2 text-gray-500 hover:text-black"
+                    onClick={() => setSelectedMachine(null)}
+                  >
+                    ✖
+                  </button>
+                  <h2 className="text-2xl font-bold mb-2">
+                    Detalhes da Máquina
+                  </h2>
+                  <p>
+                    <strong>Nome:</strong> {selectedMachine.name}
+                  </p>
+                  <p>
+                    <strong>Tipo:</strong> {selectedMachine.type}
+                  </p>
+                  <p>
+                    <strong>Modelo:</strong> {selectedMachine.model}
+                  </p>
+                  <p>
+                    <strong>Número de Série:</strong>{" "}
+                    {selectedMachine.serial_number}
+                  </p>
+                  <p>
+                    <strong>Localização:</strong> {selectedMachine.location}
+                  </p>
+                  <p>
+                    <strong>Data de Fabricação:</strong>{" "}
+                    {selectedMachine.manufacture_date}
+                  </p>
                 </div>
               )}
             </div>
