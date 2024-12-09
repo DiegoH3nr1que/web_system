@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, date
 from typing import List, Optional
 # Máquinas
 class MachineCreate(BaseModel):
@@ -8,7 +8,7 @@ class MachineCreate(BaseModel):
     model: str
     serial_number: str
     location: str
-    manufacture_date: datetime
+    manufacture_date: date
 
 class MachineResponse(MachineCreate):
     id: int
@@ -25,7 +25,7 @@ class MachineByIDResponse(BaseModel):
     model: str
     serial_number: str
     location: str
-    manufacture_date: str
+    manufacture_date: date
 
     class Config:
         orm_mode = True

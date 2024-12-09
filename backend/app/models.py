@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, LargeBinary, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, LargeBinary, String, ForeignKey, DateTime, Date
 from sqlalchemy.orm import relationship
 from app.database import Base
 from datetime import datetime
@@ -11,12 +11,9 @@ class Machine(Base):
     model = Column(String)
     serial_number = Column(String, unique=True)
     location = Column(String)
-    manufacture_date = Column(DateTime)
+    manufacture_date = Column(Date)
     image = Column(LargeBinary)
     maintenances = relationship("Maintenance", back_populates="machine")
-
-    def formatted_manufacture_date(self):
-        return self.manufacture_date.strftime("%Y-%m-%d") if self.manufacture_date else None
 
 class Environment(Base):
     __tablename__ = "environments"

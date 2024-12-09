@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.models import Machine
 from app.schemas import MachineCreate, MachineResponse, MachineByIDResponse
 from app.database import get_db
-from datetime import datetime
+from datetime import datetime, date
 
 router = APIRouter(prefix="/machines", tags=["Máquinas"])
 
@@ -15,28 +15,17 @@ async def create_machine(
     model: str = Form(...),
     serial_number: str = Form(...),
     location: str = Form(...),
-    manufacture_date: str = Form(...),
+    manufacture_date: date = Form(...),
     image: UploadFile = File(None),
     db: Session = Depends(get_db),
 ):
     """
     Endpoint para criar uma nova máquina.
-    Aceita dados do formulário e uma imagem opcional.
     """
-    try:
-        # Validação e parsing da data
-        manufacture_date_parsed = datetime.strptime(manufacture_date, "%Y-%m-%d")
-    except ValueError:
-        raise HTTPException(
-            status_code=400,
-            detail="Formato de data inválido. Use o formato 'YYYY-MM-DD'."
-        )
-
-    # Processar a imagem (se fornecida)
     image_data = None
     if image:
         image_data = await image.read()
-        if len(image_data) > 2 * 1024 * 1024:  # Limitar a imagem a 2MB
+        if len(image_data) > 2 * 1024 * 1024:
             raise HTTPException(
                 status_code=413, detail="A imagem é muito grande (máx. 2MB)."
             )
@@ -48,7 +37,7 @@ async def create_machine(
         model=model,
         serial_number=serial_number,
         location=location,
-        manufacture_date=manufacture_date_parsed,
+        manufacture_date=manufacture_date,
         image=image_data,
     )
     db.add(db_machine)
@@ -56,6 +45,7 @@ async def create_machine(
     db.refresh(db_machine)
 
     return db_machine
+
 
 
 # Endpoint para listar máquinas
