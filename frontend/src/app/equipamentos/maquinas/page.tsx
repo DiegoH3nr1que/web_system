@@ -25,7 +25,7 @@ interface Machine {
 // Funções para comunicação com o backend
 const fetchMachines = async (): Promise<Machine[]> => {
   try {
-    const response = await api.get("/machines");
+    const response = await api.get("/inventory/machines/");
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar máquinas:", error);
@@ -35,7 +35,7 @@ const fetchMachines = async (): Promise<Machine[]> => {
 
 const getMachineByID = async (id: number): Promise<Machine> => {
   try {
-    const response = await api.get(`/machines/${id}`);
+    const response = await api.get(`/inventory/machines/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar detalhes da máquina:", error);
@@ -45,7 +45,7 @@ const getMachineByID = async (id: number): Promise<Machine> => {
 
 const createMachine = async (formData: FormData): Promise<Machine> => {
   try {
-    const response = await api.post("/machines", formData, {
+    const response = await api.post("inventory/machines/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
@@ -57,7 +57,7 @@ const createMachine = async (formData: FormData): Promise<Machine> => {
 
 const deleteMachine = async (id: number): Promise<void> => {
   try {
-    await api.delete(`/machines/${id}`);
+    await api.delete(`/inventory/machines/${id}`);
   } catch (error) {
     console.error("Erro ao deletar máquina:", error);
     throw error;

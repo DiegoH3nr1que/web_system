@@ -5,10 +5,10 @@ from app.schemas import MachineCreate, MachineResponse, MachineByIDResponse
 from app.database import get_db
 from datetime import datetime, date
 
-router = APIRouter(prefix="/machines", tags=["Máquinas"])
+router = APIRouter(prefix="/inventory", tags=["Estoque"])
 
 # Endpoint para criar uma máquina
-@router.post("/", response_model=MachineResponse)
+@router.post("/machines/", response_model=MachineResponse)
 async def create_machine(
     name: str = Form(...),
     type: str = Form(...),
@@ -49,7 +49,7 @@ async def create_machine(
 
 
 # Endpoint para listar máquinas
-@router.get("/", response_model=list[MachineResponse])
+@router.get("/machines/", response_model=list[MachineResponse])
 def list_machines(db: Session = Depends(get_db)):
     """
     Endpoint para listar todas as máquinas.
@@ -59,7 +59,7 @@ def list_machines(db: Session = Depends(get_db)):
 
 
 # Endpoint para listar máquinas
-@router.get("/{machine_id}", response_model=MachineResponse)
+@router.get("/machines/{machine_id}", response_model=MachineResponse)
 def get_machine_by_id(machine_id: int, db: Session = Depends(get_db)):
     """
     Endpoint para listar uma máquina específica pelo ID.
@@ -77,7 +77,7 @@ def get_machine_by_id(machine_id: int, db: Session = Depends(get_db)):
     return machine_dict
 
 # Endpoint para deletar uma máquina
-@router.delete("/{machine_id}", response_model=dict)
+@router.delete("/machines/{machine_id}", response_model=dict)
 def delete_machine(machine_id: int, db: Session = Depends(get_db)):
     """
     Endpoint para deletar uma máquina pelo ID.

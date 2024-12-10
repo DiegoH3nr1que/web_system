@@ -87,7 +87,8 @@ class PartCreate(BaseModel):
     name: str
     code: str
     quantity: int
-
+    date_entry: date
+    
 class PartResponse(PartCreate):
     id: int
     class Config:
