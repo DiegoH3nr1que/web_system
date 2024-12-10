@@ -83,14 +83,20 @@ class MaintenanceResponse(BaseModel):
     class Config:
         orm_mode = True
         
-class PartCreate(BaseModel):
+class PartBase(BaseModel):
     name: str
     code: str
-    quantity: int
+    entry_quantity: int = 0
+    exit_quantity: int = 0
     date_entry: date
-    
-class PartResponse(PartCreate):
+
+class PartCreate(PartBase):
+    pass
+
+class PartResponse(PartBase):
     id: int
+    current_stock: int
+
     class Config:
         orm_mode = True
 

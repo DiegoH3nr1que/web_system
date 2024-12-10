@@ -25,7 +25,7 @@ interface Machine {
 // Funções para comunicação com o backend
 const fetchMachines = async (): Promise<Machine[]> => {
   try {
-    const response = await api.get("/inventory/machines/");
+    const response = await api.get("/inventory/machines");
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar máquinas:", error);
@@ -45,7 +45,7 @@ const getMachineByID = async (id: number): Promise<Machine> => {
 
 const createMachine = async (formData: FormData): Promise<Machine> => {
   try {
-    const response = await api.post("inventory/machines/", formData, {
+    const response = await api.post("/inventory/machines", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;

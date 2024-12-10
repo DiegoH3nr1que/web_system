@@ -8,7 +8,7 @@ from datetime import datetime, date
 router = APIRouter(prefix="/inventory", tags=["Estoque"])
 
 # Endpoint para criar uma máquina
-@router.post("/machines/", response_model=MachineResponse)
+@router.post("/machines", response_model=MachineResponse)
 async def create_machine(
     name: str = Form(...),
     type: str = Form(...),
@@ -49,7 +49,7 @@ async def create_machine(
 
 
 # Endpoint para listar máquinas
-@router.get("/machines/", response_model=list[MachineResponse])
+@router.get("/machines", response_model=list[MachineResponse])
 def list_machines(db: Session = Depends(get_db)):
     """
     Endpoint para listar todas as máquinas.

@@ -40,7 +40,16 @@ class Part(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     code = Column(String, unique=True)
-    quantity = Column(Integer)
+    entry_quantity = Column(Integer, default=0)
+    exit_quantity = Column(Integer, default=0)
+    date_entry = Column(Date, nullable=False)
+    current_stock = Column(Integer, nullable=False, default=0)
+
+    @property
+    def calculate_stock(self):
+        """Calcula o estoque atual com base nas entradas e saídas."""
+        return self.entry_quantity - self.exit_quantity
+
 class Team(Base):
     __tablename__ = "teams"
     id = Column(Integer, primary_key=True, index=True)
