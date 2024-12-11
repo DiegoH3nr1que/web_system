@@ -33,7 +33,7 @@ interface DialogProps<T = Record<string, any>> {
     required?: boolean;
   }[];
   extraContent?: ReactElement;
-  onSubmit: (data: T) => void; // Função chamada ao submeter o formulário
+  onSubmit: (data: T) => void;
 }
 
 export function CustomDialog<T = Record<string, any>>({
@@ -53,7 +53,7 @@ export function CustomDialog<T = Record<string, any>>({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmit(formData as T); // Garantir que o tipo seja coerente
+    onSubmit(formData as T);
   };
 
   return (
@@ -61,55 +61,46 @@ export function CustomDialog<T = Record<string, any>>({
       <DialogTrigger asChild>
         <Button variant="outline">{triggerLabel}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-md h-[90vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle className="text-xl font-semibold">{title}</DialogTitle>
+          <DialogDescription className="text-sm text-gray-600">
+            {description}
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           {fields && (
-            <div className="grid gap-4 py-4 max-h-[300px] overflow-y-auto scroll-invisivel">
+            <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto scroll-invisivel">
               {fields.map((field) => (
-                <div
-                  key={field.id}
-                  className="grid grid-cols-4 items-center gap-4"
-                >
-                  <Label htmlFor={field.id} className="text-right">
+                <div key={field.id} className="space-y-2">
+                  <Label htmlFor={field.id}>
                     {field.label} {field.required && "*"}
                   </Label>
                   {field.type === "select" && field.options ? (
-                    <div className="col-span-3">
-                      <Select
-                        defaultValue={field.defaultValue}
-                        onValueChange={(value) =>
-                          handleInputChange(field.id, value)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione uma opção" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {field.options.map((option) => (
-                            <SelectItem
-                              key={option.value}
-                              value={option.value}
-                            >
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <Select
+                      defaultValue={field.defaultValue}
+                      onValueChange={(value) => handleInputChange(field.id, value)}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Selecione uma opção" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {field.options.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   ) : (
                     <Input
                       id={field.id}
                       type={field.type}
                       defaultValue={field.defaultValue}
                       required={field.required}
-                      onChange={(e) =>
-                        handleInputChange(field.id, e.target.value)
-                      }
-                      className="col-span-3"
+                      onChange={(e) => handleInputChange(field.id, e.target.value)}
+                      placeholder={`Digite ${field.label.toLowerCase()}`}
+                      className="w-full"
                     />
                   )}
                 </div>

@@ -238,7 +238,7 @@ export default function MaquinasPage() {
                 <div className="mt-4 p-4 bg-foreground rounded-lg shadow relative text-background">
                   {/* Botão de fechamento */}
                   <button
-                    className="absolute top-2 right-2 text-gray-500 hover:text-black"
+                    className="absolute top-2 right-2 text-gray-500 hover:text-background"
                     onClick={() => setSelectedMachine(null)}
                   >
                     ✖

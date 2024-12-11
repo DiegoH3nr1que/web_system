@@ -14,7 +14,7 @@ def create_maintenance(maintenance: MaintenanceCreate, db: Session = Depends(get
         raise HTTPException(status_code=404, detail="Machine not found")
     
     # Remova o campo 'status' de maintenance.dict() para evitar conflito
-    maintenance_data = maintenance.dict(exclude={"status"})
+    maintenance_data = maintenance.model_dump(exclude={"status"})
 
     # Adicione 'status' manualmente
     db_maintenance = Maintenance(**maintenance_data, status="pending")

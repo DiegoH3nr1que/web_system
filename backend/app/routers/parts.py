@@ -6,10 +6,9 @@ from app.schemas import PartCreate, PartResponse
 from app.database import get_db
 
 router = APIRouter(prefix="/inventory", tags=["Estoque"])
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 @router.post("/parts", response_model=PartResponse)
-def create_part(part: PartCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def create_part(part: PartCreate, db: Session = Depends(get_db)):
     """
     Cria uma nova peça no estoque com a quantidade de entrada especificada.
     """
@@ -32,7 +31,6 @@ def update_part(
     part_id: int,
     part: PartCreate,
     db: Session = Depends(get_db),
-    token: str = Depends(oauth2_scheme),
 ):
     """
     Atualiza os detalhes de uma peça no estoque pelo ID.
@@ -61,7 +59,7 @@ def update_part(
 
 
 @router.get("/parts", response_model=list[PartResponse])
-def list_parts(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def list_parts(db: Session = Depends(get_db)):
     """
     Lista todas as peças no estoque, incluindo o cálculo do estoque atual.
     """
@@ -73,7 +71,7 @@ def list_parts(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme
 
 
 @router.delete("/parts/{part_id}", response_model=dict)
-def delete_part(part_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def delete_part(part_id: int, db: Session = Depends(get_db)):
     """
     Deleta uma peça do estoque pelo ID.
     """

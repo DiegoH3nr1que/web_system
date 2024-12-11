@@ -62,14 +62,14 @@ class MaintenanceCreate(BaseModel):
     description: str
     priority: str
     status: str = "pending"
-    requested_date: datetime
+    requested_date: date
     machine_id: int
 
 class MaintenanceUpdate(BaseModel):
     description: str = None
     priority: str = None
     status: str = None
-    requested_date: datetime = None
+    requested_date: date = None
     machine_id: int = None
 
 class MaintenanceResponse(BaseModel):
@@ -77,7 +77,7 @@ class MaintenanceResponse(BaseModel):
     description: str
     priority: str
     status: str
-    requested_date: datetime
+    requested_date: date
     machine_id: int
 
     class Config:
