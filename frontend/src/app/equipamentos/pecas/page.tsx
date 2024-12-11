@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Aside } from "@/app/components/aside";
 import { Footer } from "@/app/components/footer";
-import {FaEdit, FaTrash, FaEllipsisH } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { CustomPieChart } from "@/app/components/pieChart";
 import Table from "@/app/components/table";
 import { CustomDialog } from "@/app/components/parts_dialog";
@@ -32,12 +32,13 @@ const fetchParts = async (): Promise<Part[]> => {
   }
 };
 
-const updatePart = async (id: number): Promise<Part> => {
+const updatePart = async (id: number, data: Partial<Part>): Promise<Part> => {
   try {
-    const response = await api.put(`/inventory/parts/${id}`);
+    console.log("Payload enviado para o backend:", data);
+    const response = await api.put(`/inventory/parts/${id}`, data);
     return response.data;
   } catch (error) {
-    console.error("Erro ao buscar detalhes da peça:", error);
+    console.error("Erro ao atualizar peça:", error);
     throw error;
   }
 };
@@ -63,7 +64,6 @@ const deletePart = async (id: number): Promise<void> => {
 
 export default function PartsPage() {
   const [parts, setParts] = useState<Part[]>([]);
-  const [selectedPart, setSelectedPart] = useState<Part | null>(null);
 
   // Buscar peças na inicialização
   useEffect(() => {
@@ -90,6 +90,37 @@ export default function PartsPage() {
     }
   };
 
+  // Atualizar peça
+  const handleUpdate = async (id: number, updatedData: Partial<Part>) => {
+    try {
+      // Encontre a peça atual na lista de partes
+      const existingPart = parts.find((part) => part.id === id);
+  
+      if (!existingPart) {
+        alert("Peça não encontrada!");
+        return;
+      }
+  
+      // Combine os valores antigos com os novos
+      const data: Partial<Part> = {
+        ...existingPart, // Inclui os valores existentes
+        ...updatedData,  // Sobrescreve com os valores editados
+      };
+  
+      console.log("Payload enviado para o backend:", data);
+  
+      const updatedPart = await updatePart(id, data);
+      setParts((prevParts) =>
+        prevParts.map((part) => (part.id === id ? updatedPart : part))
+      );
+      alert("Peça atualizada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar peça:", error);
+      alert("Erro ao atualizar peça. Verifique os dados.");
+    }
+  };
+  
+
   // Deletar uma peça
   const handleDelete = async (id: number) => {
     const confirmDelete = window.confirm(
@@ -103,16 +134,6 @@ export default function PartsPage() {
       } catch (error) {
         alert("Erro ao deletar peça. Tente novamente mais tarde.");
       }
-    }
-  };
-
-  // Obter detalhes de uma peça
-  const handleUpdate = async (id: number) => {
-    try {
-      const partDetails = await updatePart(id);
-      setSelectedPart(partDetails); // Atualiza os detalhes da peça selecionada
-    } catch (error) {
-      alert("Erro ao carregar detalhes da peça. Tente novamente mais tarde.");
     }
   };
 
@@ -163,12 +184,6 @@ export default function PartsPage() {
                         required: true,
                       },
                       {
-                        id: "current_stock",
-                        label: "Quantidade",
-                        type: "number",
-                        required: true,
-                      },
-                      {
                         id: "entry_quantity",
                         label: "Entradas",
                         type: "number",
@@ -196,14 +211,54 @@ export default function PartsPage() {
                     columns={columns}
                     data={parts}
                     actions={(item) => (
-                      <div className="flex space-x-2">
+                      <div className="flex items-center justify-center space-x-4">
+                        <CustomDialog
+                          triggerLabel={<FaEdit />}
+                          title="Editar Peça"
+                          description="Atualize as informações da peça."
+                          TypeButton="Salvar"
+                          fields={[
+                            {
+                              id: "name",
+                              label: "Nome",
+                              type: "text",
+                              defaultValue: item.name,
+                              required: true,
+                            },
+                            {
+                              id: "code",
+                              label: "Código",
+                              type: "text",
+                              defaultValue: item.code,
+                              required: true,
+                            },
+                            {
+                              id: "entry_quantity",
+                              label: "Entradas",
+                              type: "number",
+                              defaultValue: item.entry_quantity.toString(),
+                              required: true,
+                            },
+                            {
+                              id: "exit_quantity",
+                              label: "Saídas",
+                              type: "number",
+                              defaultValue: item.exit_quantity.toString(),
+                              required: true,
+                            },
+                            {
+                              id: "date_entry",
+                              label: "Data de Entrada",
+                              type: "date",
+                              defaultValue: item.date_entry,
+                              required: true,
+                            },
+                          ]}
+                          onSubmit={(data) => handleUpdate(item.id, data)}
+                        />
                         <FaTrash
                           className="cursor-pointer text-red-500"
                           onClick={() => handleDelete(item.id)}
-                        />
-                        <FaEllipsisH
-                          className="cursor-pointer text-gray-500"
-                          onClick={() => handleUpdate(item.id)}
                         />
                       </div>
                     )}
@@ -211,18 +266,18 @@ export default function PartsPage() {
                 </div>
               </div>
               <div className="flex justify-center my-6">
-              <CustomPieChart
-                data={parts.map((part) => ({
-                  nome: part.name,
-                  valor: part.current_stock,
-                  fill: `hsl(var(--chart-${part.id % 5 + 1}))`,
-                }))}
-                dataKey="valor"
-                nameKey="nome"
-                title="Estoque de Peças"
-                description="Mostrando o total de peças em estoque"
-              />
-            </div>
+                <CustomPieChart
+                  data={parts.map((part) => ({
+                    nome: part.name,
+                    valor: part.current_stock,
+                    fill: `hsl(var(--chart-${(part.id % 5) + 1}))`,
+                  }))}
+                  dataKey="valor"
+                  nameKey="nome"
+                  title="Estoque de Peças"
+                  description="Mostrando o total de peças em estoque"
+                />
+              </div>
             </div>
           </main>
         </div>
