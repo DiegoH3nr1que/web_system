@@ -2,6 +2,7 @@
 
 npx create-next-app@latest frontend
 
+# Autores
 
 # Executar
 npm run dev

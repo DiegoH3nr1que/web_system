@@ -2,148 +2,92 @@
 import { Footer } from "../components/footer";
 import { Aside } from "../components/aside";
 import { Card } from "../components/card";
-import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
+import { FaBuilding, FaTools } from "react-icons/fa";
 import { MdDashboard, MdForklift } from "react-icons/md";
-import Table from "../components/table";
+import { ChartComponent } from "../components/chart";
+import ProtectedRoute from "../components/protectedRouter";
+import { RealTimeClock } from "../components/realTimeClock";
+import Link from "next/link";
 
 export default function Home() {
   const cards = [
     {
-      color: "bg-orange-200",
-      qty: "100",
+      Target: "/ambientes",
+      color: "border bg-background",
+      title: "",
       text: "Ambientes",
-      icon: <MdDashboard size={48} />,
-    },
-    {
-      color: "bg-blue-200",
-      qty: "100",
-      text: "Equipamentos",
       icon: <FaBuilding size={48} />,
     },
     {
-      color: "bg-red-200",
-      qty: "100",
+      Target: "/equipamentos/maquinas",
+      color: "border bg-background",
+      title: "",
+      text: "Equipamentos",
+      icon: <MdDashboard size={48} />,
+    },
+    {
+      Target: "/manutencoes",
+      color: "border bg-background",
+      title: "",
       text: "O.S. Alertas",
       icon: <MdForklift size={48} />,
     },
     {
-      color: "bg-orange-200",
-      qty: "100",
-      text: "O.S. Concluidas",
+      Target: "/manutencoes",
+      color: "border bg-background",
+      title: "",
+      text: "O.S. Concluídas",
       icon: <FaTools size={48} />,
     },
   ];
 
-  const dados = [
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-    {
-      ambiente: "Senai",
-      equipamento: "Torno CNC",
-      solicitacao: 1906,
-      atendimento: 1906,
-    },
-  ];
-
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
-      <div className="flex-1 flex">
-        <Aside />
-        <main className="flex-1 p-6 bg-white rounded-md">
-          <header className="text-center bg-blue-100 p-4 rounded-md mb-6">
-            <h1 className="text-4xl font-bold uppercase text-blue-900">
-              Sistema de Gestão de Manutenção
-            </h1>
-          </header>
+    <ProtectedRoute>
+      <div className="h-screen flex flex-col overflow-y-auto scroll-invisivel relative">
+        <div className="flex-1 flex flex-col lg:flex-row">
+          {/* Sidebar */}
+          <Aside />
 
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {cards.map((props) => (
-                <Card
-                  color={props.color}
-                  qty={props.qty}
-                  text={props.text}
-                  icon={props.icon}
-                />
-              ))}
-            </div>
-
-            <div className="container mx-auto p-4 bg-white rounded-lg">
-              <h1 className="text-2xl font-bold mb-4 text-center text-black">
-                Tabela de Equipamentos
+          {/* Main Content */}
+          <main className="flex-1 flex flex-col p-4 lg:p-6 bg-background">
+            {/* Header */}
+            <header className="text-left p-4 rounded-md mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+              <h1 className="text-2xl md:text-4xl font-bold uppercase text-foreground text-center md:text-left">
+                Sistema de Gestão de Manutenção
               </h1>
-              <div className="max-h-96 overflow-y-auto">
-                <Table dados={dados} />
+              <RealTimeClock />
+            </header>
+
+            {/* Cards Section */}
+            <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
+                {cards.map((props) => (
+                  <Link key={props.Target} href={props.Target} passHref>
+                    <div className="cursor-pointer">
+                      <Card
+                        color={props.color}
+                        title={props.title}
+                        text={props.text}
+                        icon={props.icon}
+                      />
+                    </div>
+                  </Link>
+                ))}
               </div>
+
+              {/* Chart Section */}
+                <div className="grid grid-cols-1 gap-4 max-h-full overflow-y-auto">
+                  <div className="w-full md:w-3/4 lg:w-1/2 mx-auto p-4 bg-background rounded-lg shadow-lg">
+                    <ChartComponent />
+                  </div>
+                </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </ProtectedRoute>
   );
 }

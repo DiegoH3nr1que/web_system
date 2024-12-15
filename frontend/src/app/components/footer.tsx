@@ -1,7 +1,7 @@
 export function Footer() {
   return (
-    <div>
-      <footer className="bg-white p-4 text-center text-black text-sm shadow-md">
+    <div className="w-full bg-background p-4">
+      <footer className="text-center text-foreground text-sm">
         Todos os direitos reservados &copy; 2024
       </footer>
     </div>

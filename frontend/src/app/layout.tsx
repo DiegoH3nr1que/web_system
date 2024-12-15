@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "./components/theme-provider";
+import { AuthProvider } from "./context/authContext";
+import { Glory } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const glory = Glory({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export const metadata: Metadata = {
   title: "Maintenance WEB",
@@ -11,12 +17,50 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className="bg-zinc-400">{children}</body>
+      <body
+        className={cn("min-h-screen bg-background font-sans antialiased")}
+        style={{ fontFamily: glory.style.fontFamily }}
+      >
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            themes={[
+              "light",
+              "dark",
+              "red",
+              "red-dark",
+              "green",
+              "green-dark",
+              "netflix",
+              "netflix-dark",
+              "nord",
+              "nord-dark",
+              "nature",
+              "nature-dark",
+              "dracula",
+              "dracula-dark",
+              "laracon-dark",
+              "gold",
+              "gold-dark",
+              "azarath",
+              "azarath-dark",
+              "poimandres",
+              "poimandres-dark",
+              "discord",
+              "discord-dark",
+            ]}
+          >
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
