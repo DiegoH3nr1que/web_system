@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import api from "@/services/axiosInstance";
 import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from "recharts";
 import {
   Card,
@@ -10,15 +13,6 @@ import {
   ChartConfig,
   ChartContainer,
 } from "@/components/ui/chart";
-
-const chartData = [
-  { month: "January", manutencoes: 43 },
-  { month: "February", manutencoes: 35 },
-  { month: "March", manutencoes: 23 },
-  { month: "April", manutencoes: 73 },
-  { month: "May", manutencoes: 30 },
-  { month: "June", manutencoes: 20 },
-];
 
 const chartConfig = {
   manutencoes: {
@@ -48,11 +42,35 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
 };
 
 export function ChartComponent() {
+  const [chartData, setChartData] = useState([]);
+
+  useEffect(() => {
+    async function fetchChartData() {
+      try {
+        const response = await api.get("/maintenances/chart-data");
+        const formattedData = response.data.map((item: any) => {
+          const [year, month] = item.month.split("-");
+          const date = new Date(parseInt(year), parseInt(month) - 1); // Ajusta o mês
+
+          return {
+            month: date.toLocaleString("default", { month: "long" }), // Nome do mês
+            manutencoes: item.manutencoes,
+          };
+        });
+
+        setChartData(formattedData);
+      } catch (error) {
+        console.error("Erro ao buscar os dados do gráfico:", error);
+      }
+    }
+    fetchChartData();
+  }, []);
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Total de manutenções por mês</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

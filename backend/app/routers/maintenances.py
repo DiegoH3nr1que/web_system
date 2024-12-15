@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.models import Maintenance, Machine
 from app.schemas import MaintenanceCreate, MaintenanceUpdate, MaintenanceResponse
 from app.database import get_db
+from sqlalchemy.sql import func
 
 router = APIRouter(prefix="/maintenances", tags=["Manutenções"])
 
@@ -36,6 +37,20 @@ def list_maintenances(
     if priority:
         query = query.filter(Maintenance.priority == priority)
     return query.all()
+
+
+@router.get("/chart-data", response_model=list[dict])
+def get_maintenance_chart_data(db: Session = Depends(get_db)):
+    results = (
+        db.query(
+            func.strftime("%Y-%m", Maintenance.requested_date).label("month"),
+            func.count().label("count")
+        )
+        .group_by(func.strftime("%Y-%m", Maintenance.requested_date))
+        .order_by(func.strftime("%Y-%m", Maintenance.requested_date))
+        .all()
+    )
+    return [{"month": r[0], "manutencoes": r[1]} for r in results]
 
 # Obter detalhes de uma manutenção
 @router.get("/{maintenance_id}", response_model=MaintenanceResponse)
