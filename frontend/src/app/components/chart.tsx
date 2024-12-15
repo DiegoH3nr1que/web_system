@@ -50,10 +50,10 @@ export function ChartComponent() {
         const response = await api.get("/maintenances/chart-data");
         const formattedData = response.data.map((item: any) => {
           const [year, month] = item.month.split("-");
-          const date = new Date(parseInt(year), parseInt(month) - 1); // Ajusta o mês
+          const date = new Date(parseInt(year), parseInt(month) - 1);
 
           return {
-            month: date.toLocaleString("default", { month: "long" }), // Nome do mês
+            month: date.toLocaleString("default", { month: "long" }),
             manutencoes: item.manutencoes,
           };
         });
